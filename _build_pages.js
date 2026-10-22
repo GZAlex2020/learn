@@ -58,8 +58,8 @@ function copyDir(src, dest, rewriteHtml) {
 function patchAppIndex(file) {
   let html = fs.readFileSync(file, 'utf8');
   html = html.replace(
-    /一二年级 · 语文 \+ 数学互动练习<br>支持 iPad 安装到桌面 · 安卓请用 APK 安装包/,
-    '一二年级 · 语文 + 数学互动练习<br>浏览器打开即可练 · 也可添加到主屏幕'
+    /支持 iPad 安装到桌面 · 安卓请用 APK 安装包/,
+    '浏览器打开即可练 · 也可添加到主屏幕'
   );
   html = html.replace(
     /navigator\.serviceWorker\.register\('\.\.\/sw\.js', \{ scope: '\/' \}\)/,
@@ -272,7 +272,7 @@ function writeRootIndex(file) {
   <div class="wrap">
     <header>
       <h1>📚 小学知识复习</h1>
-      <p>一二年级 · 语文 + 数学互动练习<br>网页版 · 手机 / 平板 / 电脑都能用</p>
+      <p>网页版 · 手机 / 平板 / 电脑都能用</p>
     </header>
     <div class="cards">
       <a class="card card-yu" href="zh/index.html">
