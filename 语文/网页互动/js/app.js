@@ -1324,20 +1324,27 @@
   }
 
   function startPreview3() {
+    if (!window.GRADE3_PREVIEW) {
+      console.warn('GRADE3_PREVIEW missing');
+      return;
+    }
     state.module = 'preview3';
     state.preview3Cat = GRADE3_PREVIEW.CATEGORIES[0].id;
     state.preview3Index = 0;
     buildPreview3Tabs();
-    logStart('preview3', {
-      subName: '必背打卡 · ' + GRADE3_PREVIEW.CATEGORIES[0].name,
-      total: getPreview3Items().length
-    });
+    try {
+      logStart('preview3', {
+        subName: '必背打卡 · ' + GRADE3_PREVIEW.CATEGORIES[0].name,
+        total: getPreview3Items().length
+      });
+    } catch (eLog) { /* ignore */ }
     showScreen('preview3-screen');
     document.querySelectorAll('#preview3-tabs .preview3-tab').forEach(function (t) {
       t.classList.toggle('active', t.dataset.p3cat === state.preview3Cat);
     });
     renderPreview3();
   }
+  window.startPreview3 = startPreview3;
 
   function renderPreview3() {
     resetPreview3RecitePanel();

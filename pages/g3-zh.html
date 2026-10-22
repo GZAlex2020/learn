@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三年级语文 · 上册</title>
+  <style>
+    body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; text-align:center; padding:48px 16px; color:#2c5282; background:#f7fafc; }
+    a { color:#2b6cb0; }
+  </style>
+  <script>
+    (function () {
+      var url = 'zh/index.html?module=preview3';
+      function go() { location.replace(url); }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          return Promise.all(regs.map(function (r) { return r.unregister(); }));
+        }).then(go).catch(go);
+      } else {
+        go();
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>正在打开三年级语文 · 上册…</p>
+  <p><a href="zh/index.html?module=preview3">点这里进入</a></p>
+</body>
+</html>

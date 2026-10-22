@@ -301,8 +301,8 @@
     <div id="preview3-screen" class="screen">
       <button class="back-btn">← 返回首页</button>
       <div class="preview3-head">
-        <h2 class="preview3-title">📗 三年级知识点预习</h2>
-        <p class="preview3-sub">升三年级前，先了解新课内容 · 点击 🔊 可听讲解</p>
+        <h2 class="preview3-title">📗 三年级数学 · 上册预习</h2>
+        <p class="preview3-sub">万以内计算 · 乘除法 · 周长 · 解决问题 · 点击 🔊 可听讲解</p>
       </div>
       <div class="mode-tabs preview3-tabs" id="preview3-tabs"></div>
       <div class="quiz-header">
@@ -347,9 +347,15 @@
   <script src="js/clock-visual.js"></script>
   <script src="js/app.js"></script>
   <script>
-    if ('serviceWorker' in navigator && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
-      navigator.serviceWorker.register('../../sw.js', { scope: '/' });
-    }
+    (function () {
+      var wantG3 = /(?:\?|&)module=preview3(?:&|$)/.test(location.search) ||
+        location.hash.indexOf('preview3') >= 0;
+      if (wantG3 && typeof window.startPreview3 === 'function') {
+        window.startPreview3();
+      }
+    })();
   </script>
+  <script>
+    /* service worker handled by pages/index.html */</script>
 </body>
 </html>

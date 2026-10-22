@@ -98,7 +98,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v3';
+var CACHE_VERSION = 'summer-review-pages-v4';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -285,12 +285,12 @@ function writeRootIndex(file) {
         <h2>数学练习</h2>
         <p>一二年级 · 口算 · 读题 · 乘法口诀 · 钟表</p>
       </a>
-      <a class="card" href="zh/index.html?module=preview3#preview3" style="border-color:#f6e05e;">
+      <a class="card" href="g3-zh.html" style="border-color:#f6e05e;">
         <div class="card-icon">📗</div>
         <h2>三年级语文 · 上册</h2>
         <p>古诗 · 日积月累 · 课文必背 · 背诵打卡</p>
       </a>
-      <a class="card" href="math/index.html?module=preview3#preview3" style="border-color:#f6e05e;">
+      <a class="card" href="g3-math.html" style="border-color:#f6e05e;">
         <div class="card-icon">🎒</div>
         <h2>三年级数学 · 上册</h2>
         <p>万以内计算 · 乘除法 · 周长 · 解决问题</p>
@@ -354,6 +354,45 @@ function patchSubjectEntry(file) {
   let html = fs.readFileSync(file, 'utf8');
   // 网页版返回总首页，而不是旧版 app 导航页
   html = html.split('href="../app/index.html"').join('href="../index.html"');
+  // 科目页不要注册错误 scope 的 SW，避免覆盖 pages 缓存
+  html = html.replace(
+    /if \('serviceWorker' in navigator[\s\S]*?<\/script>/,
+    '/* service worker handled by pages/index.html */</script>'
+  );
+  fs.writeFileSync(file, html, 'utf8');
+}
+
+function writeG3Gate(file, target, label) {
+  const html = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${label}</title>
+  <style>
+    body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; text-align:center; padding:48px 16px; color:#2c5282; background:#f7fafc; }
+    a { color:#2b6cb0; }
+  </style>
+  <script>
+    (function () {
+      var url = '${target}';
+      function go() { location.replace(url); }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          return Promise.all(regs.map(function (r) { return r.unregister(); }));
+        }).then(go).catch(go);
+      } else {
+        go();
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>正在打开${label}…</p>
+  <p><a href="${target}">点这里进入</a></p>
+</body>
+</html>
+`;
   fs.writeFileSync(file, html, 'utf8');
 }
 
@@ -372,6 +411,8 @@ patchSubjectAppJs(path.join(OUT, 'math', 'js', 'app.js'));
 writeManifest(path.join(OUT, 'app', 'manifest.webmanifest'));
 writeServiceWorker(path.join(OUT, 'sw.js'));
 writeRootIndex(path.join(OUT, 'index.html'));
+writeG3Gate(path.join(OUT, 'g3-zh.html'), 'zh/index.html?module=preview3', '三年级语文 · 上册');
+writeG3Gate(path.join(OUT, 'g3-math.html'), 'math/index.html?module=preview3', '三年级数学 · 上册');
 writeInstallTipPatch();
 
 // 禁止 Jekyll 处理，避免下划线目录被忽略
