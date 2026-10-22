@@ -597,7 +597,10 @@
     var sem = getSemester(state.lessonSemId);
     var grid = document.getElementById('lesson-grid');
     grid.innerHTML = '';
-    if (!sem) return;
+    if (!sem || !sem.lessons || !sem.lessons.length) {
+      grid.innerHTML = '<p class="grade-more-hint">该年级内容暂未加载，请刷新页面后再试</p>';
+      return;
+    }
 
     sem.lessons.forEach(function (lesson, idx) {
       var key = String(lesson.id);
