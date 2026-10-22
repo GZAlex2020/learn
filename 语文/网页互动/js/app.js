@@ -173,45 +173,18 @@
     return b;
   }
 
-  // ========== 年级切换（一二年级 / 三年级上 / 后续可扩展） ==========
-  var homeGrade = 'g12';
-
-  function setHomeGrade(grade) {
-    var target = grade || 'g12';
-    homeGrade = target;
-    document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
-      tab.classList.toggle('active', tab.dataset.grade === target);
-    });
-    document.querySelectorAll('.grade-panel').forEach(function (panel) {
-      panel.classList.toggle('hidden', panel.dataset.gradePanel !== target);
-    });
-  }
-
-  document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      setHomeGrade(tab.dataset.grade);
-    });
-  });
-
   // ========== 首页 ==========
   document.querySelectorAll('.module-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       var mod = card.dataset.module;
       if (!mod) return;
       if (card.tagName === 'A') e.preventDefault();
-      var gradeSem = card.dataset.gradeSem;
       if (mod === 'pinyin') startPinyin();
       else if (mod === 'alphabet') startAlphabet();
       else if (mod === 'char') startChar();
-      else if (mod === 'lesson') {
-        if (gradeSem) state.lessonSemId = gradeSem;
-        else if (homeGrade === 'g3a') state.lessonSemId = 'g3s1';
-        startLessonMap();
-      } else if (mod === 'poem') {
-        if (gradeSem) state.poemSemId = gradeSem;
-        else if (homeGrade === 'g3a') state.poemSemId = 'g3s1';
-        startPoemMap();
-      } else if (mod === 'flashcard') startFlashcard();
+      else if (mod === 'lesson') startLessonMap();
+      else if (mod === 'poem') startPoemMap();
+      else if (mod === 'flashcard') startFlashcard();
       else if (mod === 'read') startRead();
       else if (mod === 'keywords') startKeywords();
       else if (mod === 'sentence') startSentence();
@@ -1662,11 +1635,18 @@
       var hash = (location.hash || '').replace(/^#/, '');
       var mod = params.get('module') || hash;
       var grade = params.get('grade');
-      if (mod === 'preview3' || grade === 'g3a') {
-        setHomeGrade('g3a');
+      if (grade === 'g3a') {
+        state.lessonSemId = 'g3s1';
+        state.poemSemId = 'g3s1';
       }
       if (mod === 'preview3' && typeof startPreview3 === 'function') {
         startPreview3();
+      } else if (mod === 'poem') {
+        if (grade === 'g3a') state.poemSemId = 'g3s1';
+        startPoemMap();
+      } else if (mod === 'lesson') {
+        if (grade === 'g3a') state.lessonSemId = 'g3s1';
+        startLessonMap();
       }
     } catch (eBoot) { /* ignore */ }
   }

@@ -136,23 +136,6 @@
     return ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)];
   }
 
-  // ========== 年级切换（一二年级 / 三年级上 / 后续可扩展） ==========
-  function setHomeGrade(grade) {
-    var target = grade || 'g12';
-    document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
-      tab.classList.toggle('active', tab.dataset.grade === target);
-    });
-    document.querySelectorAll('.grade-panel').forEach(function (panel) {
-      panel.classList.toggle('hidden', panel.dataset.gradePanel !== target);
-    });
-  }
-
-  document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      setHomeGrade(tab.dataset.grade);
-    });
-  });
-
   document.querySelectorAll('.module-card').forEach(function (card) {
     card.addEventListener('click', function () {
       var mod = card.dataset.module;
@@ -233,6 +216,11 @@
       '第 ' + (state.index + 1) + ' / ' + CALC_TOTAL + ' 题';
     document.getElementById('calc-score').textContent = '得分：' + state.score;
     document.getElementById('calc-expr').textContent = q.expr + ' = ?';
+    if (q.hint) {
+      document.getElementById('calc-mode-label').textContent =
+        (CALC_MODES.find(function (m) { return m.id === state.calcMode; }) || {}).label +
+        ' · ' + q.hint;
+    }
     document.getElementById('calc-feedback').className = 'feedback';
     document.getElementById('calc-next').classList.remove('show');
 
@@ -1061,12 +1049,10 @@
       var params = new URLSearchParams(location.search || '');
       var hash = (location.hash || '').replace(/^#/, '');
       var mod = params.get('module') || hash;
-      var grade = params.get('grade');
-      if (mod === 'preview3' || grade === 'g3a') {
-        setHomeGrade('g3a');
-      }
       if (mod === 'preview3' && typeof startPreview3 === 'function') {
         startPreview3();
+      } else if (mod === 'calc') {
+        startCalcFromHome();
       }
     } catch (eBoot) { /* ignore */ }
   }

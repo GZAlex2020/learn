@@ -10,8 +10,11 @@ window.MATH_DATA = {
     { id: 'add20', label: '20以内加减', hint: '一年级常用' },
     { id: 'add100', label: '100以内加减', hint: '整十、两位数' },
     { id: 'add1000', label: '三位数加减', hint: '100～999' },
+    { id: 'add10000', label: '万以内加减', hint: '三年级上' },
     { id: 'multiply', label: '表内乘法', hint: '九九乘法表' },
-    { id: 'divide', label: '表内除法', hint: '能整除' }
+    { id: 'multBig', label: '多位数×一位数', hint: '三年级上' },
+    { id: 'divide', label: '表内除法', hint: '能整除' },
+    { id: 'divideRem', label: '有余数除法', hint: '三年级上' }
   ],
 
   randInt: function (min, max) {
@@ -107,10 +110,24 @@ window.MATH_DATA = {
           answer = b6 - a6;
         }
       }
+    } else if (mode === 'add10000') {
+      if (Math.random() < 0.5) {
+        var a7 = r(1000, 8999), b7 = r(100, 9999 - a7);
+        expr = a7 + ' + ' + b7;
+        answer = a7 + b7;
+      } else {
+        var m7 = r(2000, 9999), n7 = r(100, m7 - 1);
+        expr = m7 + ' - ' + n7;
+        answer = m7 - n7;
+      }
     } else if (mode === 'multiply') {
       var x = r(1, 9), y = r(1, 9);
       expr = x + ' × ' + y;
       answer = x * y;
+    } else if (mode === 'multBig') {
+      var mb = r(12, 498), mf = r(2, 9);
+      expr = mb + ' × ' + mf;
+      answer = mb * mf;
     } else if (mode === 'divide') {
       var d1 = r(1, 9), d2 = r(1, 9);
       var prod = d1 * d2;
@@ -121,6 +138,17 @@ window.MATH_DATA = {
         expr = prod + ' ÷ ' + d2;
         answer = d1;
       }
+    } else if (mode === 'divideRem') {
+      var dr = r(2, 9), dq = r(2, 12), rem = r(1, dr - 1);
+      var dividend = dr * dq + rem;
+      expr = dividend + ' ÷ ' + dr;
+      answer = dq;
+      return {
+        expr: expr,
+        answer: answer,
+        options: this.makeOptions(answer),
+        hint: '商是几？（余数 ' + rem + '）'
+      };
     } else {
       return this.generateCalcQuestion('add10');
     }
