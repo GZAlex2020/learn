@@ -277,7 +277,7 @@ window.POEM_DATA = (function () {
     for (var i = 0; i < SEMESTERS.length; i++) {
       if (SEMESTERS[i].id === semId) return SEMESTERS[i];
     }
-    return SEMESTERS[0];
+    return null;
   }
 
   function findPoem(id) {

@@ -784,6 +784,10 @@
     var sem = POEM_DATA.getSemester(state.poemSemId);
     var grid = document.getElementById('poem-grid');
     grid.innerHTML = '';
+    if (!sem || !sem.poems || !sem.poems.length) {
+      grid.innerHTML = '<p class="grade-more-hint">该册古诗暂未加载，请强制刷新后再试</p>';
+      return;
+    }
     sem.poems.forEach(function (p, idx) {
       var card = document.createElement('div');
       card.className = 'lesson-card poem-card-item';
@@ -800,6 +804,7 @@
 
   function startPoemView(index) {
     var sem = POEM_DATA.getSemester(state.poemSemId);
+    if (!sem || !sem.poems || !sem.poems.length) return;
     state.poemList = sem.poems.slice();
     state.poemIndex = index;
     logStart('poem', {
@@ -876,7 +881,7 @@
 
     document.getElementById('poem-progress').textContent =
       '第 ' + (state.poemIndex + 1) + ' / ' + state.poemList.length + ' 首';
-    document.getElementById('poem-sem-label').textContent = sem.label;
+    document.getElementById('poem-sem-label').textContent = sem ? sem.label : '';
     document.getElementById('poem-title').textContent = p.title;
     document.getElementById('poem-author').textContent =
       '【' + p.dynasty + '】' + p.author;
