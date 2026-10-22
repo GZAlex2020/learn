@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#319795">
+  <title>英语练习 · 小学知识复习</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="home" class="screen active">
+      <header>
+        <h1>🔤 英语练习</h1>
+        <p>按年级选择内容 — 点击可听英文读音</p>
+        <p style="font-size:0.9rem;margin-top:8px;">
+          <a class="nav-home-link" href="../../app/index.html">🏠 练习首页</a> ·
+          <a href="../../语文/网页互动/index.html">📖 去语文</a> ·
+          <a href="../../数学/网页互动/index.html">🔢 去数学</a>
+        </p>
+      </header>
+
+      <div class="mode-tabs" id="grade-tabs">
+        <button type="button" class="mode-tab active" data-grade="g12">一二年级</button>
+        <button type="button" class="mode-tab" data-grade="g3a">三年级上</button>
+      </div>
+
+      <div class="grade-panel" data-grade-panel="g12">
+        <div class="module-grid">
+          <div class="module-card" data-module="alphabet">
+            <div class="icon">🔠</div>
+            <h2>字母表</h2>
+            <p>A～Z · 点读发音</p>
+          </div>
+          <div class="module-card" data-module="words">
+            <div class="icon">📗</div>
+            <h2>单词认读</h2>
+            <p>看中文选英文</p>
+          </div>
+          <div class="module-card" data-module="listen">
+            <div class="icon">👂</div>
+            <h2>听音选词</h2>
+            <p>听读音选单词</p>
+          </div>
+          <div class="module-card" data-module="numbers">
+            <div class="icon">🔢</div>
+            <h2>数字 1～20</h2>
+            <p>one two three…</p>
+          </div>
+          <div class="module-card" data-module="colors">
+            <div class="icon">🎨</div>
+            <h2>颜色单词</h2>
+            <p>red blue green…</p>
+          </div>
+          <div class="module-card" data-module="phrases">
+            <div class="icon">💬</div>
+            <h2>日常用语</h2>
+            <p>问候 · 礼貌用语</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grade-panel hidden" data-grade-panel="g3a">
+        <div class="module-grid">
+          <div class="module-card" data-module="words3">
+            <div class="icon">📘</div>
+            <h2>三年级单词</h2>
+            <p>天气 · 星期 · 场所</p>
+          </div>
+          <div class="module-card" data-module="listen3">
+            <div class="icon">🎧</div>
+            <h2>听音选词</h2>
+            <p>三年级词汇听力</p>
+          </div>
+          <div class="module-card module-card-g3" data-module="phrases3">
+            <div class="icon">🗣️</div>
+            <h2>句型练习</h2>
+            <p>常用问答短句</p>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>建议每天练习 10～15 分钟 · 多听多跟读</p>
+      </footer>
+    </div>
+
+    <!-- 字母表 -->
+    <div id="alphabet-screen" class="screen">
+      <button class="back-btn" type="button">← 返回首页</button>
+      <div class="question-card">
+        <p class="question-label">点击字母听读音</p>
+        <div id="alpha-grid" class="alpha-grid"></div>
+      </div>
+    </div>
+
+    <!-- 通用测验 -->
+    <div id="quiz-screen" class="screen">
+      <button class="back-btn" type="button">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="quiz-progress" class="progress-text">第 1 / 10 题</span>
+        <span id="quiz-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p id="quiz-label" class="question-label">请选择正确答案</p>
+        <div id="quiz-prompt" class="question-char">apple</div>
+        <button id="quiz-speak" class="speak-btn" type="button">🔊 听读音</button>
+        <div id="quiz-options" class="options-grid"></div>
+        <div id="quiz-feedback" class="feedback"></div>
+        <button id="quiz-next" class="next-btn" type="button">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 日常用语列表 -->
+    <div id="phrase-screen" class="screen">
+      <button class="back-btn" type="button">← 返回首页</button>
+      <div class="question-card">
+        <p class="question-label">点一句跟读 · 也可以做选择题</p>
+        <div id="phrase-list" class="phrase-list"></div>
+        <button id="phrase-quiz-btn" class="speak-btn" type="button" style="margin-top:18px;">📝 开始句型测验</button>
+      </div>
+    </div>
+
+    <!-- 结果 -->
+    <div id="result-screen" class="screen">
+      <div class="result-card">
+        <h2 id="result-title">练习完成</h2>
+        <p id="result-score">得分 0 / 10</p>
+        <p id="result-msg" style="margin-top:8px;color:#718096;"></p>
+        <div class="result-actions">
+          <button id="result-retry" type="button">再练一次</button>
+          <button id="result-home" class="secondary" type="button">返回首页</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../app/js/android-back.js"></script>
+  <script src="../../app/js/learning-log.js"></script>
+  <script src="../../app/js/session-log.js"></script>
+  <script src="js/native-app.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/data/english.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

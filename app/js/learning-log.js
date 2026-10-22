@@ -203,7 +203,7 @@ window.LearningLog = (function () {
     var analytics = {
       total: records.length,
       durationSec: 0,
-      subjects: { '语文': 0, '数学': 0 },
+      subjects: { '语文': 0, '数学': 0, '英语': 0 },
       activityTypes: { '学习': 0, '背诵': 0 },
       modules: {},
       daily: {},
@@ -253,7 +253,7 @@ window.LearningLog = (function () {
     lines.push('【统计摘要】');
     lines.push('学习次数：' + analytics.total);
     lines.push('累计时长：' + formatDuration(analytics.durationSec));
-    lines.push('语文：' + analytics.subjects['语文'] + ' 次 · 数学：' + analytics.subjects['数学'] + ' 次');
+    lines.push('语文：' + analytics.subjects['语文'] + ' 次 · 数学：' + analytics.subjects['数学'] + ' 次 · 英语：' + (analytics.subjects['英语'] || 0) + ' 次');
     lines.push('学习：' + (analytics.activityTypes['学习'] || 0) + ' 次 · 背诵：' + (analytics.activityTypes['背诵'] || 0) + ' 次');
     if (analytics.percentCount) lines.push('平均得分率：' + analytics.avgPercent + '%');
     lines.push('');
@@ -356,7 +356,7 @@ window.LearningLog = (function () {
           records: [],
           total: 0,
           durationSec: 0,
-          subjects: { '语文': 0, '数学': 0 }
+          subjects: { '语文': 0, '数学': 0, '英语': 0 }
         };
       }
       var g = map[key];

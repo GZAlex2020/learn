@@ -184,6 +184,7 @@
           <option value="全部">全部科目</option>
           <option value="语文">语文</option>
           <option value="数学">数学</option>
+          <option value="英语">英语</option>
         </select>
         <select id="filter-type">
           <option value="全部">全部类型</option>
@@ -314,6 +315,7 @@
           '<div class="stat"><b>' + Log.formatDuration(analytics.durationSec) + '</b><span>累计时长</span></div>' +
           '<div class="stat"><b>' + analytics.subjects['语文'] + '</b><span>语文</span></div>' +
           '<div class="stat"><b>' + analytics.subjects['数学'] + '</b><span>数学</span></div>' +
+          '<div class="stat"><b>' + (analytics.subjects['英语'] || 0) + '</b><span>英语</span></div>' +
           '<div class="stat"><b>' + (analytics.activityTypes['学习'] || 0) + '</b><span>学习</span></div>' +
           '<div class="stat"><b>' + (analytics.activityTypes['背诵'] || 0) + '</b><span>背诵</span></div>';
 
@@ -340,7 +342,7 @@
         var groups = Log.groupByDate(records);
         list.innerHTML = groups.map(function (g) {
           var statText = g.total + ' 次 · ' + Log.formatDuration(g.durationSec) +
-            ' · 语文 ' + g.subjects['语文'] + ' · 数学 ' + g.subjects['数学'];
+            ' · 语文 ' + g.subjects['语文'] + ' · 数学 ' + g.subjects['数学'] + ' · 英语 ' + (g.subjects['英语'] || 0);
           return '<section class="date-group">' +
             '<div class="date-head">' +
               '<div class="date-label">' + escapeHtml(g.dateLabel) + '</div>' +

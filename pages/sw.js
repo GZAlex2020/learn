@@ -1,7 +1,7 @@
 /**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v11';
+var CACHE_VERSION = 'summer-review-pages-v12';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -39,7 +39,13 @@ var PRECACHE_REL = [
   'math/js/data/math.js',
   'math/js/data/grade3-preview.js',
   'math/js/data/clock-money.js',
-  'math/js/clock-visual.js'
+  'math/js/clock-visual.js',
+  'en/index.html',
+  'en/css/style.css',
+  'en/js/speech.js',
+  'en/js/app.js',
+  'en/js/data/english.js',
+  'en/js/native-app.js'
 ];
 
 function baseUrl() {

@@ -13,11 +13,14 @@ const OUT = path.join(ROOT, 'pages');
 const LINK_REPLACEMENTS = [
   ['../../语文/网页互动/', '../zh/'],
   ['../../数学/网页互动/', '../math/'],
+  ['../../英语/网页互动/', '../en/'],
   ['../语文/网页互动/', '../zh/'],
   ['../数学/网页互动/', '../math/'],
+  ['../英语/网页互动/', '../en/'],
   ['../../app/', '../app/'],
   ['/语文/网页互动/', './zh/'],
   ['/数学/网页互动/', './math/'],
+  ['/英语/网页互动/', './en/'],
   ['拼音表.html', 'pinyin-chart.html']
 ];
 
@@ -72,7 +75,7 @@ function writeManifest(file) {
   const manifest = {
     name: '小学知识复习',
     short_name: '小学知识复习',
-    description: '语文拼音识字 + 数学口算读题 · 一二年级互动练习',
+    description: '语文 · 数学 · 英语 · 小学互动练习',
     start_url: './app/index.html',
     scope: './',
     display: 'standalone',
@@ -88,7 +91,8 @@ function writeManifest(file) {
     ],
     shortcuts: [
       { name: '语文练习', short_name: '语文', url: './zh/index.html', icons: [{ src: 'icons/icon-192.png', sizes: '192x192' }] },
-      { name: '数学练习', short_name: '数学', url: './math/index.html', icons: [{ src: 'icons/icon-192.png', sizes: '192x192' }] }
+      { name: '数学练习', short_name: '数学', url: './math/index.html', icons: [{ src: 'icons/icon-192.png', sizes: '192x192' }] },
+      { name: '英语练习', short_name: '英语', url: './en/index.html', icons: [{ src: 'icons/icon-192.png', sizes: '192x192' }] }
     ]
   };
   fs.writeFileSync(file, JSON.stringify(manifest, null, 2), 'utf8');
@@ -98,7 +102,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v11';
+var CACHE_VERSION = 'summer-review-pages-v12';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -136,7 +140,13 @@ var PRECACHE_REL = [
   'math/js/data/math.js',
   'math/js/data/grade3-preview.js',
   'math/js/data/clock-money.js',
-  'math/js/clock-visual.js'
+  'math/js/clock-visual.js',
+  'en/index.html',
+  'en/css/style.css',
+  'en/js/speech.js',
+  'en/js/app.js',
+  'en/js/data/english.js',
+  'en/js/native-app.js'
 ];
 
 function baseUrl() {
@@ -244,6 +254,7 @@ function writeRootIndex(file) {
     .card:active { transform: scale(0.98); }
     .card-yu { border-color: #bee3f8; }
     .card-shu { border-color: #c6f6d5; }
+    .card-en { border-color: #81e6d9; }
     .card-log { border-color: #e9d8fd; }
     .card-icon { font-size: 44px; margin-bottom: 6px; }
     .card h2 { font-size: 22px; color: #2d3748; margin-bottom: 6px; }
@@ -284,6 +295,11 @@ function writeRootIndex(file) {
         <div class="card-icon">🔢</div>
         <h2>数学练习</h2>
         <p>口算 · 乘除 · 周长 · 预习</p>
+      </a>
+      <a class="card card-en" href="en/index.html">
+        <div class="card-icon">🔤</div>
+        <h2>英语练习</h2>
+        <p>字母 · 单词 · 听力 · 日常用语</p>
       </a>
       <a class="card card-log" href="app/records.html">
         <div class="card-icon">📋</div>
@@ -332,6 +348,7 @@ fs.mkdirSync(OUT, { recursive: true });
 copyDir(path.join(ROOT, 'app'), path.join(OUT, 'app'), true);
 copyDir(path.join(ROOT, '语文', '网页互动'), path.join(OUT, 'zh'), true);
 copyDir(path.join(ROOT, '数学', '网页互动'), path.join(OUT, 'math'), true);
+copyDir(path.join(ROOT, '英语', '网页互动'), path.join(OUT, 'en'), true);
 
 const chartSrc = path.join(ROOT, '语文', '网页互动', 'pinyin-chart.html');
 const chartDst = path.join(OUT, 'zh', 'pinyin-chart.html');
@@ -396,8 +413,10 @@ function patchSubjectAppJs(file) {
 patchAppIndex(path.join(OUT, 'app', 'index.html'));
 patchSubjectEntry(path.join(OUT, 'zh', 'index.html'));
 patchSubjectEntry(path.join(OUT, 'math', 'index.html'));
+patchSubjectEntry(path.join(OUT, 'en', 'index.html'));
 patchSubjectAppJs(path.join(OUT, 'zh', 'js', 'app.js'));
 patchSubjectAppJs(path.join(OUT, 'math', 'js', 'app.js'));
+patchSubjectAppJs(path.join(OUT, 'en', 'js', 'app.js'));
 writeManifest(path.join(OUT, 'app', 'manifest.webmanifest'));
 writeServiceWorker(path.join(OUT, 'sw.js'));
 writeRootIndex(path.join(OUT, 'index.html'));
