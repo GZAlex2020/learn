@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>互动拼音表 - 一二年级暑假复习</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pinyin-chart.css">
+</head>
+<body>
+  <div class="container pinyin-chart-page">
+    <a class="home-link" href="index.html">← 返回练习首页</a>
+
+    <header class="chart-header">
+      <h1>🔊 互动拼音表</h1>
+      <p>标准拼音录音 · 点击格子听拼音音节，组词按钮听词语</p>
+      <p class="audio-note">已内置标准读音，无需联网。若无声请确认 <code>audio</code> 文件夹完整。</p>
+    </header>
+
+    <nav class="chart-nav">
+      <a href="#tones">四声</a>
+      <a href="#shengmu">声母</a>
+      <a href="#yunmu">韵母</a>
+      <a href="#zhengti">整体认读</a>
+      <a href="#koujue">口诀</a>
+    </nav>
+
+    <!-- 四声 -->
+    <section id="tones" class="chart-section">
+      <h2>四声（声调）</h2>
+      <p class="section-tip">一声平、二声扬、三声拐弯、四声降 — 点击听 ma 的四个声调</p>
+      <div id="tone-grid" class="tone-grid"></div>
+    </section>
+
+    <!-- 声母 -->
+    <section id="shengmu" class="chart-section">
+      <h2>23 个声母</h2>
+      <p class="section-tip">点击听拼音读音（如 b 读「bō」），口诀字「玻」仅作记忆 — 不读汉字音</p>
+      <div id="shengmu-groups"></div>
+    </section>
+
+    <!-- 韵母 -->
+    <section id="yunmu" class="chart-section">
+      <h2>24 个韵母</h2>
+      <p class="section-tip">点击听韵母拼音，例字统一第一声（如 a 读「ā」，不是「á」）</p>
+      <div id="yunmu-groups"></div>
+    </section>
+
+    <!-- 整体认读 -->
+    <section id="zhengti" class="chart-section">
+      <h2>16 个整体认读音节</h2>
+      <p class="section-tip">不用拼，直接读 — 点击听读音</p>
+      <div id="zhengti-grid" class="py-grid"></div>
+    </section>
+
+    <!-- 口诀 -->
+    <section id="koujue" class="chart-section">
+      <h2>拼音口诀</h2>
+      <div class="rhyme-box">
+        <p><strong>声母口诀：</strong></p>
+        <p>b p m f，d t n l，g k h，j q x，<br>
+        zh ch sh r，z c s，y w 是声母，一共二十三。</p>
+        <p style="margin-top:12px"><strong>韵母口诀：</strong></p>
+        <p>a o e i u ü，六个单韵母，<br>
+        ai ei ui，ao ou iu，ie üe er，九个复韵母，<br>
+        an en in un ün，ang eng ing ong，九个鼻韵母，一共二十四。</p>
+        <p style="margin-top:12px"><strong>标调口诀：</strong>一声平，二声扬，三声拐弯四声降。</p>
+      </div>
+    </section>
+
+    <div class="chart-footer-space"></div>
+  </div>
+
+  <!-- 底部详情栏 -->
+  <div id="detail-bar" class="detail-bar empty">
+    <div class="detail-info">
+      <div id="detail-letter" class="detail-letter">b</div>
+      <div id="detail-char" class="detail-char">玻 bō · 玻璃</div>
+    </div>
+    <div class="detail-actions">
+      <button id="btn-speak-char">🔊 听拼音</button>
+      <button id="btn-speak-word" class="secondary">🔊 听组词</button>
+      <button id="btn-speak-all" class="secondary">🔊 拼音+组词</button>
+    </div>
+  </div>
+
+  <script src="../app/js/android-back.js"></script>
+  <script src="../app/js/learning-log.js"></script>
+  <script src="../app/js/session-log.js"></script>
+  <script src="js/native-app.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/data/pinyin.js"></script>
+  <script src="js/data/pinyin-chart.js"></script>
+  <script src="js/pinyin-chart.js"></script>
+  <script>
+    if (window.AppBackNav) {
+      window.AppBackNav.onBack(function () {
+        window.location.href = 'index.html';
+        return true;
+      });
+    }
+  </script>
+</body>
+</html>

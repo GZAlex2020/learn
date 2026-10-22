@@ -1,0 +1,107 @@
+<view class="page">
+  <view class="header">
+    <text class="title">🔊 互动拼音表</text>
+    <text class="sub">点击格子听标准读音</text>
+  </view>
+
+  <view class="tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="id"
+      class="tab {{tab === item.id ? 'active' : ''}}"
+      data-tab="{{item.id}}"
+      bindtap="switchTab"
+    >{{item.label}}</view>
+  </view>
+
+  <!-- 四声 -->
+  <block wx:if="{{tab === 'tones'}}">
+    <view class="tone-grid">
+      <view
+        wx:for="{{toneCards}}"
+        wx:key="tone"
+        class="tone-card"
+        data-index="{{index}}"
+        bindtap="onToneTap"
+      >
+        <view class="tone-name">{{item.name}}</view>
+        <view class="tone-char">{{item.example}}</view>
+        <view class="tone-py">{{item.pinyin}}</view>
+        <view class="speak-hint">🔊 点击听</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 声母 -->
+  <block wx:elif="{{tab === 'shengmu'}}">
+    <block wx:for="{{shengmuGroups}}" wx:key="title">
+      <view class="group-title">{{item.title}}</view>
+      <view class="py-grid">
+        <view
+          wx:for="{{item.cells}}"
+          wx:for-item="cell"
+          wx:key="key"
+          class="py-cell"
+          data-sm="{{cell.letter}}"
+          bindtap="onShengmuTap"
+        >
+          <view class="py-letter">{{cell.letter}}</view>
+          <view class="py-char">{{cell.char}}</view>
+          <view class="py-sub">{{cell.sub}}</view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <!-- 韵母 -->
+  <block wx:elif="{{tab === 'yunmu'}}">
+    <block wx:for="{{yunmuGroups}}" wx:key="title">
+      <view class="group-title">{{item.title}}</view>
+      <view class="py-grid">
+        <view
+          wx:for="{{item.cells}}"
+          wx:for-item="cell"
+          wx:key="key"
+          class="py-cell"
+          data-ym="{{cell.letter}}"
+          bindtap="onYunmuTap"
+        >
+          <view class="py-letter">{{cell.letter}}</view>
+          <view class="py-char">{{cell.char}}</view>
+          <view class="py-sub">{{cell.sub}}</view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <!-- 整体认读 -->
+  <block wx:elif="{{tab === 'zhengti'}}">
+    <view class="py-grid">
+      <view
+        wx:for="{{zhengtiList}}"
+        wx:key="key"
+        class="py-cell"
+        data-index="{{index}}"
+        bindtap="onZhengtiTap"
+      >
+        <view class="py-letter">{{item.letter}}</view>
+        <view class="py-char">{{item.char}}</view>
+        <view class="py-sub">{{item.sub}}</view>
+      </view>
+    </view>
+  </block>
+
+  <view class="detail {{detailEmpty ? 'empty' : ''}}">
+    <block wx:if="{{!detailEmpty}}">
+      <view class="detail-letter">{{detailLetter}}</view>
+      <view class="detail-text">{{detailText}}</view>
+      <view class="detail-btns">
+        <view class="speak-btn" bindtap="onSpeakChar">{{speakCharLabel}}</view>
+        <view class="speak-btn secondary" bindtap="onSpeakWord">{{speakWordLabel}}</view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="detail-placeholder">点击上方拼音格子开始点读</view>
+    </block>
+  </view>
+</view>

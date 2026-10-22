@@ -1,0 +1,35 @@
+# JDK / 本地工具
+tools/
+
+# Node / Capacitor
+android-apk/node_modules/
+**/node_modules/
+
+# Android 构建产物
+android-apk/android/.gradle/
+android-apk/android/**/build/
+android-apk/android/**/intermediates/
+android-apk/android/local.properties
+android-apk/android/captures/
+*.apk
+*.ap_
+*.aab
+输出/
+
+# 扫描/临时
+docs/_extract/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+*.swp
+_tts_test/
+_test_*.mp3
+_test_tts.py
+
+# 本地环境
+.env
+.env.*

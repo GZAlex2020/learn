@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/records/records"
+  ],
+  "subPackages": [
+    {
+      "root": "packageMath",
+      "name": "math",
+      "pages": [
+        "pages/home/home",
+        "pages/practice/practice"
+      ]
+    },
+    {
+      "root": "packageZh",
+      "name": "zh",
+      "pages": [
+        "pages/home/home",
+        "pages/practice/practice",
+        "pages/pinyin-chart/pinyin-chart"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "暑假复习",
+    "navigationBarBackgroundColor": "#2c5282",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f7fafc"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2c5282">
+  <title>安装到手机 / 平板</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <style>
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f7fafc;
+      padding: max(20px, env(safe-area-inset-top)) 20px 40px;
+      line-height: 1.7;
+      color: #2d3748;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 22px; color: #2c5282; margin-bottom: 12px; }
+    h2 { font-size: 17px; margin: 28px 0 10px; color: #2b6cb0; }
+    h2.android { color: #276749; }
+    ol, ul { padding-left: 22px; }
+    li { margin-bottom: 8px; }
+    .note {
+      background: #fffbeb;
+      border-left: 4px solid #ecc94b;
+      padding: 12px 14px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .android-box {
+      background: #f0fff4;
+      border: 2px solid #9ae6b4;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 12px 0 20px;
+    }
+    code { background: #edf2f7; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    a { color: #2b6cb0; }
+    .back { display: inline-block; margin-bottom: 16px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #edf2f7;
+      color: #4a5568;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .tab.active { background: #2c5282; color: #fff; }
+    .tab.android.active { background: #276749; }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html">← 返回首页</a>
+  <h1>📲 安装到手机 / 平板</h1>
+  <p>无需应用商店，添加到桌面后全屏使用，支持离线练习。</p>
+
+  <div class="tabs">
+    <a class="tab android active" href="#android">🤖 安卓</a>
+    <a class="tab" href="#ios">🍎 iPad / iPhone</a>
+    <a class="tab" href="#apk">📦 安装包 APK</a>
+  </div>
+
+  <div class="note">
+    <strong>注意：</strong>不能直接双击 html 文件。需先在电脑上启动服务器，手机连同一 WiFi 用浏览器访问。
+  </div>
+
+  <h2 id="android" class="android">🤖 安卓手机 / 平板（推荐 Chrome）</h2>
+  <div class="android-box">
+    <strong>第一步：电脑启动服务</strong>
+    <ol>
+      <li>电脑与安卓设备连<strong>同一 WiFi</strong></li>
+      <li>双击 <code>启动服务器.bat</code>（或运行 <code>python _serve_app.py</code>）</li>
+      <li>记下显示的地址，如 <code>http://192.168.1.100:8765/app/</code></li>
+    </ol>
+    <strong>第二步：安卓安装</strong>
+    <ol>
+      <li>用安卓上的 <strong>Chrome 浏览器</strong> 打开上述地址（不要用微信内置浏览器）</li>
+      <li>进入首页后，任选一种方式安装：
+        <ul>
+          <li>点首页绿色按钮 <strong>「安装应用到桌面」</strong>（若出现）</li>
+          <li>或 Chrome 右上角 <strong>⋮</strong> → <strong>添加到主屏幕</strong></li>
+          <li>或 Chrome 菜单 → <strong>安装应用</strong> / <strong>安装 Summer Review</strong></li>
+        </ul>
+      </li>
+      <li>确认后，桌面会出现 <strong>「暑假复习」</strong> 图标</li>
+    </ol>
+    <strong>第三步：使用</strong>
+    <ul>
+      <li>从桌面图标打开，全屏运行，无浏览器地址栏</li>
+      <li>首次在线玩一遍后，读音会缓存，之后可<strong>断网练习</strong></li>
+      <li>电脑服务器可关闭，已安装的应用仍可离线使用</li>
+    </ul>
+  </div>
+
+  <h2 id="ios">🍎 iPad / iPhone（Safari）</h2>
+  <ol>
+    <li>同样先启动电脑上的服务器，记下地址</li>
+    <li>用 <strong>Safari</strong> 打开 <code>http://192.168.x.x:8765/app/</code></li>
+    <li>点底部分享 <strong>□↑</strong> → <strong>添加到主屏幕</strong></li>
+    <li>名称保持「暑假复习」，点添加</li>
+  </ol>
+
+  <h2 id="apk">📦 安装 .apk 安装包</h2>
+  <div class="android-box">
+    <strong>方式一：一键自动打包（推荐）</strong>
+    <ol>
+      <li>双击 <code>生成APK.bat</code>（或运行 <code>python _build_apk.py</code>）</li>
+      <li>脚本会<strong>自动</strong>：生成图标 → 下载拼音/识字 MP3 → 编译 APK</li>
+      <li>完成后在 <code>输出/暑假复习.apk</code> 找到安装包</li>
+      <li>传到安卓手机安装（需允许「未知来源」），<strong>完全离线</strong>可用</li>
+    </ol>
+    <p style="font-size:14px;color:#718096;margin-top:8px;">首次约 5～15 分钟（需联网）；之后约 1～3 分钟。若只要小包可运行 <code>python _build_apk.py --skip-audio</code>。</p>
+  </div>
+  <p><strong>方式二：在线 PWA 转 APK</strong>（需公网 HTTPS 地址）</p>
+  <ol>
+    <li>先把本资料部署到<strong>公网 HTTPS 地址</strong>（如 GitHub Pages）</li>
+    <li>打开 <a href="https://www.pwabuilder.com/" target="_blank" rel="noopener">PWABuilder.com</a></li>
+    <li>输入 <code>https://…/app/</code> 地址，生成并下载 Android APK</li>
+  </ol>
+  <p style="font-size:14px;color:#718096;">若已用方式一安装 APK，效果与 Chrome「安装应用」相同，且更方便传给孩子设备。</p>
+
+  <h2>常见问题</h2>
+  <ul>
+    <li><strong>微信里打不开？</strong> 点右上角「…」→ 用浏览器打开 → 选 Chrome</li>
+    <li><strong>没有「安装应用」按钮？</strong> 用 Chrome；或菜单 → 添加到主屏幕</li>
+    <li><strong>听不到声音？</strong> 先在线把语文模块玩一遍，缓存 MP3 后再断网</li>
+    <li><strong>换 WiFi 后打不开？</strong> 已安装的应用离线仍可用；重新安装需新地址</li>
+  </ul>
+
+  <p style="margin-top:24px;"><a href="index.html">← 返回练习首页</a></p>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<view class="page">
+  <!-- 首页 -->
+  <block wx:if="{{screen === 'home'}}">
+    <view class="header">
+      <text class="h1">📚 一二年级暑假语文复习</text>
+      <text class="sub">拼音 · 识字 · 读题 — 点击 🔊 可听读音</text>
+    </view>
+    <view class="module-grid">
+      <view
+        wx:for="{{modules}}"
+        wx:key="id"
+        class="module-card"
+        data-module="{{item.id}}"
+        bindtap="onModuleTap"
+      >
+        <view class="icon">{{item.icon}}</view>
+        <view class="card-title">{{item.title}}</view>
+        <view class="card-desc">{{item.desc}}</view>
+      </view>
+    </view>
+    <view class="footer">已内置标准 MP3 读音 · 建议每天练习 15～20 分钟</view>
+  </block>
+
+  <!-- 拼音练习 -->
+  <block wx:elif="{{screen === 'pinyin'}}">
+    <view class="top-bar">
+      <view class="back-btn" bindtap="goHome">← 返回首页</view>
+    </view>
+    <view class="mode-tabs">
+      <view class="mode-tab {{pinyinMode === 'pick-pinyin' ? 'active' : ''}}" data-mode="pick-pinyin" bindtap="switchPinyinMode">看字选拼音</view>
+      <view class="mode-tab {{pinyinMode === 'pick-char' ? 'active' : ''}}" data-mode="pick-char" bindtap="switchPinyinMode">听音选字</view>
+    </view>
+    <view class="quiz-header">
+      <text>{{pinyinProgress}}</text>
+      <text>得分：{{pinyinScore}}</text>
+    </view>
+    <view class="card">
+      <view class="label">{{pinyinLabel}}</view>
+      <block wx:if="{{!pinyinIsListen}}">
+        <view class="char-area">
+          <view class="big-char">{{pinyinChar}}</view>
+          <view class="speak-btn" bindtap="speakPinyinChar">🔊 听读音</view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="listen-area">
+          <view class="speak-btn lg" bindtap="speakPinyinListen">🔊 点击听读音</view>
+          <view class="hint">听一听，选正确的汉字</view>
+        </view>
+      </block>
+      <view class="options {{pinyinIsListen ? 'char-opts' : ''}}">
+        <block wx:if="{{pinyinIsListen}}">
+          <view
+            wx:for="{{pinyinOptions}}"
+            wx:key="text"
+            class="opt-btn {{item.status}} {{item.disabled ? 'disabled' : ''}}"
+            data-index="{{index}}"
+            bindtap="onPinyinAnswer"
+          >{{item.text}}</view>
+        </block>
+        <block wx:else>
+          <view wx:for="{{pinyinOptions}}" wx:key="text" class="opt-row">
+            <view
+              class="opt-btn flex1 {{item.status}} {{item.disabled ? 'disabled' : ''}}"
+              data-index="{{index}}"
+              bindtap="onPinyinAnswer"
+            >{{item.text}}</view>
+            <view class="speak-mini" data-index="{{index}}" catchtap="speakPinyinOpt">🔊</view>
+          </view>
+        </block>
+      </view>
+      <view wx:if="{{pinyinFeedback}}" class="feedback {{pinyinFeedbackType}}">{{pinyinFeedback}}</view>
+      <view wx:if="{{pinyinShowNext}}" class="next-btn" bindtap="onPinyinNext">下一题 →</view>
+    </view>
+  </block>
+
+  <!-- 声母韵母 -->
+  <block wx:elif="{{screen === 'alphabet'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="mode-tabs">
+      <view class="mode-tab {{alphaTab === 'shengmu' ? 'active' : ''}}" data-tab="shengmu" bindtap="switchAlphaTab">声母 23 个</view>
+      <view class="mode-tab {{alphaTab === 'yunmu' ? 'active' : ''}}" data-tab="yunmu" bindtap="switchAlphaTab">韵母 24 个</view>
+      <view class="mode-tab {{alphaTab === 'zhengti' ? 'active' : ''}}" data-tab="zhengti" bindtap="switchAlphaTab">整体认读</view>
+    </view>
+    <view class="card">
+      <view class="label">点击字母听标准拼音读音</view>
+      <view class="alpha-grid">
+        <view
+          wx:for="{{alphaList}}"
+          wx:key="letter"
+          class="alpha-item {{item.active ? 'active' : ''}}"
+          data-index="{{index}}"
+          bindtap="onAlphaTap"
+        >
+          <view class="alpha-letter">{{item.letter}}</view>
+          <view class="alpha-sub">{{item.sub}}</view>
+        </view>
+      </view>
+      <view class="alpha-detail">
+        <view class="alpha-big">{{alphaLetter}}</view>
+        <view class="alpha-ex">{{alphaExample}}</view>
+        <view class="speak-btn" bindtap="onAlphaSpeakChar">{{alphaSpeakChar}}</view>
+        <view class="speak-btn secondary" bindtap="onAlphaSpeakWord">{{alphaSpeakWord}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 识字配对 -->
+  <block wx:elif="{{screen === 'char'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="quiz-header">
+      <text>{{charProgress}}</text>
+      <text>得分：{{charScore}}</text>
+    </view>
+    <view class="card">
+      <view class="label">点击汉字 🔊 听读音，再和拼音配对</view>
+      <view class="match-grid">
+        <view class="match-col">
+          <view class="col-title">汉字</view>
+          <view
+            wx:for="{{charLeft}}"
+            wx:key="index"
+            class="match-item {{item.matched ? 'matched' : ''}} {{item.selected ? 'selected' : ''}}"
+            data-index="{{item.index}}"
+            bindtap="onCharLeftTap"
+          >
+            <text class="emoji">{{item.emoji}}</text>
+            <text>{{item.char}}</text>
+            <view class="speak-mini" data-side="left" data-index="{{item.index}}" catchtap="onCharSpeak">🔊</view>
+          </view>
+        </view>
+        <view class="match-col">
+          <view class="col-title">拼音</view>
+          <view
+            wx:for="{{charRight}}"
+            wx:key="index"
+            class="match-item {{item.matched ? 'matched' : ''}}"
+            data-index="{{item.index}}"
+            bindtap="onCharRightTap"
+          >
+            <view>{{item.pinyin}}</view>
+            <view class="speak-mini" data-side="right" data-index="{{item.index}}" catchtap="onCharSpeak">🔊</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 课文列表 -->
+  <block wx:elif="{{screen === 'lesson-map'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="mode-tabs scroll-tabs">
+      <view
+        wx:for="{{lessonSemTabs}}"
+        wx:key="id"
+        class="mode-tab {{lessonSemId === item.id ? 'active' : ''}}"
+        data-sem="{{item.id}}"
+        bindtap="switchLessonSem"
+      >{{item.label}}</view>
+    </view>
+    <view class="card">
+      <view class="label">选一课开始通关 · 全部认对即过关 · ⭐ 最多 3 颗</view>
+      <view class="lesson-grid">
+        <view
+          wx:for="{{lessonCards}}"
+          wx:key="id"
+          class="lesson-card {{item.done ? 'done' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onLessonCardTap"
+        >
+          <view class="lesson-num">{{item.num}}</view>
+          <view class="lesson-title">{{item.title}}</view>
+          <view class="lesson-meta">{{item.meta}}</view>
+          <view class="lesson-stars">{{item.starsText}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 课文闯关 -->
+  <block wx:elif="{{screen === 'lesson-play'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="backToLessonMap">← 选课列表</view></view>
+    <view class="quiz-header">
+      <text>{{lessonTitle}}</text>
+      <text>{{lessonCharProgress}}</text>
+    </view>
+    <view class="card">
+      <view class="label">看字选正确拼音，认对该课全部生字即通关</view>
+      <view class="char-area">
+        <view class="big-char">{{lessonChar}}</view>
+        <canvas type="2d" id="lessonStrokeCanvas" class="lesson-stroke-canvas"></canvas>
+        <view class="lesson-actions">
+          <view class="speak-btn" bindtap="onLessonSpeakChar">🔊 听读音</view>
+          <view class="speak-btn secondary" bindtap="onLessonStroke">✍️ 看笔顺</view>
+        </view>
+      </view>
+      <view class="hint">{{lessonWordHint}}</view>
+      <view class="options">
+        <view wx:for="{{lessonOptions}}" wx:key="text" class="opt-row">
+          <view
+            class="opt-btn flex1 {{item.status}} {{item.disabled ? 'disabled' : ''}}"
+            data-index="{{index}}"
+            bindtap="onLessonAnswer"
+          >{{item.text}}</view>
+          <view class="speak-mini" data-index="{{index}}" catchtap="onLessonOptSpeak">🔊</view>
+        </view>
+      </view>
+      <view wx:if="{{lessonFeedback}}" class="feedback {{lessonFeedbackType}}">{{lessonFeedback}}</view>
+    </view>
+  </block>
+
+  <!-- 识字卡片 -->
+  <block wx:elif="{{screen === 'flashcard'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="quiz-header"><text>{{flashProgress}}</text></view>
+    <view class="flashcard">
+      <view class="flash-emoji">{{flashEmoji}}</view>
+      <view class="flash-char">{{flashChar}}</view>
+      <view class="flash-pinyin">{{flashPinyin}}</view>
+      <view class="flash-word">{{flashWord}}</view>
+      <view class="flash-actions">
+        <view class="speak-btn" bindtap="onFlashSpeakChar">🔊 听字</view>
+        <view class="speak-btn secondary" bindtap="onFlashSpeakWord">🔊 听组词</view>
+      </view>
+    </view>
+    <view class="nav-row">
+      <view class="nav-btn" bindtap="onFlashPrev">← 上一张</view>
+      <view class="nav-btn primary" bindtap="onFlashNext">下一张 →</view>
+    </view>
+  </block>
+
+  <!-- 读题训练 -->
+  <block wx:elif="{{screen === 'read'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="quiz-header">
+      <text>{{readProgress}}</text>
+      <text>完成：{{readScore}}</text>
+    </view>
+    <view class="card">
+      <view class="read-text">
+        {{readTextBefore}}<text class="keyword">{{readKeyword}}</text>{{readTextAfter}}
+      </view>
+      <view class="read-pinyin">{{readPinyin}}</view>
+      <view class="read-btns">
+        <view class="speak-btn" bindtap="onReadSpeakQuestion">🔊 读题目</view>
+        <view class="speak-btn secondary" bindtap="onReadSpeakKeyword">🔊 读关键词</view>
+      </view>
+      <view wx:if="{{readShowTask}}" class="read-task">
+        <view class="task-text">{{readTask}}</view>
+        <view class="speak-btn" bindtap="onReadSpeakTask">🔊 读要求</view>
+        <view class="hint">{{readExample}}</view>
+      </view>
+      <view wx:if="{{readShowDone}}" class="next-btn" bindtap="onReadDone">我读懂了 ✓</view>
+      <view wx:if="{{readShowNext}}" class="next-btn" bindtap="onReadNext">下一题 →</view>
+    </view>
+  </block>
+
+  <!-- 题目常用词 -->
+  <block wx:elif="{{screen === 'keywords'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="quiz-header"><text>{{kwProgress}}</text></view>
+    <view class="card kw-card">
+      <view class="kw-word">{{kwWord}}</view>
+      <view class="kw-pinyin">{{kwPinyin}}</view>
+      <view class="kw-meaning">{{kwMeaning}}</view>
+      <view class="read-btns">
+        <view class="speak-btn" bindtap="onKwSpeakWord">🔊 听词语</view>
+        <view class="speak-btn secondary" bindtap="onKwSpeakMeaning">🔊 听解释</view>
+      </view>
+    </view>
+    <view class="nav-row">
+      <view class="nav-btn" bindtap="onKwPrev">← 上一个</view>
+      <view class="nav-btn primary" bindtap="onKwNext">下一个 →</view>
+    </view>
+  </block>
+
+  <!-- 词语与句子 -->
+  <block wx:elif="{{screen === 'sentence'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="mode-tabs sentence-tabs">
+      <view class="mode-tab {{sentenceMode === 'all' ? 'active' : ''}}" data-mode="all" bindtap="switchSentenceMode">综合练习</view>
+      <view class="mode-tab {{sentenceMode === 'word' ? 'active' : ''}}" data-mode="word" bindtap="switchSentenceMode">叠词词语</view>
+      <view class="mode-tab {{sentenceMode === 'person' ? 'active' : ''}}" data-mode="person" bindtap="switchSentenceMode">拟人句</view>
+      <view class="mode-tab {{sentenceMode === 'simile' ? 'active' : ''}}" data-mode="simile" bindtap="switchSentenceMode">比喻句</view>
+    </view>
+    <view class="sentence-knowledge">
+      <view class="sentence-knowledge-title">📖 知识点</view>
+      <view wx:for="{{sentenceKnowledge}}" wx:key="title" class="sentence-knowledge-item">
+        <text class="strong">{{item.title}}：</text>{{item.text}}
+      </view>
+    </view>
+    <view class="quiz-header">
+      <text>{{sentenceProgress}}</text>
+      <text>得分：{{sentenceScore}}</text>
+    </view>
+    <view class="card">
+      <view class="sentence-category">{{sentenceCategory}}</view>
+      <view class="label">{{sentencePrompt}}</view>
+      <view wx:if="{{sentenceShowStem}}" class="sentence-stem">
+        <text>{{sentenceBefore}}</text><text class="sentence-blank">（　　）</text><text>{{sentenceAfter}}</text>
+      </view>
+      <view class="speak-btn secondary" bindtap="onSentenceSpeak">🔊 听句子</view>
+      <view class="options">
+        <view wx:for="{{sentenceOptions}}" wx:key="*this"
+          class="opt-btn {{sentenceAnswered && item === sentenceCorrect ? 'correct' : ''}} {{sentenceAnswered && item === sentenceWrong ? 'wrong' : ''}}"
+          data-val="{{item}}" bindtap="onSentenceOption">{{item}}</view>
+      </view>
+      <view wx:if="{{sentenceFeedback}}" class="feedback {{sentenceFeedbackType}}">{{sentenceFeedback}}</view>
+      <view wx:if="{{sentenceShowNext}}" class="next-btn" bindtap="onSentenceNext">下一题 →</view>
+    </view>
+  </block>
+
+  <!-- 三年级预习 -->
+  <block wx:elif="{{screen === 'preview3'}}">
+    <view class="top-bar"><view class="back-btn" bindtap="goHome">← 返回首页</view></view>
+    <view class="preview3-head">
+      <view class="preview3-title">📗 三年级上册必背打卡</view>
+      <view class="preview3-sub">按暑假必背打卡表顺序学习</view>
+    </view>
+    <scroll-view scroll-x class="mode-tabs preview3-tabs">
+      <view wx:for="{{preview3Tabs}}" wx:key="id"
+        class="mode-tab {{preview3Cat === item.id ? 'active' : ''}}"
+        data-cat="{{item.id}}" bindtap="onPreview3Tab">{{item.name}}</view>
+    </scroll-view>
+    <view class="quiz-header"><text>{{preview3Progress}}</text></view>
+    <view class="preview3-card card">
+      <view class="preview3-icon">{{preview3Icon}}</view>
+      <view class="preview3-point-title">{{preview3Title}}</view>
+      <view wx:if="{{preview3Meta}}" class="preview3-point-meta">{{preview3Meta}}</view>
+      <view wx:if="{{preview3Author}}" class="preview3-point-author">{{preview3Author}}</view>
+      <view wx:if="{{preview3ReciteBadge}}" class="preview3-recite-badge">{{preview3ReciteBadge}}</view>
+      <block wx:if="{{preview3Lines.length}}">
+        <view class="preview3-poem-lines">
+          <view wx:for="{{preview3Lines}}" wx:key="text" class="preview3-poem-line">
+            <view class="preview3-poem-text">{{item.text}}</view>
+            <view class="preview3-poem-pinyin">{{item.pinyin}}</view>
+          </view>
+        </view>
+      </block>
+      <view wx:else class="preview3-point-content {{preview3IsPoem ? 'poem-body' : ''}}">{{preview3Content}}</view>
+      <view wx:if="{{preview3Notes}}" class="preview3-point-notes">{{preview3Notes}}</view>
+      <view class="preview3-point-example">{{preview3Example}}</view>
+      <view class="preview3-speak-row">
+        <view class="speak-btn" bindtap="onPreview3Speak">🔊 听讲解</view>
+        <view wx:if="{{preview3ShowRecite}}" class="speak-btn speak-btn-poem" bindtap="onPreview3Recite">🎵 听朗诵</view>
+      </view>
+      <view wx:if="{{preview3ReciteHistory.length}}" class="preview3-recite-history">
+        <view class="preview3-recite-history-title">背诵记录</view>
+        <view wx:for="{{preview3ReciteHistory}}" wx:key="at" class="preview3-recite-history-item">
+          <text class="preview3-recite-date">{{item.date}}</text>
+          <text class="preview3-recite-score">{{item.score}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="nav-row">
+      <view class="nav-btn" bindtap="onPreview3Prev">← 上一个</view>
+      <view class="nav-btn primary" bindtap="onPreview3Next">下一个 →</view>
+    </view>
+  </block>
+
+  <!-- 结果页 -->
+  <block wx:elif="{{screen === 'result'}}">
+    <view class="result-screen">
+      <view class="result-emoji">{{resultEmoji}}</view>
+      <view class="result-title">{{resultTitle}}</view>
+      <view class="result-msg">{{resultMsg}}</view>
+      <view class="result-score">{{resultScore}}</view>
+      <view class="result-actions">
+        <view class="nav-btn" bindtap="onResultHome">回首页</view>
+        <view wx:if="{{resultShowRetry}}" class="nav-btn primary" bindtap="onResultRetry">再练一次</view>
+      </view>
+    </view>
+  </block>
+</view>

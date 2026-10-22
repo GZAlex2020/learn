@@ -1,0 +1,47 @@
+page {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f7fafc;
+  color: #2d3748;
+  font-size: 28rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 36rpx 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  border: 4rpx solid transparent;
+}
+
+.card:active {
+  opacity: 0.92;
+}
+
+.card-yu { border-color: #bee3f8; }
+.card-shu { border-color: #c6f6d5; }
+.card-rec { border-color: #e9d8fd; }
+
+.card-icon { font-size: 72rpx; margin-bottom: 12rpx; }
+.card-title { font-size: 36rpx; font-weight: 600; margin-bottom: 8rpx; }
+.card-desc { font-size: 26rpx; color: #718096; }
+
+.btn {
+  display: inline-block;
+  padding: 16rpx 28rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  background: #edf2f7;
+  color: #4a5568;
+  margin: 8rpx;
+}
+
+.btn-primary {
+  background: #4299e1;
+  color: #fff;
+}
+
+.btn-warn {
+  background: #fed7d7;
+  color: #c53030;
+}

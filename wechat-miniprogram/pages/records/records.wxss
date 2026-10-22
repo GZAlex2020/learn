@@ -1,0 +1,24 @@
+.wrap { padding: 24rpx; }
+.filters { display: flex; gap: 12rpx; flex-wrap: wrap; margin-bottom: 16rpx; }
+.filter-pill { background: #fff; border-radius: 999rpx; padding: 12rpx 24rpx; font-size: 24rpx; color: #4a5568; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06); }
+.filter-search { width: 100%; background: #fff; border-radius: 16rpx; padding: 20rpx 24rpx; font-size: 28rpx; margin-bottom: 16rpx; box-sizing: border-box; }
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16rpx; margin-bottom: 24rpx; }
+.stat { background: #fff; border-radius: 20rpx; padding: 24rpx; text-align: center; }
+.num { display: block; font-size: 40rpx; color: #2c5282; font-weight: 600; }
+.label { font-size: 24rpx; color: #718096; }
+.toolbar { margin-bottom: 24rpx; }
+.empty { text-align: center; padding: 80rpx 24rpx; color: #a0aec0; background: #fff; border-radius: 20rpx; white-space: pre-line; }
+.date-group { margin-bottom: 28rpx; }
+.date-head { margin-bottom: 16rpx; padding: 0 8rpx; }
+.date-label { display: block; font-size: 30rpx; font-weight: 600; color: #2c5282; margin-bottom: 6rpx; }
+.date-stat { display: block; font-size: 24rpx; color: #718096; }
+.record { background: #fff; border-radius: 20rpx; padding: 24rpx; margin-bottom: 16rpx; border-left: 8rpx solid #bee3f8; }
+.record.math { border-left-color: #9ae6b4; }
+.record-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12rpx; margin-bottom: 12rpx; }
+.record-title { font-size: 30rpx; font-weight: 600; flex: 1; }
+.record-actions { display: flex; align-items: center; gap: 12rpx; flex-shrink: 0; }
+.record.recite { border-left-color: #d6bcfa; }
+.badge-recite { background: #e9d8fd; color: #553c9a; }
+.btn-primary { background: #4299e1 !important; color: #fff !important; }
+.btn-delete { font-size: 24rpx; color: #c53030; background: #fff5f5; padding: 6rpx 16rpx; border-radius: 12rpx; }
+.meta text { display: block; font-size: 24rpx; color: #718096; line-height: 1.7; }

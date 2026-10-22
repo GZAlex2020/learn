@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="语文复习">
+  <meta name="theme-color" content="#2c5282">
+  <title>一二年级暑假语文复习</title>
+  <link rel="manifest" href="../../app/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../app/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 首页 -->
+    <div id="home" class="screen active">
+      <header>
+        <h1>📚 一二年级暑假语文复习</h1>
+        <p>拼音 · 识字 · 读题 — 点击 🔊 可听读音</p>
+        <p style="font-size:0.9rem;margin-top:8px;"><a href="../../app/index.html">🏠 练习首页</a> · <a href="../../数学/网页互动/index.html">🔢 去数学练习 →</a></p>
+      </header>
+
+      <div class="module-grid">
+        <a class="module-card module-card-link" href="pinyin-chart.html">
+          <div class="icon">🔊</div>
+          <h2>互动拼音表</h2>
+          <p>完整拼音表，点读发音</p>
+        </a>
+        <div class="module-card" data-module="pinyin">
+          <div class="icon">🔤</div>
+          <h2>拼音练习</h2>
+          <p>看字选拼音 / 听音选字</p>
+        </div>
+        <div class="module-card" data-module="alphabet">
+          <div class="icon">🔡</div>
+          <h2>声母韵母</h2>
+          <p>点读学习，带读音</p>
+        </div>
+        <div class="module-card" data-module="char">
+          <div class="icon">🔗</div>
+          <h2>识字配对</h2>
+          <p>字和拼音配配对</p>
+        </div>
+        <div class="module-card" data-module="lesson">
+          <div class="icon">📖</div>
+          <h2>课文识字通关</h2>
+          <p>一～二年级按课练生字</p>
+        </div>
+        <div class="module-card" data-module="poem">
+          <div class="icon">📜</div>
+          <h2>古诗词</h2>
+          <p>部编版一～二年级必背 27 首</p>
+        </div>
+        <div class="module-card" data-module="flashcard">
+          <div class="icon">📇</div>
+          <h2>识字卡片</h2>
+          <p>翻卡片，听读音</p>
+        </div>
+        <div class="module-card" data-module="read">
+          <div class="icon">📝</div>
+          <h2>读题训练</h2>
+          <p>读懂题目要求</p>
+        </div>
+        <div class="module-card" data-module="keywords">
+          <div class="icon">📋</div>
+          <h2>题目常用词</h2>
+          <p>认读考试关键词</p>
+        </div>
+        <div class="module-card" data-module="sentence">
+          <div class="icon">✍️</div>
+          <h2>词语与句子</h2>
+          <p>叠词 · 拟人句 · 比喻句</p>
+        </div>
+      </div>
+
+      <div class="section-divider">
+        <span>📗 三年级知识点预习</span>
+      </div>
+      <div class="module-grid module-grid-g3">
+        <div class="module-card module-card-g3" data-module="preview3">
+          <div class="icon">🎒</div>
+          <h2>三年级上册必背</h2>
+          <p>古诗 · 日积月累 · 课文 · 背诵打卡</p>
+        </div>
+      </div>
+
+      <footer>
+        <p>已内置标准 MP3 读音 · 建议每天练习 15～20 分钟</p>
+      </footer>
+    </div>
+
+    <!-- 拼音练习 -->
+    <div id="pinyin-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="pick-pinyin">看字选拼音</button>
+        <button class="mode-tab" data-mode="pick-char">听音选字</button>
+      </div>
+      <div class="quiz-header">
+        <span id="pinyin-progress" class="progress-text">第 1 / 10 题</span>
+        <span id="pinyin-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p id="pinyin-label" class="question-label">请选择正确的拼音</p>
+        <div id="pinyin-char-area" class="char-area">
+          <div id="pinyin-char" class="question-char">妈</div>
+          <button id="pinyin-speak-char" class="speak-btn" title="听汉字读音">🔊 听读音</button>
+        </div>
+        <div id="pinyin-listen-area" class="listen-area hidden">
+          <button id="pinyin-speak-listen" class="speak-btn speak-btn-lg">🔊 点击听读音</button>
+          <p class="hint-text">听一听，选正确的汉字</p>
+        </div>
+        <div id="pinyin-options" class="options-grid"></div>
+        <div id="pinyin-feedback" class="feedback"></div>
+        <button id="pinyin-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 声母韵母 -->
+    <div id="alphabet-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs">
+        <button class="mode-tab alpha-tab active" data-tab="shengmu">声母 23 个</button>
+        <button class="mode-tab alpha-tab" data-tab="yunmu">韵母 24 个</button>
+        <button class="mode-tab alpha-tab" data-tab="zhengti">整体认读</button>
+      </div>
+      <div class="question-card">
+        <p class="question-label">点击字母听标准拼音读音（如 d 读 de 第一声），口诀字仅帮助记忆</p>
+        <div id="alphabet-grid" class="alphabet-grid"></div>
+        <div id="alphabet-detail" class="alphabet-detail">
+          <span id="alpha-letter" class="alpha-letter">b</span>
+          <span id="alpha-example" class="alpha-example">玻 bō · 玻璃</span>
+          <button id="alpha-speak-char" class="speak-btn">🔊 听拼音</button>
+          <button id="alpha-speak-word" class="speak-btn speak-btn-secondary">🔊 听组词</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 识字配对 -->
+    <div id="char-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="char-progress" class="progress-text">已配对：0 / 8</span>
+        <span id="char-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p class="question-label">点击汉字 🔊 听读音，再和拼音配对</p>
+        <div class="match-grid">
+          <div class="match-column">
+            <h3>汉字</h3>
+            <div id="char-left"></div>
+          </div>
+          <div class="match-column">
+            <h3>拼音</h3>
+            <div id="char-right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课文识字通关 · 选课 -->
+    <div id="lesson-map-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs lesson-sem-tabs">
+        <button class="mode-tab lesson-sem-tab active" data-sem="g1s2">一年级下</button>
+        <button class="mode-tab lesson-sem-tab" data-sem="g1s1">一年级上</button>
+        <button class="mode-tab lesson-sem-tab" data-sem="g2s1">二年级上</button>
+        <button class="mode-tab lesson-sem-tab" data-sem="g2s2">二年级下</button>
+      </div>
+      <div class="question-card">
+        <p class="question-label">选一课开始通关 · 全部认对即过关 · ⭐ 最多 3 颗</p>
+        <div id="lesson-grid" class="lesson-grid"></div>
+      </div>
+    </div>
+
+    <!-- 课文识字通关 · 闯关 -->
+    <div id="lesson-play-screen" class="screen">
+      <button class="back-btn" id="lesson-back-map">← 选课列表</button>
+      <div class="quiz-header">
+        <span id="lesson-title" class="progress-text">第 1 课 春夏秋冬</span>
+        <span id="lesson-char-progress" class="score-text">第 1 / 8 字</span>
+      </div>
+      <div class="question-card">
+        <p class="question-label">看字选正确拼音，认对该课全部生字即通关</p>
+        <div class="char-area">
+          <div id="lesson-char" class="question-char">春</div>
+          <div id="lesson-stroke-box" class="lesson-stroke-box"></div>
+          <div class="lesson-char-actions">
+            <button id="lesson-speak-char" class="speak-btn">🔊 听读音</button>
+            <button id="lesson-stroke-btn" class="speak-btn speak-btn-secondary" type="button">✍️ 看笔顺</button>
+          </div>
+        </div>
+        <p id="lesson-word-hint" class="hint-text">组词：春天</p>
+        <div id="lesson-options" class="options-grid"></div>
+        <div id="lesson-feedback" class="feedback"></div>
+      </div>
+    </div>
+
+    <!-- 古诗词 · 选诗 -->
+    <div id="poem-map-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs lesson-sem-tabs">
+        <button class="mode-tab poem-sem-tab active" data-sem="g1s1">一年级上</button>
+        <button class="mode-tab poem-sem-tab" data-sem="g1s2">一年级下</button>
+        <button class="mode-tab poem-sem-tab" data-sem="g2s1">二年级上</button>
+        <button class="mode-tab poem-sem-tab" data-sem="g2s2">二年级下</button>
+      </div>
+      <div class="question-card">
+        <p class="question-label">部编版必背古诗词 · 点选朗读背诵</p>
+        <div id="poem-grid" class="lesson-grid"></div>
+      </div>
+    </div>
+
+    <!-- 古诗词 · 阅读 -->
+    <div id="poem-view-screen" class="screen">
+      <button class="back-btn" id="poem-back-map">← 诗词列表</button>
+      <div class="quiz-header">
+        <span id="poem-progress" class="progress-text">第 1 / 6 首</span>
+        <span id="poem-sem-label" class="score-text">一年级上</span>
+      </div>
+      <div class="poem-card">
+        <div id="poem-title" class="poem-title">咏鹅</div>
+        <div id="poem-author" class="poem-author">【唐】骆宾王</div>
+        <div id="poem-lines" class="poem-lines"></div>
+        <div class="flash-actions poem-actions">
+          <button id="poem-speak-all" class="speak-btn">🔊 听整首</button>
+          <button id="poem-recite-toggle" class="speak-btn speak-btn-recite">🎤 开始背诵</button>
+        </div>
+        <div id="poem-recite-panel" class="poem-recite-panel hidden">
+          <div id="poem-recite-status" class="poem-recite-status">大声背出全诗，背完后点「结束评分」</div>
+          <div id="poem-recite-heard" class="poem-recite-heard"></div>
+          <div id="poem-recite-score-wrap" class="poem-recite-score-wrap hidden">
+            <div id="poem-recite-percent" class="poem-recite-percent">0%</div>
+            <div id="poem-recite-msg" class="poem-recite-msg"></div>
+          </div>
+          <button id="poem-recite-stop" class="speak-btn speak-btn-secondary hidden">⏹ 结束评分</button>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button id="poem-prev" class="nav-btn">← 上一首</button>
+        <button id="poem-next" class="nav-btn nav-btn-primary">下一首 →</button>
+      </div>
+    </div>
+
+    <!-- 识字卡片 -->
+    <div id="flashcard-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="flash-progress" class="progress-text">第 1 / 20 张</span>
+      </div>
+      <div class="flashcard">
+        <div id="flash-emoji" class="flash-emoji">👩</div>
+        <div id="flash-char" class="flash-char">妈</div>
+        <div id="flash-pinyin" class="flash-pinyin">mā</div>
+        <div id="flash-word" class="flash-word">妈妈</div>
+        <div class="flash-actions">
+          <button id="flash-speak-char" class="speak-btn">🔊 听字</button>
+          <button id="flash-speak-word" class="speak-btn speak-btn-secondary">🔊 听组词</button>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button id="flash-prev" class="nav-btn">← 上一张</button>
+        <button id="flash-next" class="nav-btn nav-btn-primary">下一张 →</button>
+      </div>
+    </div>
+
+    <!-- 读题训练 -->
+    <div id="read-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="read-progress" class="progress-text">第 1 / 5 题</span>
+        <span id="read-score" class="score-text">完成：0</span>
+      </div>
+      <div class="question-card">
+        <p class="question-label">先听题目，再大声读一遍</p>
+        <div class="read-audio-row">
+          <button id="read-speak-question" class="speak-btn">🔊 听题目</button>
+          <button id="read-speak-keyword" class="speak-btn speak-btn-secondary">🔊 听关键词</button>
+        </div>
+        <div id="read-text" class="question-text">请选择正确的拼音。</div>
+        <div id="read-pinyin" class="question-pinyin">qǐng xuǎn zé zhèng què de pīn yīn.</div>
+        <button id="read-done" class="read-done-btn">我读完了 ✓</button>
+        <div id="read-task" class="task-reveal">
+          <h3>📌 题目要我做什么？</h3>
+          <p id="read-task-text">我要选一个对的拼音</p>
+          <button id="read-speak-task" class="speak-btn">🔊 听要求</button>
+          <div id="read-example" class="example-box"></div>
+        </div>
+        <button id="read-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 题目常用词 -->
+    <div id="keywords-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="kw-progress" class="progress-text">第 1 / 15 个</span>
+      </div>
+      <div class="keyword-card">
+        <div id="kw-word" class="kw-word">选择</div>
+        <div id="kw-pinyin" class="kw-pinyin">xuǎn zé</div>
+        <div id="kw-meaning" class="kw-meaning">从几个答案里挑一个对的</div>
+        <div class="flash-actions">
+          <button id="kw-speak-word" class="speak-btn">🔊 听词语</button>
+          <button id="kw-speak-meaning" class="speak-btn speak-btn-secondary">🔊 听解释</button>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button id="kw-prev" class="nav-btn">← 上一个</button>
+        <button id="kw-next" class="nav-btn nav-btn-primary">下一个 →</button>
+      </div>
+    </div>
+
+    <!-- 词语与句子 -->
+    <div id="sentence-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs sentence-tabs">
+        <button class="mode-tab sentence-tab active" data-smode="all">综合练习</button>
+        <button class="mode-tab sentence-tab" data-smode="word">叠词词语</button>
+        <button class="mode-tab sentence-tab" data-smode="person">拟人句</button>
+        <button class="mode-tab sentence-tab" data-smode="simile">比喻句</button>
+      </div>
+      <div class="sentence-knowledge">
+        <div class="sentence-knowledge-title">📖 知识点</div>
+        <ul id="sentence-knowledge-list" class="sentence-knowledge-list"></ul>
+      </div>
+      <div class="quiz-header">
+        <span id="sentence-progress" class="progress-text">第 1 / 10 题</span>
+        <span id="sentence-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <span id="sentence-category" class="sentence-category">AABB 叠词</span>
+        <p id="sentence-prompt" class="question-label">选出 AABB 式词语</p>
+        <div id="sentence-stem" class="sentence-stem hidden"></div>
+        <button id="sentence-speak" class="speak-btn speak-btn-secondary">🔊 听句子</button>
+        <div id="sentence-options" class="options-grid"></div>
+        <p id="sentence-feedback" class="feedback"></p>
+        <button id="sentence-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 三年级预习 -->
+    <div id="preview3-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="preview3-head">
+        <h2 class="preview3-title">📗 三年级上册必背打卡</h2>
+        <p class="preview3-sub">三年级上册暑假必背 · 按打卡表顺序学习 · 可背诵评分</p>
+      </div>
+      <div class="mode-tabs preview3-tabs" id="preview3-tabs"></div>
+      <div class="quiz-header">
+        <span id="preview3-progress" class="progress-text">1 / 3</span>
+      </div>
+      <div class="preview3-card">
+        <div id="preview3-icon" class="preview3-icon">✏️</div>
+        <h3 id="preview3-point-title" class="preview3-point-title">多音字</h3>
+        <p id="preview3-point-meta" class="preview3-point-meta hidden"></p>
+        <p id="preview3-point-author" class="preview3-point-author hidden"></p>
+        <div id="preview3-recite-badge" class="preview3-recite-badge hidden"></div>
+        <div id="preview3-poem-lines" class="preview3-poem-lines hidden"></div>
+        <p id="preview3-point-content" class="preview3-point-content"></p>
+        <p id="preview3-point-notes" class="preview3-point-notes hidden"></p>
+        <p id="preview3-point-example" class="preview3-point-example"></p>
+        <div class="preview3-speak-row">
+          <button id="preview3-speak" class="speak-btn">🔊 听讲解</button>
+          <button id="preview3-recite" class="speak-btn speak-btn-poem hidden" type="button">🎵 听朗诵</button>
+        </div>
+        <div id="preview3-recite-panel" class="poem-recite-panel preview3-recite-panel hidden">
+          <div id="preview3-recite-status" class="poem-recite-status">大声背诵，背完后点「结束评分」</div>
+          <div id="preview3-recite-heard" class="poem-recite-heard"></div>
+          <div id="preview3-recite-score-wrap" class="poem-recite-score-wrap hidden">
+            <div id="preview3-recite-percent" class="poem-recite-percent">0%</div>
+            <div id="preview3-recite-msg" class="poem-recite-msg"></div>
+          </div>
+          <div id="preview3-recite-history" class="preview3-recite-history hidden"></div>
+          <div class="preview3-recite-actions">
+            <button id="preview3-recite-toggle" class="speak-btn speak-btn-recite" type="button">🎤 开始背诵</button>
+            <button id="preview3-recite-stop" class="speak-btn speak-btn-secondary hidden" type="button">⏹ 结束评分</button>
+          </div>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button id="preview3-prev" class="nav-btn" type="button">← 上一个</button>
+        <button id="preview3-next" class="nav-btn nav-btn-primary" type="button">下一个 →</button>
+      </div>
+    </div>
+
+    <!-- 结果页 -->
+    <div id="result-screen" class="screen">
+      <div class="result-card">
+        <div id="result-emoji" class="emoji-big">🌟</div>
+        <h2 id="result-title">练习完成！</h2>
+        <p id="result-msg">继续加油！</p>
+        <div id="result-score" class="score-big">8 / 10</div>
+        <button id="result-retry" class="restart-btn">再练一次</button>
+        <button id="result-home" class="restart-btn">返回首页</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../app/js/android-back.js"></script>
+  <script src="../../app/js/learning-log.js"></script>
+  <script src="../../app/js/session-log.js"></script>
+  <script src="js/hanzi-writer.min.js"></script>
+  <script src="js/stroke-writer.js"></script>
+  <script src="js/native-app.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/poem-recite.js"></script>
+  <script src="js/data/pinyin.js"></script>
+  <script src="js/data/characters.js"></script>
+  <script src="js/data/lessons.js"></script>
+  <script src="js/data/poems.js"></script>
+  <script src="js/data/questions.js"></script>
+  <script src="js/data/sentence.js"></script>
+  <script src="js/data/grade3-preview.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+      navigator.serviceWorker.register('../../sw.js', { scope: '/' });
+    }
+  </script>
+</body>
+</html>

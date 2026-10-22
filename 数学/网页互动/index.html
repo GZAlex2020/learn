@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="数学复习">
+  <meta name="theme-color" content="#276749">
+  <title>一二年级暑假数学复习</title>
+  <link rel="manifest" href="../../app/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../app/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="home" class="screen active">
+      <header>
+        <h1>🔢 一二年级暑假数学复习</h1>
+        <p>口算 · 概念 · 读题 · 乘法口诀 · 凑十法 · 时钟钱币 — 点击 🔊 可听</p>
+        <p style="font-size:0.9rem;margin-top:8px;"><a href="../../app/index.html">🏠 练习首页</a> · <a href="../../语文/网页互动/index.html">📖 去语文练习 →</a></p>
+      </header>
+
+      <div class="module-grid">
+        <div class="module-card" data-module="calc">
+          <div class="icon">🧮</div>
+          <h2>口算练习</h2>
+          <p>10/20/100 以内 · 乘除法</p>
+        </div>
+        <div class="module-card" data-module="match">
+          <div class="icon">🔗</div>
+          <h2>概念配对</h2>
+          <p>符号和含义配对</p>
+        </div>
+        <div class="module-card" data-module="flashcard">
+          <div class="icon">📇</div>
+          <h2>概念卡片</h2>
+          <p>翻卡片记概念</p>
+        </div>
+        <div class="module-card" data-module="read">
+          <div class="icon">📝</div>
+          <h2>读题训练</h2>
+          <p>听懂应用题要求</p>
+        </div>
+        <div class="module-card" data-module="keywords">
+          <div class="icon">📋</div>
+          <h2>题目常用词</h2>
+          <p>一共、还剩、比…多</p>
+        </div>
+        <div class="module-card" data-module="mult">
+          <div class="icon">✖️</div>
+          <h2>乘法口诀</h2>
+          <p>九九表 · 点击听口诀</p>
+        </div>
+        <div class="module-card" data-module="ten">
+          <div class="icon">🔟</div>
+          <h2>凑十破十</h2>
+          <p>凑十 · 破十 · 平十 · 借十</p>
+        </div>
+        <div class="module-card" data-module="clockmoney">
+          <div class="icon">🕐</div>
+          <h2>时钟与钱币</h2>
+          <p>认钟表 · 元角分 · 选择题练习</p>
+        </div>
+      </div>
+
+      <div class="section-divider section-divider-math">
+        <span>📗 三年级知识点预习</span>
+      </div>
+      <div class="module-grid module-grid-g3">
+        <div class="module-card module-card-g3" data-module="preview3">
+          <div class="icon">🎒</div>
+          <h2>升三年级预习</h2>
+          <p>万以内计算 · 乘除法 · 周长 · 分数</p>
+        </div>
+      </div>
+
+      <footer>
+        <p>建议每天练习 15～20 分钟 · 配合打印版每日一练</p>
+      </footer>
+    </div>
+
+    <!-- 口算练习 -->
+    <div id="calc-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs calc-tabs">
+        <button class="mode-tab calc-tab active" data-calc="add10">10以内</button>
+        <button class="mode-tab calc-tab" data-calc="add20">20以内</button>
+        <button class="mode-tab calc-tab" data-calc="add100">100以内</button>
+        <button class="mode-tab calc-tab" data-calc="add1000">三位数</button>
+        <button class="mode-tab calc-tab" data-calc="multiply">乘法</button>
+        <button class="mode-tab calc-tab" data-calc="divide">除法</button>
+      </div>
+      <div class="quiz-header">
+        <span id="calc-progress" class="progress-text">第 1 / 10 题</span>
+        <span id="calc-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p id="calc-mode-label" class="question-label">10以内加减 · 选出正确答案</p>
+        <div id="calc-expr" class="question-char" style="font-size:2.5rem;">3 + 4 = ?</div>
+        <div id="calc-options" class="options-grid"></div>
+        <div id="calc-feedback" class="feedback"></div>
+        <button id="calc-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 概念配对 -->
+    <div id="match-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <p class="question-label">点击左边符号，再点右边含义，配成一对</p>
+      <div class="match-score">已配对：<span id="match-count">0</span> / 8</div>
+      <div class="match-grid">
+        <div class="match-column">
+          <h3>符号</h3>
+          <div id="match-left"></div>
+        </div>
+        <div class="match-column">
+          <h3>含义</h3>
+          <div id="match-right"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 概念卡片 -->
+    <div id="flashcard-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="flash-progress" class="progress-text">第 1 / 20 张</span>
+      </div>
+      <div class="flashcard">
+        <div id="flash-emoji" class="flash-emoji">➕</div>
+        <div id="flash-symbol" class="flash-char">+</div>
+        <div id="flash-name" class="flash-pinyin">加法</div>
+        <div id="flash-example" class="flash-word">3 + 2 = 5</div>
+        <div class="flash-actions">
+          <button id="flash-speak" class="speak-btn">🔊 听概念</button>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button id="flash-prev" class="nav-btn">← 上一张</button>
+        <button id="flash-next" class="nav-btn nav-btn-primary">下一张 →</button>
+      </div>
+    </div>
+
+    <!-- 读题训练 -->
+    <div id="read-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="quiz-header">
+        <span id="read-progress" class="progress-text">第 1 / 5 题</span>
+      </div>
+      <div class="question-card">
+        <button id="read-speak" class="speak-btn speak-btn-lg">🔊 听题目</button>
+        <div id="read-text" class="read-question"></div>
+        <button id="read-done" class="read-done-btn">我读完了，看要求</button>
+        <div id="read-answer" class="read-answer hidden">
+          <p><strong>关键词：</strong><span id="read-keyword"></span></p>
+          <p><strong>孩子应说：</strong><span id="read-task"></span></p>
+          <p><strong>参考：</strong><span id="read-example"></span></p>
+        </div>
+        <button id="read-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 题目常用词 -->
+    <div id="keywords-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="question-card">
+        <div id="kw-word" class="question-char">一共</div>
+        <p id="kw-meaning" class="kw-meaning"></p>
+        <p id="kw-formula" class="kw-formula"></p>
+        <button id="kw-speak" class="speak-btn">🔊 听词语</button>
+        <div class="flash-nav kw-nav">
+          <button id="kw-prev" class="nav-btn" type="button">← 上一个</button>
+          <span id="kw-progress" class="nav-progress">1 / 15</span>
+          <button id="kw-next" class="nav-btn nav-btn-primary" type="button">下一个 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 乘法口诀 -->
+    <div id="mult-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="question-card mult-chart-wrap">
+        <div class="mult-chart-head">
+          <h2 class="mult-chart-title">九九乘法口诀表</h2>
+          <p class="question-label">点格子听口诀 · 一行一行记</p>
+        </div>
+        <div id="mult-chart" class="mult-chart"></div>
+      </div>
+      <div class="mult-detail">
+        <div class="mult-detail-inner">
+          <div id="mult-formula" class="mult-formula">1 × 1 = 1</div>
+          <div id="mult-rhyme" class="mult-rhyme">一一得一</div>
+          <div class="mult-detail-btns">
+            <button id="mult-speak" class="speak-btn">🔊 听口诀</button>
+            <button id="mult-speak-row" class="speak-btn speak-btn-secondary">🔊 听整行</button>
+            <button id="mult-speak-all" class="speak-btn speak-btn-secondary">🔊 读全部</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 凑十破十 · 知识教学 -->
+    <div id="ten-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs ten-tabs">
+        <button class="mode-tab ten-tab active" data-ten="make10">凑十法</button>
+        <button class="mode-tab ten-tab" data-ten="break10">破十法</button>
+        <button class="mode-tab ten-tab" data-ten="flat10">平十法</button>
+        <button class="mode-tab ten-tab" data-ten="borrow10">借十法</button>
+      </div>
+      <div class="ten-card">
+        <div class="ten-head">
+          <span id="ten-icon" class="ten-icon">➕</span>
+          <div>
+            <h2 id="ten-name" class="ten-name">凑十法</h2>
+            <span id="ten-tag" class="ten-tag">20以内加法</span>
+          </div>
+        </div>
+        <p id="ten-summary" class="ten-summary"></p>
+        <div id="ten-rhyme" class="ten-rhyme"></div>
+        <ol id="ten-steps" class="ten-steps"></ol>
+        <div class="ten-example-box">
+          <div class="ten-example-label">例题演示</div>
+          <div id="ten-expr" class="ten-expr">9 + 5 = ?</div>
+          <div id="ten-visual" class="ten-visual-wrap"></div>
+          <div id="ten-answer" class="ten-answer">答案：14</div>
+        </div>
+        <div class="ten-action-btns">
+          <button id="ten-speak" class="speak-btn">🔊 听讲解</button>
+          <button id="ten-practice-start" class="speak-btn speak-btn-practice">✏️ 开始练习</button>
+        </div>
+        <div class="flash-nav ten-nav">
+          <button id="ten-ex-prev" class="nav-btn" type="button">← 上一例</button>
+          <span id="ten-ex-progress" class="nav-progress">1 / 3</span>
+          <button id="ten-ex-next" class="nav-btn nav-btn-primary" type="button">下一例 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 凑十破十 · 练习 -->
+    <div id="ten-practice-screen" class="screen">
+      <button class="back-btn" id="ten-practice-back">← 返回讲解</button>
+      <div class="quiz-header">
+        <span id="ten-practice-progress" class="progress-text">第 1 / 5 题</span>
+        <span id="ten-practice-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p id="ten-practice-label" class="question-label">凑十法练习 · 选出正确答案</p>
+        <div id="ten-practice-expr" class="question-char" style="font-size:2.5rem;">8 + 7 = ?</div>
+        <div id="ten-practice-options" class="options-grid"></div>
+        <p id="ten-practice-feedback" class="feedback"></p>
+        <button id="ten-practice-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 时钟与钱币 -->
+    <div id="clockmoney-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="mode-tabs cm-tabs">
+        <button class="mode-tab cm-tab active" data-cm="clock">🕐 认识时钟</button>
+        <button class="mode-tab cm-tab" data-cm="money">💰 认识钱币</button>
+      </div>
+      <div class="quiz-header">
+        <span id="cm-knowledge-progress" class="progress-text">1 / 5</span>
+      </div>
+      <div class="preview3-card cm-card">
+        <div id="cm-icon" class="preview3-icon">🕐</div>
+        <h3 id="cm-title" class="preview3-point-title">钟面上的针</h3>
+        <p id="cm-content" class="preview3-point-content"></p>
+        <p id="cm-example" class="preview3-point-example"></p>
+        <button id="cm-speak" class="speak-btn">🔊 听讲解</button>
+      </div>
+      <div class="ten-action-btns">
+        <button id="cm-practice-start" class="speak-btn speak-btn-practice">✏️ 开始练习</button>
+      </div>
+      <div class="flash-nav">
+        <button id="cm-prev" class="nav-btn" type="button">← 上一个</button>
+        <button id="cm-next" class="nav-btn nav-btn-primary" type="button">下一个 →</button>
+      </div>
+    </div>
+
+    <!-- 时钟与钱币 · 练习 -->
+    <div id="cm-practice-screen" class="screen">
+      <button class="back-btn" id="cm-practice-back">← 返回讲解</button>
+      <div class="quiz-header">
+        <span id="cm-practice-progress" class="progress-text">第 1 / 5 题</span>
+        <span id="cm-practice-score" class="score-text">得分：0</span>
+      </div>
+      <div class="question-card">
+        <p id="cm-practice-label" class="question-label">认识时钟 · 选出正确答案</p>
+        <div id="cm-practice-clock" class="clock-practice-visual hidden"></div>
+        <div id="cm-practice-prompt" class="question-text">看钟表，现在是几时？</div>
+        <div id="cm-practice-options" class="options-grid"></div>
+        <p id="cm-practice-feedback" class="feedback"></p>
+        <button id="cm-practice-next" class="next-btn">下一题 →</button>
+      </div>
+    </div>
+
+    <!-- 三年级预习 -->
+    <div id="preview3-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="preview3-head">
+        <h2 class="preview3-title">📗 三年级知识点预习</h2>
+        <p class="preview3-sub">升三年级前，先了解新课内容 · 点击 🔊 可听讲解</p>
+      </div>
+      <div class="mode-tabs preview3-tabs" id="preview3-tabs"></div>
+      <div class="quiz-header">
+        <span id="preview3-progress" class="progress-text">1 / 3</span>
+      </div>
+      <div class="preview3-card">
+        <div id="preview3-icon" class="preview3-icon">🔢</div>
+        <h3 id="preview3-point-title" class="preview3-point-title">万以内加减</h3>
+        <p id="preview3-point-author" class="preview3-point-author hidden"></p>
+        <p id="preview3-point-content" class="preview3-point-content"></p>
+        <p id="preview3-point-example" class="preview3-point-example"></p>
+        <button id="preview3-speak" class="speak-btn">🔊 听讲解</button>
+      </div>
+      <div class="flash-nav">
+        <button id="preview3-prev" class="nav-btn" type="button">← 上一个</button>
+        <button id="preview3-next" class="nav-btn nav-btn-primary" type="button">下一个 →</button>
+      </div>
+    </div>
+
+    <!-- 结果 -->
+    <div id="result-screen" class="screen">
+      <button class="back-btn">← 返回首页</button>
+      <div class="result-card">
+        <h2 id="result-title">练习完成！</h2>
+        <p id="result-score" class="result-score"></p>
+        <p id="result-msg" class="result-msg"></p>
+        <button id="result-retry" class="next-btn">再练一次</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../app/js/android-back.js"></script>
+  <script src="../../app/js/learning-log.js"></script>
+  <script src="../../app/js/session-log.js"></script>
+  <script src="js/native-app.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/data/math.js"></script>
+  <script src="js/data/ten-methods.js"></script>
+  <script src="js/ten-visual.js"></script>
+  <script src="js/data/grade3-preview.js"></script>
+  <script src="js/data/clock-money.js"></script>
+  <script src="js/clock-visual.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) {
+      navigator.serviceWorker.register('../../sw.js', { scope: '/' });
+    }
+  </script>
+</body>
+</html>

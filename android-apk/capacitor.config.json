@@ -1,0 +1,12 @@
+{
+  "appId": "com.summerreview.practice",
+  "appName": "暑假复习",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#edf2f7",
+    "allowMixedContent": true
+  }
+}

@@ -1,0 +1,31 @@
+<view class="wrap">
+  <view class="header">
+    <text class="h1">📚 一二年级暑假语文复习</text>
+    <text class="sub">拼音 · 识字 · 读题 — 点击 🔊 可听读音</text>
+  </view>
+
+  <view class="module-grid">
+    <view
+      wx:for="{{modules}}"
+      wx:key="id"
+      class="module-card"
+      data-module="{{item.id}}"
+      bindtap="onModuleTap"
+    >
+      <view class="icon">{{item.icon}}</view>
+      <view class="card-title">{{item.title}}</view>
+      <view class="card-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="section-divider">📗 三年级知识点预习</view>
+  <view class="module-grid module-grid-g3">
+    <view class="module-card module-card-g3" data-module="preview3" bindtap="onModuleTap">
+      <view class="icon">🎒</view>
+      <view class="card-title">升三年级预习</view>
+      <view class="card-desc">识字 · 词语 · 句子 · 阅读 · 习作</view>
+    </view>
+  </view>
+
+  <view class="footer">已内置标准 MP3 读音 · 建议每天练习 15～20 分钟</view>
+</view>

@@ -1,0 +1,295 @@
+/* 互动拼音表 - 专用样式 */
+
+.pinyin-chart-page {
+  max-width: 960px;
+}
+
+.chart-header {
+  text-align: center;
+  padding: 20px 0 12px;
+}
+
+.chart-header h1 {
+  font-size: 30px;
+  color: #2c5282;
+  margin-bottom: 8px;
+}
+
+.chart-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.chart-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(135deg, #e8f4fd 0%, #fff5e6 100%);
+  padding: 10px 0;
+}
+
+.chart-nav a {
+  padding: 8px 16px;
+  background: #fff;
+  border: 2px solid #bee3f8;
+  border-radius: 999px;
+  color: #2b6cb0;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.chart-nav a:hover {
+  background: #ebf8ff;
+}
+
+.home-link {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #4299e1;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+.chart-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.chart-section h2 {
+  font-size: 22px;
+  color: #2d3748;
+  margin-bottom: 6px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #bee3f8;
+}
+
+.chart-section .section-tip {
+  color: #718096;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.chart-subtitle {
+  font-size: 17px;
+  color: #4a5568;
+  margin: 16px 0 10px;
+  font-weight: bold;
+}
+
+/* 四声卡片 */
+.tone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.tone-card {
+  background: linear-gradient(145deg, #ebf8ff, #fff);
+  border: 2px solid #bee3f8;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tone-card:hover,
+.tone-card.playing {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(66, 153, 225, 0.25);
+  border-color: #4299e1;
+}
+
+.tone-card .tone-name {
+  font-size: 14px;
+  color: #718096;
+}
+
+.tone-card .tone-symbol {
+  font-size: 36px;
+  color: #e53e3e;
+  margin: 4px 0;
+}
+
+.tone-card .tone-char {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.tone-card .tone-py {
+  font-size: 22px;
+  color: #4299e1;
+  margin-top: 4px;
+}
+
+/* 拼音格子 */
+.py-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px;
+}
+
+.py-cell {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.py-cell:hover,
+.py-cell.playing {
+  background: #ebf8ff;
+  border-color: #4299e1;
+  transform: scale(1.03);
+}
+
+.py-cell .py-letter {
+  font-size: 26px;
+  font-weight: bold;
+  color: #2b6cb0;
+  line-height: 1.2;
+}
+
+.py-cell .py-char {
+  font-size: 28px;
+  color: #2d3748;
+  margin: 4px 0;
+}
+
+.py-cell .py-example {
+  font-size: 13px;
+  color: #718096;
+}
+
+.py-cell .py-speak-icon {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.6;
+}
+
+.py-cell:hover .py-speak-icon {
+  opacity: 1;
+}
+
+/* 底部详情栏 */
+.detail-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 3px solid #4299e1;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  z-index: 20;
+}
+
+.detail-bar.empty {
+  display: none;
+}
+
+.detail-info {
+  text-align: center;
+}
+
+.detail-letter {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2b6cb0;
+}
+
+.detail-char {
+  font-size: 18px;
+  color: #4a5568;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.detail-actions button {
+  background: #fefcbf;
+  border: 2px solid #f6e05e;
+  color: #744210;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.detail-actions button:hover {
+  background: #faf089;
+}
+
+.detail-actions button.secondary {
+  background: #e6fffa;
+  border-color: #81e6d9;
+  color: #234e52;
+}
+
+.chart-footer-space {
+  height: 100px;
+}
+
+.rhyme-box {
+  background: #fffff0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  font-size: 16px;
+  color: #744210;
+  line-height: 1.8;
+}
+
+.audio-note {
+  font-size: 14px;
+  color: #718096;
+  margin-top: 6px;
+}
+
+.audio-note code {
+  background: #edf2f7;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+  .py-grid {
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  }
+
+  .py-cell .py-letter {
+    font-size: 22px;
+  }
+
+  .py-cell .py-char {
+    font-size: 24px;
+  }
+
+  .detail-bar {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,49 @@
+<view class="wrap">
+  <view class="card card-shu" data-module="calc" bindtap="goPractice">
+    <view class="card-icon">🧮</view>
+    <view class="card-title">口算练习</view>
+    <view class="card-desc">10/20/100 以内 · 乘除法</view>
+  </view>
+  <view class="card card-shu" data-module="match" bindtap="goPractice">
+    <view class="card-icon">🔗</view>
+    <view class="card-title">概念配对</view>
+    <view class="card-desc">符号和含义配对</view>
+  </view>
+  <view class="card card-shu" data-module="flashcard" bindtap="goPractice">
+    <view class="card-icon">📇</view>
+    <view class="card-title">概念卡片</view>
+    <view class="card-desc">翻卡片记概念</view>
+  </view>
+  <view class="card card-shu" data-module="read" bindtap="goPractice">
+    <view class="card-icon">📝</view>
+    <view class="card-title">读题训练</view>
+    <view class="card-desc">听懂应用题要求</view>
+  </view>
+  <view class="card card-shu" data-module="keywords" bindtap="goPractice">
+    <view class="card-icon">📋</view>
+    <view class="card-title">题目常用词</view>
+    <view class="card-desc">一共、还剩、比…多</view>
+  </view>
+  <view class="card card-shu" data-module="mult" bindtap="goPractice">
+    <view class="card-icon">✖️</view>
+    <view class="card-title">乘法口诀</view>
+    <view class="card-desc">九九表 · 点击听口诀 · 读全部</view>
+  </view>
+  <view class="card card-shu" data-module="ten" bindtap="goPractice">
+    <view class="card-icon">🔟</view>
+    <view class="card-title">凑十破十</view>
+    <view class="card-desc">凑十 · 破十 · 平十 · 借十</view>
+  </view>
+  <view class="card card-shu" data-module="clockmoney" bindtap="goPractice">
+    <view class="card-icon">🕐</view>
+    <view class="card-title">时钟与钱币</view>
+    <view class="card-desc">认钟表 · 元角分 · 选择题</view>
+  </view>
+
+  <view class="section-divider">📗 三年级知识点预习</view>
+  <view class="card card-g3" data-module="preview3" bindtap="goPractice">
+    <view class="card-icon">🎒</view>
+    <view class="card-title">升三年级预习</view>
+    <view class="card-desc">万以内计算 · 乘除法 · 周长 · 分数</view>
+  </view>
+</view>

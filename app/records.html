@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2c5282">
+  <title>学习记录 - 暑假复习</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f7fafc;
+      color: #2d3748;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+    }
+    .wrap { max-width: 560px; margin: 0 auto; }
+    .back { display: inline-block; margin-bottom: 12px; color: #2b6cb0; text-decoration: none; font-size: 15px; }
+    h1 { font-size: 22px; color: #2c5282; margin-bottom: 6px; }
+    .sub { color: #718096; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+    .filters {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .filter-row:last-child { margin-bottom: 0; }
+    .filter-row label { font-size: 13px; color: #718096; width: 100%; margin-bottom: 2px; }
+    .filters select, .filters input[type="date"], .filters input[type="search"] {
+      flex: 1;
+      min-width: 120px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .stat {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stat b { display: block; font-size: 22px; color: #2c5282; margin-bottom: 4px; }
+    .stat span { font-size: 13px; color: #718096; }
+    .module-stats {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.7;
+    }
+    .module-stats h3 { font-size: 14px; color: #2c5282; margin-bottom: 8px; }
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .toolbar button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      background: #edf2f7;
+      color: #4a5568;
+    }
+    .toolbar button.primary { background: #4299e1; color: #fff; }
+    .toolbar button.danger { background: #fed7d7; color: #c53030; }
+    .empty {
+      text-align: center;
+      padding: 48px 16px;
+      color: #a0aec0;
+      background: #fff;
+      border-radius: 14px;
+    }
+    .date-group { margin-bottom: 20px; }
+    .date-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+    .date-label { font-size: 15px; font-weight: 600; color: #2c5282; }
+    .date-stat { font-size: 13px; color: #718096; }
+    .record {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 4px solid #bee3f8;
+    }
+    .record.math { border-left-color: #9ae6b4; }
+    .record.recite { border-left-color: #d6bcfa; }
+    .record-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+    .record-title { font-size: 16px; font-weight: 600; flex: 1; }
+    .record-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .badge {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      background: #c6f6d5;
+      color: #276749;
+    }
+    .badge.recite { background: #e9d8fd; color: #553c9a; }
+    .btn-delete {
+      border: none;
+      background: #fff5f5;
+      color: #c53030;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .meta { font-size: 13px; color: #718096; line-height: 1.7; }
+    .meta strong { color: #4a5568; font-weight: 600; }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal.hidden { display: none; }
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .modal-box h3 { font-size: 18px; color: #2c5282; margin-bottom: 12px; }
+    .modal-box input {
+      width: 100%;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-actions button {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #pwd-cancel { background: #edf2f7; color: #4a5568; }
+    #pwd-ok { background: #4299e1; color: #fff; }
+    .pwd-error { color: #c53030; font-size: 13px; text-align: center; margin-top: 8px; }
+    .pwd-error.hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← 返回首页</a>
+    <h1>📋 学习记录</h1>
+    <p class="sub">练习需<strong>完成且超过 1 分钟</strong>才记录；<strong>背诵评分</strong>即时记录。可按科目、类型筛选，并导出学习报告。</p>
+
+    <div class="filters">
+      <div class="filter-row">
+        <label>科目</label>
+        <select id="filter-subject">
+          <option value="全部">全部科目</option>
+          <option value="语文">语文</option>
+          <option value="数学">数学</option>
+        </select>
+        <select id="filter-type">
+          <option value="全部">全部类型</option>
+          <option value="学习">学习</option>
+          <option value="背诵">背诵</option>
+        </select>
+      </div>
+      <div class="filter-row">
+        <label>模块</label>
+        <select id="filter-module"><option value="全部">全部模块</option></select>
+      </div>
+      <div class="filter-row">
+        <label>关键词（如：预习、古诗、课文）</label>
+        <input type="search" id="filter-keyword" placeholder="搜索模块、内容、结果…">
+      </div>
+      <div class="filter-row">
+        <label>日期范围</label>
+        <input type="date" id="filter-from">
+        <input type="date" id="filter-to">
+      </div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+    <div class="module-stats hidden" id="module-stats"></div>
+    <div class="toolbar">
+      <button type="button" id="btn-refresh">查询</button>
+      <button type="button" id="btn-export" class="primary">导出报告</button>
+      <button type="button" id="btn-clear" class="danger">清空记录</button>
+    </div>
+    <div id="list"></div>
+  </div>
+
+  <div id="pwd-modal" class="modal hidden">
+    <div class="modal-box">
+      <h3>请输入密码</h3>
+      <p style="font-size:14px;color:#718096;margin-bottom:12px;">清空全部记录需要家长密码</p>
+      <input type="password" id="pwd-input" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="6 位密码">
+      <div class="modal-actions">
+        <button type="button" id="pwd-cancel">取消</button>
+        <button type="button" id="pwd-ok">确定</button>
+      </div>
+      <p id="pwd-error" class="pwd-error hidden">密码错误，请重试</p>
+    </div>
+  </div>
+
+  <script src="js/learning-log.js"></script>
+  <script src="js/android-back.js"></script>
+  <script>
+    if (window.AppBackNav) {
+      window.AppBackNav.onBack(function () {
+        window.location.href = 'index.html';
+        return true;
+      });
+    }
+  </script>
+  <script>
+    (function () {
+      var Log = window.LearningLog;
+      var CLEAR_PASSWORD = '666666';
+      var pwdModal = document.getElementById('pwd-modal');
+      var pwdInput = document.getElementById('pwd-input');
+      var pwdError = document.getElementById('pwd-error');
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function getFilters() {
+        return {
+          subject: document.getElementById('filter-subject').value,
+          activityType: document.getElementById('filter-type').value,
+          module: document.getElementById('filter-module').value,
+          keyword: document.getElementById('filter-keyword').value,
+          dateFrom: document.getElementById('filter-from').value,
+          dateTo: document.getElementById('filter-to').value
+        };
+      }
+
+      function refreshModuleOptions() {
+        var sel = document.getElementById('filter-module');
+        var current = sel.value;
+        var opts = Log.getModuleOptions();
+        sel.innerHTML = '<option value="全部">全部模块</option>' +
+          opts.map(function (o) {
+            return '<option value="' + escapeHtml(o.id) + '">' + escapeHtml(o.name) + '</option>';
+          }).join('');
+        if (current) sel.value = current;
+      }
+
+      function renderRecord(r) {
+        var cls = 'record';
+        if (r.subject === '数学') cls += ' math';
+        if (r.activityType === '背诵') cls += ' recite';
+        var title = r.moduleName + (r.subName ? ' · ' + r.subName : '');
+        var progress = r.total ? (r.progress + ' / ' + r.total) : '—';
+        var badgeCls = r.activityType === '背诵' ? 'badge recite' : 'badge';
+        var badgeText = r.activityType === '背诵' ? '背诵' : '完成';
+        return '<div class="' + cls + '" data-id="' + escapeHtml(r.id) + '">' +
+          '<div class="record-head">' +
+            '<div class="record-title">' + escapeHtml(r.subject) + ' · ' + escapeHtml(title) + '</div>' +
+            '<div class="record-actions">' +
+              '<span class="' + badgeCls + '">' + badgeText + '</span>' +
+              '<button type="button" class="btn-delete" data-delete="' + escapeHtml(r.id) + '">删除</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="meta">' +
+            '<div><strong>时间：</strong>' + Log.formatDateTime(r.startTime) +
+            (r.durationSec ? '（' + Log.formatDuration(r.durationSec) + '）' : '') + '</div>' +
+            (r.activityType !== '背诵' ?
+              '<div><strong>进度：</strong>' + progress + '</div>' : '') +
+            '<div><strong>结果：</strong>' + escapeHtml(r.result || '—') +
+            (r.percent ? '（' + r.percent + '%）' : '') + '</div>' +
+          '</div></div>';
+      }
+
+      function render() {
+        refreshModuleOptions();
+        var filters = getFilters();
+        var records = Log.filterRecords(null, filters);
+        var analytics = Log.getAnalytics(records);
+
+        document.getElementById('stats').innerHTML =
+          '<div class="stat"><b>' + analytics.total + '</b><span>记录条数</span></div>' +
+          '<div class="stat"><b>' + Log.formatDuration(analytics.durationSec) + '</b><span>累计时长</span></div>' +
+          '<div class="stat"><b>' + analytics.subjects['语文'] + '</b><span>语文</span></div>' +
+          '<div class="stat"><b>' + analytics.subjects['数学'] + '</b><span>数学</span></div>' +
+          '<div class="stat"><b>' + (analytics.activityTypes['学习'] || 0) + '</b><span>学习</span></div>' +
+          '<div class="stat"><b>' + (analytics.activityTypes['背诵'] || 0) + '</b><span>背诵</span></div>';
+
+        var modEl = document.getElementById('module-stats');
+        var modNames = Object.keys(analytics.modules).sort(function (a, b) {
+          return analytics.modules[b].count - analytics.modules[a].count;
+        });
+        if (modNames.length) {
+          modEl.classList.remove('hidden');
+          modEl.innerHTML = '<h3>模块统计</h3>' + modNames.map(function (name) {
+            var m = analytics.modules[name];
+            return escapeHtml(name) + '：' + m.count + ' 次 · ' + Log.formatDuration(m.durationSec);
+          }).join('<br>');
+        } else {
+          modEl.classList.add('hidden');
+        }
+
+        var list = document.getElementById('list');
+        if (!records.length) {
+          list.innerHTML = '<div class="empty">没有符合条件的记录<br>试试调整筛选条件</div>';
+          return;
+        }
+
+        var groups = Log.groupByDate(records);
+        list.innerHTML = groups.map(function (g) {
+          var statText = g.total + ' 次 · ' + Log.formatDuration(g.durationSec) +
+            ' · 语文 ' + g.subjects['语文'] + ' · 数学 ' + g.subjects['数学'];
+          return '<section class="date-group">' +
+            '<div class="date-head">' +
+              '<div class="date-label">' + escapeHtml(g.dateLabel) + '</div>' +
+              '<div class="date-stat">' + statText + '</div>' +
+            '</div>' +
+            g.records.map(renderRecord).join('') +
+          '</section>';
+        }).join('');
+
+        list.querySelectorAll('[data-delete]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-delete');
+            if (confirm('确定删除这条学习记录吗？')) {
+              Log.deleteRecord(id);
+              render();
+            }
+          });
+        });
+      }
+
+      function hidePwdModal() {
+        pwdModal.classList.add('hidden');
+        pwdInput.value = '';
+        pwdError.classList.add('hidden');
+      }
+
+      function showPwdModal() {
+        pwdModal.classList.remove('hidden');
+        pwdError.classList.add('hidden');
+        pwdInput.value = '';
+        pwdInput.focus();
+      }
+
+      document.getElementById('btn-refresh').addEventListener('click', render);
+      document.getElementById('btn-export').addEventListener('click', function () {
+        var text = Log.exportReport(null, getFilters());
+        Log.downloadReport(text);
+      });
+      document.getElementById('btn-clear').addEventListener('click', showPwdModal);
+      document.getElementById('pwd-cancel').addEventListener('click', hidePwdModal);
+      pwdModal.addEventListener('click', function (e) {
+        if (e.target === pwdModal) hidePwdModal();
+      });
+      document.getElementById('pwd-ok').addEventListener('click', function () {
+        if (pwdInput.value === CLEAR_PASSWORD) {
+          hidePwdModal();
+          if (confirm('密码正确。确定清空全部学习记录吗？此操作不可恢复。')) {
+            Log.clearAll();
+            render();
+          }
+        } else {
+          pwdError.classList.remove('hidden');
+          pwdInput.select();
+        }
+      });
+      pwdInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') document.getElementById('pwd-ok').click();
+      });
+
+      ['filter-subject', 'filter-type', 'filter-module', 'filter-from', 'filter-to'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', render);
+      });
+      document.getElementById('filter-keyword').addEventListener('input', function () {
+        clearTimeout(window._kwTimer);
+        window._kwTimer = setTimeout(render, 300);
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

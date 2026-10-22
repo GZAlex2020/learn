@@ -1,0 +1,399 @@
+<view class="page">
+  <!-- 首页 -->
+  <view wx:if="{{screen === 'home'}}" class="home">
+    <view class="home-header">
+      <text class="home-title">🔢 一二年级暑假数学复习</text>
+      <text class="home-desc">口算 · 概念 · 读题 · 乘法口诀 · 凑十法 — 点击 🔊 可听</text>
+    </view>
+    <view class="module-grid">
+      <view class="module-card" data-module="calc" bindtap="onModuleTap">
+        <text class="module-icon">🧮</text>
+        <text class="module-name">口算练习</text>
+        <text class="module-hint">10/20/100 以内 · 乘除法</text>
+      </view>
+      <view class="module-card" data-module="match" bindtap="onModuleTap">
+        <text class="module-icon">🔗</text>
+        <text class="module-name">概念配对</text>
+        <text class="module-hint">符号和含义配对</text>
+      </view>
+      <view class="module-card" data-module="flashcard" bindtap="onModuleTap">
+        <text class="module-icon">📇</text>
+        <text class="module-name">概念卡片</text>
+        <text class="module-hint">翻卡片记概念</text>
+      </view>
+      <view class="module-card" data-module="read" bindtap="onModuleTap">
+        <text class="module-icon">📝</text>
+        <text class="module-name">读题训练</text>
+        <text class="module-hint">听懂应用题要求</text>
+      </view>
+      <view class="module-card" data-module="keywords" bindtap="onModuleTap">
+        <text class="module-icon">📋</text>
+        <text class="module-name">题目常用词</text>
+        <text class="module-hint">一共、还剩、比…多</text>
+      </view>
+      <view class="module-card" data-module="mult" bindtap="onModuleTap">
+        <text class="module-icon">✖️</text>
+        <text class="module-name">乘法口诀</text>
+        <text class="module-hint">九九表 · 点击听口诀</text>
+      </view>
+      <view class="module-card" data-module="ten" bindtap="onModuleTap">
+        <text class="module-icon">🔟</text>
+        <text class="module-name">凑十破十</text>
+        <text class="module-hint">凑十 · 破十 · 平十 · 借十</text>
+      </view>
+      <view class="module-card" data-module="clockmoney" bindtap="onModuleTap">
+        <text class="module-icon">🕐</text>
+        <text class="module-name">时钟与钱币</text>
+        <text class="module-hint">认钟表 · 元角分 · 选择题</text>
+      </view>
+    </view>
+    <text class="home-footer">建议每天练习 15～20 分钟</text>
+  </view>
+
+  <!-- 口算练习 -->
+  <view wx:if="{{screen === 'calc'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <scroll-view scroll-x class="tabs">
+      <view wx:for="{{calcModes}}" wx:key="id"
+        class="tab {{calcMode === item.id ? 'active' : ''}}"
+        data-mode="{{item.id}}" bindtap="onCalcTab">{{item.short}}</view>
+    </scroll-view>
+    <view class="quiz-header">
+      <text class="progress-text">第 {{calcIndex + 1}} / {{calcTotal}} 题</text>
+      <text class="score-text">得分：{{calcScore}}</text>
+    </view>
+    <view class="card quiz-card">
+      <text class="label">{{calcModeLabel}}</text>
+      <text class="expr">{{calcExpr}} = ?</text>
+      <view class="options">
+        <view wx:for="{{calcOptions}}" wx:key="*this"
+          class="opt {{calcAnswered && item === calcCorrect ? 'correct' : ''}} {{calcAnswered && item === calcWrong ? 'wrong' : ''}}"
+          data-val="{{item}}" bindtap="onCalcOption">{{item}}</view>
+      </view>
+      <text wx:if="{{calcFeedback}}" class="feedback {{calcFeedbackType}}">{{calcFeedback}}</text>
+      <button wx:if="{{calcAnswered}}" class="next-btn" bindtap="onCalcNext">下一题 →</button>
+    </view>
+  </view>
+
+  <!-- 概念配对 -->
+  <view wx:if="{{screen === 'match'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <text class="label center">点击左边符号，再点右边含义，配成一对</text>
+    <text class="match-score">已配对：{{matchCount}} / {{conceptTotal}}</text>
+    <view class="match-grid">
+      <view class="match-col">
+        <text class="col-title">符号</text>
+        <view wx:for="{{matchLeft}}" wx:key="idx" wx:if="{{!item.hidden}}"
+          class="match-item {{matchSelected === item.idx ? 'selected' : ''}}"
+          data-idx="{{item.idx}}" bindtap="onMatchLeft">{{item.emoji}} {{item.symbol}}</view>
+      </view>
+      <view class="match-col">
+        <text class="col-title">含义</text>
+        <view wx:for="{{matchRight}}" wx:for-index="ri" wx:key="idx" wx:if="{{!item.matched}}"
+          class="match-item {{item.wrong ? 'wrong-flash' : ''}}"
+          data-rindex="{{ri}}" bindtap="onMatchRight">{{item.text}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 概念卡片 -->
+  <view wx:if="{{screen === 'flashcard'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <text class="progress-text center">第 {{flashIndex + 1}} / {{flashTotal}} 张</text>
+    <view class="flashcard">
+      <text class="flash-emoji">{{flashEmoji}}</text>
+      <text class="flash-symbol {{flashSymbolLong ? 'long' : ''}}">{{flashSymbol}}</text>
+      <text class="flash-name">{{flashName}}</text>
+      <text class="flash-example">例：{{flashExample}}</text>
+      <button class="speak-btn" size="mini" bindtap="onFlashSpeak">🔊 听概念</button>
+    </view>
+    <view class="nav-row">
+      <button class="nav-btn" bindtap="onFlashPrev">← 上一张</button>
+      <button class="nav-btn primary" bindtap="onFlashNext">下一张 →</button>
+    </view>
+  </view>
+
+  <!-- 读题训练 -->
+  <view wx:if="{{screen === 'read'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <text class="progress-text center">第 {{readIndex + 1}} / {{readTotal}} 题</text>
+    <view class="card quiz-card">
+      <button class="speak-btn lg" bindtap="onReadSpeak">🔊 听题目</button>
+      <text class="read-text">{{readText}}</text>
+      <button wx:if="{{!readRevealed}}" class="read-done" bindtap="onReadDone">我读完了，看要求</button>
+      <view wx:if="{{readRevealed}}" class="read-answer">
+        <text class="read-line"><text class="strong">关键词：</text>{{readKeyword}}</text>
+        <text class="read-line"><text class="strong">孩子应说：</text>{{readTask}}</text>
+        <text class="read-line"><text class="strong">参考：</text>{{readExample}}</text>
+      </view>
+      <button wx:if="{{readRevealed}}" class="next-btn" bindtap="onReadNext">下一题 →</button>
+    </view>
+  </view>
+
+  <!-- 题目常用词 -->
+  <view wx:if="{{screen === 'keywords'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <view class="card quiz-card">
+      <text class="kw-word">{{kwWord}}</text>
+      <text class="kw-meaning">{{kwMeaning}}</text>
+      <text class="kw-formula">列式提示：{{kwFormula}}</text>
+      <button class="speak-btn" size="mini" bindtap="onKwSpeak">🔊 听词语</button>
+      <view class="nav-row kw-nav">
+        <button class="nav-btn" bindtap="onKwPrev">← 上一个</button>
+        <text class="nav-progress">{{kwIndex + 1}} / {{kwTotal}}</text>
+        <button class="nav-btn primary" bindtap="onKwNext">下一个 →</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 乘法口诀 -->
+  <view wx:if="{{screen === 'mult'}}" class="screen mult-screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <view class="card mult-chart-wrap">
+      <view class="mult-chart-head">
+        <view class="mult-chart-title">九九乘法口诀表</view>
+        <text class="label mult-chart-hint">点格子听口诀 · 一行一行记</text>
+      </view>
+      <view class="mult-chart">
+        <view wx:for="{{multRows}}" wx:for-index="ri" wx:key="ri" class="mult-chart-row mult-row-{{ri + 1}}">
+          <view wx:for="{{item}}" wx:for-index="ci" wx:key="b"
+            class="mult-cell {{multSelected.a === item.a && multSelected.b === item.b ? 'active' : ''}}"
+            data-row="{{ri}}" data-index="{{ci}}" bindtap="onMultCell">
+            <view class="mult-formula-stack">
+              <view class="m-line m-line-eq">
+                <text class="m-b">{{item.b}}</text>
+                <text class="m-op">×</text>
+                <text class="m-a">{{item.a}}</text>
+                <text class="m-op">=</text>
+              </view>
+              <view class="m-line m-line-p">
+                <text class="m-p">{{item.product}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="mult-detail">
+      <text class="formula-lg">{{multSelected.b}} × {{multSelected.a}} = {{multSelected.product}}</text>
+      <text class="rhyme-lg">{{multSelected.rhyme}}</text>
+      <view class="btns">
+        <button class="btn btn-primary" size="mini" bindtap="onMultSpeakOne">🔊 听口诀</button>
+        <button class="btn" size="mini" bindtap="onMultSpeakRow">🔊 听整行</button>
+        <button class="btn" size="mini" bindtap="onMultSpeakAll">🔊 读全部</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 凑十破十 -->
+  <view wx:if="{{screen === 'ten'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <scroll-view scroll-x class="tabs ten-tabs">
+      <view wx:for="{{tenTabs}}" wx:key="id"
+        class="tab {{tenMethodId === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}" bindtap="onTenTab">{{item.name}}</view>
+    </scroll-view>
+    <view class="card ten-card">
+      <view class="ten-head">
+        <text class="ten-icon">{{tenIcon}}</text>
+        <view>
+          <text class="ten-name">{{tenName}}</text>
+          <text class="ten-tag">{{tenTag}}</text>
+        </view>
+      </view>
+      <text class="ten-summary">{{tenSummary}}</text>
+      <text class="ten-rhyme">{{tenRhyme}}</text>
+      <view class="ten-steps">
+        <text wx:for="{{tenSteps}}" wx:key="*this" class="ten-step-item">{{index + 1}}. {{item}}</text>
+      </view>
+      <view class="ten-example-box">
+        <text class="ten-example-label">例题演示</text>
+        <view class="ten-diagram" wx:if="{{tenVisual.type !== 'none'}}">
+          <view class="ten-d-eq">{{tenVisual.eq}}</view>
+          <view wx:if="{{tenVisual.showSplit}}" class="ten-d-split">
+            <text class="ten-d-split-num">{{tenVisual.splitNum}}</text>
+            <text class="ten-d-caret">∧</text>
+            <view class="ten-d-parts">
+              <text>{{tenVisual.splitA}}</text>
+              <text>{{tenVisual.splitB}}</text>
+            </view>
+          </view>
+          <view wx:if="{{tenVisual.showWhole}}" class="ten-d-split-whole">
+            <text class="ten-d-whole">{{tenVisual.whole}}</text>
+            <text class="ten-d-eq2">→</text>
+            <text class="ten-d-part">{{tenVisual.part10}}</text>
+            <text class="ten-d-part">{{tenVisual.partOnes}}</text>
+          </view>
+          <view wx:if="{{tenVisual.showBigBorrow}}">
+            <text class="ten-d-borrow-note">{{tenVisual.borrowNote}}</text>
+            <view class="ten-d-split-whole">
+              <text class="ten-d-whole">{{tenVisual.whole}}</text>
+              <text class="ten-d-eq2">→</text>
+              <text class="ten-d-part">{{tenVisual.newTens}} 个十</text>
+              <text class="ten-d-part">{{tenVisual.newOnes}} 个一</text>
+            </view>
+          </view>
+          <view class="ten-d-flow">
+            <view class="ten-d-step ten-d-step-hi">
+              <view class="ten-d-step-nums">
+                <text>{{tenVisual.s1a}}</text>
+                <text class="ten-d-opbox">{{tenVisual.s1op}}</text>
+                <text>{{tenVisual.s1b}}</text>
+              </view>
+              <text class="ten-d-arrow">↓</text>
+              <text class="ten-d-result">{{tenVisual.s1r}}</text>
+            </view>
+            <view class="ten-d-step">
+              <view class="ten-d-step-nums">
+                <text>{{tenVisual.s2a}}</text>
+                <text class="ten-d-opbox">{{tenVisual.s2op}}</text>
+                <text>{{tenVisual.s2b}}</text>
+              </view>
+              <text class="ten-d-arrow">↓</text>
+              <text class="ten-d-result">{{tenVisual.s2r}}</text>
+            </view>
+          </view>
+        </view>
+        <text class="ten-answer">{{tenAnswer}}</text>
+      </view>
+      <view class="ten-action-btns">
+        <button class="btn btn-primary" bindtap="onTenSpeak">🔊 听讲解</button>
+        <button class="btn btn-practice" bindtap="onTenPracticeStart">✏️ 开始练习</button>
+      </view>
+      <view class="nav-row ten-nav">
+        <button class="nav-btn ten-nav-btn" size="mini" bindtap="onTenExPrev">← 上一例</button>
+        <text class="nav-progress">{{tenExProgress}}</text>
+        <button class="nav-btn nav-primary ten-nav-btn" size="mini" bindtap="onTenExNext">下一例 →</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 凑十破十 · 练习 -->
+  <view wx:if="{{screen === 'tenPractice'}}" class="screen">
+    <view class="back" bindtap="onTenPracticeBack">← 返回讲解</view>
+    <view class="quiz-header">
+      <text class="progress-text">第 {{tenPracticeIndex + 1}} / {{tenPracticeTotal}} 题</text>
+      <text class="score-text">得分：{{tenPracticeScore}}</text>
+    </view>
+    <view class="card quiz-card">
+      <text class="label">{{tenPracticeLabel}}</text>
+      <text class="expr">{{tenPracticeExpr}} = ?</text>
+      <view class="options">
+        <view wx:for="{{tenPracticeOptions}}" wx:key="*this"
+          class="opt {{tenPracticeAnswered && item === tenPracticeCorrect ? 'correct' : ''}} {{tenPracticeAnswered && item === tenPracticeWrong ? 'wrong' : ''}}"
+          data-val="{{item}}" bindtap="onTenPracticeOption">{{item}}</view>
+      </view>
+      <text wx:if="{{tenPracticeFeedback}}" class="feedback {{tenPracticeFeedbackType}}">{{tenPracticeFeedback}}</text>
+      <button wx:if="{{tenPracticeAnswered}}" class="next-btn" bindtap="onTenPracticeNext">下一题 →</button>
+    </view>
+  </view>
+
+  <!-- 时钟与钱币 -->
+  <view wx:if="{{screen === 'clockmoney'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <view class="tabs cm-tabs">
+      <view wx:for="{{cmTabs}}" wx:key="id"
+        class="tab {{cmTopic === item.id ? 'active' : ''}}"
+        data-cm="{{item.id}}" bindtap="onCmTab">{{item.name}}</view>
+    </view>
+    <view class="quiz-header">
+      <text class="progress-text">{{cmProgress}}</text>
+    </view>
+    <view class="card preview3-card cm-card">
+      <view class="preview3-icon">{{cmIcon}}</view>
+      <view class="preview3-point-title">{{cmTitle}}</view>
+      <view class="preview3-point-content">{{cmContent}}</view>
+      <view class="preview3-point-example">{{cmExample}}</view>
+      <button class="btn btn-primary" size="mini" bindtap="onCmSpeak">🔊 听讲解</button>
+    </view>
+    <view class="ten-action-btns">
+      <button class="btn btn-practice" size="mini" bindtap="onCmPracticeStart">✏️ 开始练习</button>
+    </view>
+    <view class="nav-row ten-nav">
+      <button class="nav-btn ten-nav-btn" size="mini" bindtap="onCmPrev">← 上一个</button>
+      <button class="nav-btn nav-primary ten-nav-btn" size="mini" bindtap="onCmNext">下一个 →</button>
+    </view>
+  </view>
+
+  <!-- 时钟与钱币 · 练习 -->
+  <view wx:if="{{screen === 'cmPractice'}}" class="screen">
+    <view class="back" bindtap="onCmPracticeBack">← 返回讲解</view>
+    <view class="quiz-header">
+      <text class="progress-text">第 {{cmPracticeIndex + 1}} / {{cmPracticeTotal}} 题</text>
+      <text class="score-text">得分：{{cmPracticeScore}}</text>
+    </view>
+    <view class="card quiz-card">
+      <text class="label">{{cmPracticeLabel}}</text>
+      <view wx:if="{{cmPracticeShowClock}}" class="clock-practice-visual">
+        <view class="clock-dial">
+          <text class="clock-num clock-n12">12</text>
+          <text class="clock-num clock-n1">1</text>
+          <text class="clock-num clock-n2">2</text>
+          <text class="clock-num clock-n3">3</text>
+          <text class="clock-num clock-n4">4</text>
+          <text class="clock-num clock-n5">5</text>
+          <text class="clock-num clock-n6">6</text>
+          <text class="clock-num clock-n7">7</text>
+          <text class="clock-num clock-n8">8</text>
+          <text class="clock-num clock-n9">9</text>
+          <text class="clock-num clock-n10">10</text>
+          <text class="clock-num clock-n11">11</text>
+          <view class="clock-hand-wrap minute" style="transform: rotate({{cmClockMinuteDeg}}deg);">
+            <view class="clock-hand minute-hand"></view>
+          </view>
+          <view class="clock-hand-wrap hour" style="transform: rotate({{cmClockHourDeg}}deg);">
+            <view class="clock-hand hour-hand"></view>
+          </view>
+          <view class="clock-center-dot"></view>
+        </view>
+      </view>
+      <text class="cm-prompt">{{cmPracticePrompt}}</text>
+      <view class="options">
+        <view wx:for="{{cmPracticeOptions}}" wx:key="*this"
+          class="opt {{cmPracticeAnswered && item === cmPracticeCorrect ? 'correct' : ''}} {{cmPracticeAnswered && item === cmPracticeWrong ? 'wrong' : ''}}"
+          data-val="{{item}}" bindtap="onCmPracticeOption">{{item}}</view>
+      </view>
+      <text wx:if="{{cmPracticeFeedback}}" class="feedback {{cmPracticeFeedbackType}}">{{cmPracticeFeedback}}</text>
+      <button wx:if="{{cmPracticeAnswered}}" class="next-btn" bindtap="onCmPracticeNext">下一题 →</button>
+    </view>
+  </view>
+
+  <!-- 三年级预习 -->
+  <view wx:if="{{screen === 'preview3'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <view class="preview3-head">
+      <view class="preview3-title">📗 三年级知识点预习</view>
+      <view class="preview3-sub">升三年级前，先了解新课内容</view>
+    </view>
+    <scroll-view scroll-x class="tabs preview3-tabs">
+      <view wx:for="{{preview3Tabs}}" wx:key="id"
+        class="tab {{preview3Cat === item.id ? 'active' : ''}}"
+        data-cat="{{item.id}}" bindtap="onPreview3Tab">{{item.name}}</view>
+    </scroll-view>
+    <view class="quiz-header">
+      <text class="progress-text">{{preview3Progress}}</text>
+    </view>
+    <view class="card preview3-card">
+      <view class="preview3-icon">{{preview3Icon}}</view>
+      <view class="preview3-point-title">{{preview3Title}}</view>
+      <view class="preview3-point-content">{{preview3Content}}</view>
+      <view class="preview3-point-example">{{preview3Example}}</view>
+      <button class="btn btn-primary" size="mini" bindtap="onPreview3Speak">🔊 听讲解</button>
+    </view>
+    <view class="nav-row">
+      <button class="nav-btn" size="mini" bindtap="onPreview3Prev">← 上一个</button>
+      <button class="nav-btn nav-primary" size="mini" bindtap="onPreview3Next">下一个 →</button>
+    </view>
+  </view>
+
+  <!-- 结果 -->
+  <view wx:if="{{screen === 'result'}}" class="screen">
+    <view class="back" bindtap="goHome">← 返回首页</view>
+    <view class="card result-card">
+      <text class="result-title">练习完成！</text>
+      <text class="result-score">{{resultScoreText}}</text>
+      <text class="result-msg">{{resultMsg}}</text>
+      <button class="next-btn" bindtap="onResultRetry">再练一次</button>
+    </view>
+  </view>
+</view>

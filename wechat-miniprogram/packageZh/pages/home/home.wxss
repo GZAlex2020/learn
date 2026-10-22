@@ -1,0 +1,39 @@
+.wrap {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #e8f4fd 0%, #fff5e6 100%);
+  box-sizing: border-box;
+}
+
+.header { text-align: center; padding: 32rpx 0; }
+.h1 { display: block; font-size: 40rpx; color: #2c5282; font-weight: bold; margin-bottom: 12rpx; }
+.sub { display: block; font-size: 26rpx; color: #666; }
+.footer { text-align: center; font-size: 24rpx; color: #888; margin-top: 32rpx; padding-bottom: 40rpx; }
+
+.module-grid { display: flex; flex-wrap: wrap; gap: 20rpx; }
+.module-card {
+  width: calc(50% - 10rpx);
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(44, 82, 130, 0.1);
+  box-sizing: border-box;
+}
+.module-card .icon { font-size: 48rpx; margin-bottom: 8rpx; }
+.module-card .card-title { font-size: 30rpx; color: #2c5282; font-weight: bold; margin-bottom: 6rpx; }
+.module-card .card-desc { font-size: 22rpx; color: #666; line-height: 1.4; }
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 36rpx 0 16rpx;
+  font-size: 28rpx;
+  color: #2c5282;
+  font-weight: 600;
+}
+.module-grid-g3 { width: 100%; }
+.module-card-g3 {
+  width: 100%;
+  border: 4rpx solid #faf089;
+  background: linear-gradient(135deg, #fffff0 0%, #fefcbf 100%);
+}

@@ -1,0 +1,19 @@
+{
+  "name": "summer-review-apk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "一二年级暑假复习 · Android APK",
+  "scripts": {
+    "sync": "node ../_sync_www.js",
+    "cap:sync": "npm run sync && npx cap sync android",
+    "build:debug": "cd android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/core": "^7.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.2.0"
+  }
+}
