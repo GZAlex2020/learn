@@ -98,7 +98,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v5';
+var CACHE_VERSION = 'summer-review-pages-v6';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -278,12 +278,12 @@ function writeRootIndex(file) {
       <a class="card card-yu" href="zh/index.html">
         <div class="card-icon">📖</div>
         <h2>语文练习</h2>
-        <p>一～三年级 · 拼音 · 识字 · 古诗 · 必背</p>
+        <p>拼音 · 识字 · 古诗 · 必背</p>
       </a>
       <a class="card card-shu" href="math/index.html">
         <div class="card-icon">🔢</div>
         <h2>数学练习</h2>
-        <p>一～三年级 · 口算 · 乘除 · 周长 · 预习</p>
+        <p>口算 · 乘除 · 周长 · 预习</p>
       </a>
       <a class="card card-log" href="app/records.html">
         <div class="card-icon">📋</div>
