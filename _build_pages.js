@@ -102,7 +102,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v12';
+var CACHE_VERSION = 'summer-review-pages-v13';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -146,6 +146,7 @@ var PRECACHE_REL = [
   'en/js/speech.js',
   'en/js/app.js',
   'en/js/data/english.js',
+  'en/js/data/textbook.js',
   'en/js/native-app.js'
 ];
 

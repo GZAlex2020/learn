@@ -6,16 +6,21 @@
   var QUIZ_TOTAL = 10;
   var Session = window.createSessionLogger ? window.createSessionLogger('英语') : null;
 
+  var TB = window.ENGLISH_TEXTBOOK;
   var MODULE_NAMES = {
     alphabet: '字母表',
     words: '单词认读',
     listen: '听音选词',
     numbers: '数字练习',
     colors: '颜色单词',
-    phrases: '日常用语',
+    phrases: '课本句型',
     words3: '三年级单词',
     listen3: '三年级听音',
-    phrases3: '句型练习'
+    phrases3: '课本句型',
+    units: '课本单元',
+    unitWords: '单元单词',
+    unitListen: '单元听音',
+    unitPhrases: '单元句型'
   };
 
   var state = {
@@ -25,7 +30,9 @@
     score: 0,
     answered: false,
     phraseList: DATA.PHRASES_G12,
-    retryFn: null
+    retryFn: null,
+    unitSet: 'g12',
+    currentUnit: null
   };
 
   function showScreen(id) {
@@ -82,7 +89,8 @@
   document.querySelectorAll('.module-card').forEach(function (card) {
     card.addEventListener('click', function () {
       var mod = card.dataset.module;
-      if (mod === 'alphabet') startAlphabet();
+      if (mod === 'units') startUnitMap(card.dataset.units || 'g12');
+      else if (mod === 'alphabet') startAlphabet();
       else if (mod === 'words') startQuiz('words', DATA.makeWordQuiz(DATA.WORDS_G12, QUIZ_TOTAL));
       else if (mod === 'listen') startQuiz('listen', DATA.makeListenQuiz(DATA.WORDS_G12, QUIZ_TOTAL), true);
       else if (mod === 'numbers') startQuiz('numbers', DATA.makeNumberQuiz(QUIZ_TOTAL));
@@ -96,13 +104,107 @@
 
   document.querySelectorAll('.back-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      if (btn.id === 'unit-back-map') return;
       if (Speech) Speech.stop();
       if (state.module && window.LearningLog && window.LearningLog.getCurrent && window.LearningLog.getCurrent()) {
-        window.LearningLog.finish({ abandoned: true });
+        try { window.LearningLog.finish({ abandoned: true }); } catch (e) { /* ignore */ }
       }
       state.module = '';
       showScreen('home');
     });
+  });
+
+  function startUnitMap(setId) {
+    state.unitSet = setId || 'g12';
+    state.module = 'units';
+    var units = state.unitSet === 'g3a' ? TB.UNITS_G3A : TB.UNITS_G12;
+    logStart('units', { subName: state.unitSet === 'g3a' ? '三年级上' : '一二年级', total: units.length });
+    document.getElementById('unit-map-label').textContent =
+      (TB.BOOK || '人教版 PEP') + ' · ' + (state.unitSet === 'g3a' ? '三年级上册' : '一二年级上册');
+    showScreen('unit-map-screen');
+    var grid = document.getElementById('unit-grid');
+    grid.innerHTML = '';
+    units.forEach(function (unit) {
+      var card = document.createElement('div');
+      card.className = 'module-card';
+      card.innerHTML =
+        '<div class="icon">📖</div>' +
+        '<h2>' + unit.title + '</h2>' +
+        '<p>' + unit.grade + ' · ' + unit.words.length + ' 词 · ' + unit.phrases.length + ' 句</p>';
+      card.addEventListener('click', function () { openUnit(unit.id); });
+      grid.appendChild(card);
+    });
+  }
+
+  function openUnit(unitId) {
+    var unit = TB.findUnit(unitId);
+    if (!unit) return;
+    state.currentUnit = unit;
+    state.module = 'units';
+    document.getElementById('unit-detail-title').textContent = unit.title;
+    document.getElementById('unit-detail-sub').textContent =
+      unit.grade + ' · 单词 ' + unit.words.length + ' · 句型 ' + unit.phrases.length;
+    renderUnitWords();
+    renderUnitPhrases();
+    showUnitTab('words');
+    showScreen('unit-detail-screen');
+  }
+
+  function renderUnitWords() {
+    var el = document.getElementById('unit-words');
+    el.innerHTML = '';
+    (state.currentUnit.words || []).forEach(function (item) {
+      var row = document.createElement('div');
+      row.className = 'phrase-item';
+      row.innerHTML = '<div class="en">' + item.en + '</div><div class="zh">' + item.zh + '</div>';
+      row.addEventListener('click', function () {
+        if (Speech) Speech.speak(item.speak || item.en, 0.9);
+      });
+      el.appendChild(row);
+    });
+  }
+
+  function renderUnitPhrases() {
+    var el = document.getElementById('unit-phrases');
+    el.innerHTML = '';
+    (state.currentUnit.phrases || []).forEach(function (item) {
+      var row = document.createElement('div');
+      row.className = 'phrase-item';
+      row.innerHTML = '<div class="en">' + item.en + '</div><div class="zh">' + item.zh + '</div>';
+      row.addEventListener('click', function () {
+        if (Speech) Speech.speak(item.speak || item.en, 0.9);
+      });
+      el.appendChild(row);
+    });
+  }
+
+  function showUnitTab(which) {
+    document.getElementById('unit-tab-words').classList.toggle('active', which === 'words');
+    document.getElementById('unit-tab-phrases').classList.toggle('active', which === 'phrases');
+    document.getElementById('unit-words').style.display = which === 'words' ? 'flex' : 'none';
+    document.getElementById('unit-phrases').style.display = which === 'phrases' ? 'flex' : 'none';
+  }
+
+  document.getElementById('unit-tab-words').addEventListener('click', function () { showUnitTab('words'); });
+  document.getElementById('unit-tab-phrases').addEventListener('click', function () { showUnitTab('phrases'); });
+  document.getElementById('unit-back-map').addEventListener('click', function () {
+    startUnitMap(state.unitSet);
+  });
+
+  document.getElementById('unit-quiz-words').addEventListener('click', function () {
+    if (!state.currentUnit) return;
+    var n = Math.min(QUIZ_TOTAL, state.currentUnit.words.length);
+    startQuiz('unitWords', DATA.makeWordQuiz(state.currentUnit.words, n));
+  });
+  document.getElementById('unit-quiz-listen').addEventListener('click', function () {
+    if (!state.currentUnit) return;
+    var n = Math.min(QUIZ_TOTAL, state.currentUnit.words.length);
+    startQuiz('unitListen', DATA.makeListenQuiz(state.currentUnit.words, n), true);
+  });
+  document.getElementById('unit-quiz-phrases').addEventListener('click', function () {
+    if (!state.currentUnit) return;
+    var n = Math.min(QUIZ_TOTAL, state.currentUnit.phrases.length);
+    startQuiz('unitPhrases', DATA.makePhraseQuiz(state.currentUnit.phrases, n));
   });
 
   function startAlphabet() {
@@ -154,6 +256,7 @@
     state.answered = false;
     state.retryFn = function () {
       var rebuild;
+      var unit = state.currentUnit;
       if (moduleId === 'words') rebuild = DATA.makeWordQuiz(DATA.WORDS_G12, QUIZ_TOTAL);
       else if (moduleId === 'listen') rebuild = DATA.makeListenQuiz(DATA.WORDS_G12, QUIZ_TOTAL);
       else if (moduleId === 'words3') rebuild = DATA.makeWordQuiz(DATA.WORDS_G3, QUIZ_TOTAL);
@@ -162,6 +265,9 @@
       else if (moduleId === 'colors') rebuild = DATA.makeColorQuiz(Math.min(QUIZ_TOTAL, DATA.COLORS.length));
       else if (moduleId === 'phrases') rebuild = DATA.makePhraseQuiz(DATA.PHRASES_G12, QUIZ_TOTAL);
       else if (moduleId === 'phrases3') rebuild = DATA.makePhraseQuiz(DATA.PHRASES_G3, QUIZ_TOTAL);
+      else if (moduleId === 'unitWords' && unit) rebuild = DATA.makeWordQuiz(unit.words, Math.min(QUIZ_TOTAL, unit.words.length));
+      else if (moduleId === 'unitListen' && unit) rebuild = DATA.makeListenQuiz(unit.words, Math.min(QUIZ_TOTAL, unit.words.length));
+      else if (moduleId === 'unitPhrases' && unit) rebuild = DATA.makePhraseQuiz(unit.phrases, Math.min(QUIZ_TOTAL, unit.phrases.length));
       else rebuild = questions;
       startQuiz(moduleId, rebuild, autoSpeak);
     };

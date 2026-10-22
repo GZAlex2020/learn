@@ -34,96 +34,12 @@ window.ENGLISH_DATA = (function () {
     { en: 'brown', zh: '棕色', emoji: '🟤' }
   ];
 
-  var WORDS_G12 = [
-    { en: 'apple', zh: '苹果', speak: 'apple' },
-    { en: 'banana', zh: '香蕉', speak: 'banana' },
-    { en: 'cat', zh: '猫', speak: 'cat' },
-    { en: 'dog', zh: '狗', speak: 'dog' },
-    { en: 'book', zh: '书', speak: 'book' },
-    { en: 'pen', zh: '钢笔', speak: 'pen' },
-    { en: 'bag', zh: '包', speak: 'bag' },
-    { en: 'school', zh: '学校', speak: 'school' },
-    { en: 'teacher', zh: '老师', speak: 'teacher' },
-    { en: 'friend', zh: '朋友', speak: 'friend' },
-    { en: 'mother', zh: '妈妈', speak: 'mother' },
-    { en: 'father', zh: '爸爸', speak: 'father' },
-    { en: 'water', zh: '水', speak: 'water' },
-    { en: 'milk', zh: '牛奶', speak: 'milk' },
-    { en: 'fish', zh: '鱼', speak: 'fish' },
-    { en: 'bird', zh: '鸟', speak: 'bird' },
-    { en: 'sun', zh: '太阳', speak: 'sun' },
-    { en: 'moon', zh: '月亮', speak: 'moon' },
-    { en: 'star', zh: '星星', speak: 'star' },
-    { en: 'tree', zh: '树', speak: 'tree' },
-    { en: 'flower', zh: '花', speak: 'flower' },
-    { en: 'ball', zh: '球', speak: 'ball' },
-    { en: 'car', zh: '汽车', speak: 'car' },
-    { en: 'bus', zh: '公共汽车', speak: 'bus' }
-  ];
-
-  var WORDS_G3 = [
-    { en: 'happy', zh: '高兴的', speak: 'happy' },
-    { en: 'hungry', zh: '饿的', speak: 'hungry' },
-    { en: 'thirsty', zh: '渴的', speak: 'thirsty' },
-    { en: 'tired', zh: '累的', speak: 'tired' },
-    { en: 'breakfast', zh: '早餐', speak: 'breakfast' },
-    { en: 'lunch', zh: '午餐', speak: 'lunch' },
-    { en: 'dinner', zh: '晚餐', speak: 'dinner' },
-    { en: 'hospital', zh: '医院', speak: 'hospital' },
-    { en: 'library', zh: '图书馆', speak: 'library' },
-    { en: 'cinema', zh: '电影院', speak: 'cinema' },
-    { en: 'supermarket', zh: '超市', speak: 'supermarket' },
-    { en: 'weekend', zh: '周末', speak: 'weekend' },
-    { en: 'Monday', zh: '星期一', speak: 'Monday' },
-    { en: 'Tuesday', zh: '星期二', speak: 'Tuesday' },
-    { en: 'Wednesday', zh: '星期三', speak: 'Wednesday' },
-    { en: 'Thursday', zh: '星期四', speak: 'Thursday' },
-    { en: 'Friday', zh: '星期五', speak: 'Friday' },
-    { en: 'Saturday', zh: '星期六', speak: 'Saturday' },
-    { en: 'Sunday', zh: '星期日', speak: 'Sunday' },
-    { en: 'weather', zh: '天气', speak: 'weather' },
-    { en: 'sunny', zh: '晴朗的', speak: 'sunny' },
-    { en: 'rainy', zh: '下雨的', speak: 'rainy' },
-    { en: 'cloudy', zh: '多云的', speak: 'cloudy' },
-    { en: 'windy', zh: '有风的', speak: 'windy' }
-  ];
-
-  var PHRASES_G12 = [
-    { en: 'Hello!', zh: '你好！', speak: 'Hello!' },
-    { en: 'Hi!', zh: '嗨！', speak: 'Hi!' },
-    { en: 'Good morning!', zh: '早上好！', speak: 'Good morning!' },
-    { en: 'Good afternoon!', zh: '下午好！', speak: 'Good afternoon!' },
-    { en: 'Good night!', zh: '晚安！', speak: 'Good night!' },
-    { en: 'Thank you!', zh: '谢谢你！', speak: 'Thank you!' },
-    { en: 'You are welcome.', zh: '不客气。', speak: 'You are welcome.' },
-    { en: 'Sorry.', zh: '对不起。', speak: 'Sorry.' },
-    { en: 'Excuse me.', zh: '打扰一下。', speak: 'Excuse me.' },
-    { en: 'How are you?', zh: '你好吗？', speak: 'How are you?' },
-    { en: 'I am fine.', zh: '我很好。', speak: 'I am fine.' },
-    { en: 'Nice to meet you.', zh: '很高兴见到你。', speak: 'Nice to meet you.' },
-    { en: 'See you!', zh: '再见！', speak: 'See you!' },
-    { en: 'Bye-bye!', zh: '拜拜！', speak: 'Bye-bye!' },
-    { en: 'What is your name?', zh: '你叫什么名字？', speak: 'What is your name?' },
-    { en: 'My name is Tom.', zh: '我叫汤姆。', speak: 'My name is Tom.' }
-  ];
-
-  var PHRASES_G3 = [
-    { en: 'How old are you?', zh: '你几岁了？', speak: 'How old are you?' },
-    { en: 'I am nine years old.', zh: '我九岁了。', speak: 'I am nine years old.' },
-    { en: 'Where are you from?', zh: '你来自哪里？', speak: 'Where are you from?' },
-    { en: 'I am from China.', zh: '我来自中国。', speak: 'I am from China.' },
-    { en: 'What do you like?', zh: '你喜欢什么？', speak: 'What do you like?' },
-    { en: 'I like apples.', zh: '我喜欢苹果。', speak: 'I like apples.' },
-    { en: 'Can I help you?', zh: '我能帮你吗？', speak: 'Can I help you?' },
-    { en: 'Yes, please.', zh: '好的，麻烦了。', speak: 'Yes, please.' },
-    { en: 'No, thank you.', zh: '不用了，谢谢。', speak: 'No, thank you.' },
-    { en: 'What time is it?', zh: '现在几点了？', speak: 'What time is it?' },
-    { en: 'It is sunny today.', zh: '今天天气晴朗。', speak: 'It is sunny today.' },
-    { en: 'Let us go to school.', zh: '我们去学校吧。', speak: 'Let us go to school.' },
-    { en: 'I have a new book.', zh: '我有一本新书。', speak: 'I have a new book.' },
-    { en: 'This is my friend.', zh: '这是我的朋友。', speak: 'This is my friend.' },
-    { en: 'Have a nice day!', zh: '祝你有美好的一天！', speak: 'Have a nice day!' }
-  ];
+  // 优先使用课本单元汇总；若 textbook.js 未加载则回退空数组由调用方处理
+  var TB = window.ENGLISH_TEXTBOOK;
+  var WORDS_G12 = TB ? TB.allWordsG12() : [];
+  var WORDS_G3 = TB ? TB.allWordsG3() : [];
+  var PHRASES_G12 = TB ? TB.allPhrasesG12() : [];
+  var PHRASES_G3 = TB ? TB.allPhrasesG3() : [];
 
   function shuffle(arr) {
     var a = arr.slice();

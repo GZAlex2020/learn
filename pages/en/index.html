@@ -27,6 +27,11 @@
 
       <div class="grade-panel" data-grade-panel="g12">
         <div class="module-grid">
+          <div class="module-card module-card-g3" data-module="units" data-units="g12">
+            <div class="icon">📘</div>
+            <h2>课本单元</h2>
+            <p>人教 PEP · 一二年级上</p>
+          </div>
           <div class="module-card" data-module="alphabet">
             <div class="icon">🔠</div>
             <h2>字母表</h2>
@@ -35,7 +40,7 @@
           <div class="module-card" data-module="words">
             <div class="icon">📗</div>
             <h2>单词认读</h2>
-            <p>看中文选英文</p>
+            <p>课本词汇综合练习</p>
           </div>
           <div class="module-card" data-module="listen">
             <div class="icon">👂</div>
@@ -54,28 +59,33 @@
           </div>
           <div class="module-card" data-module="phrases">
             <div class="icon">💬</div>
-            <h2>日常用语</h2>
-            <p>问候 · 礼貌用语</p>
+            <h2>课本句型</h2>
+            <p>问候 · 课堂用语</p>
           </div>
         </div>
       </div>
 
       <div class="grade-panel hidden" data-grade-panel="g3a">
         <div class="module-grid">
-          <div class="module-card" data-module="words3">
+          <div class="module-card module-card-g3" data-module="units" data-units="g3a">
             <div class="icon">📘</div>
-            <h2>三年级单词</h2>
-            <p>天气 · 星期 · 场所</p>
+            <h2>课本单元</h2>
+            <p>人教 PEP · 三年级上 6 单元</p>
+          </div>
+          <div class="module-card" data-module="words3">
+            <div class="icon">📗</div>
+            <h2>单词认读</h2>
+            <p>三年级上册词汇综合</p>
           </div>
           <div class="module-card" data-module="listen3">
             <div class="icon">🎧</div>
             <h2>听音选词</h2>
             <p>三年级词汇听力</p>
           </div>
-          <div class="module-card module-card-g3" data-module="phrases3">
+          <div class="module-card" data-module="phrases3">
             <div class="icon">🗣️</div>
-            <h2>句型练习</h2>
-            <p>常用问答短句</p>
+            <h2>课本句型</h2>
+            <p>对话 · 常用表达</p>
           </div>
         </div>
       </div>
@@ -83,6 +93,33 @@
       <footer>
         <p>建议每天练习 10～15 分钟 · 多听多跟读</p>
       </footer>
+    </div>
+
+    <!-- 课本单元列表 -->
+    <div id="unit-map-screen" class="screen">
+      <button class="back-btn" type="button" data-back="home">← 返回首页</button>
+      <p class="question-label" id="unit-map-label" style="text-align:center;margin-bottom:12px;">人教版 PEP · 选择单元</p>
+      <div id="unit-grid" class="module-grid"></div>
+    </div>
+
+    <!-- 单元详情 -->
+    <div id="unit-detail-screen" class="screen">
+      <button class="back-btn" type="button" id="unit-back-map">← 单元列表</button>
+      <div class="question-card">
+        <h2 id="unit-detail-title" style="color:#234e52;margin-bottom:6px;">Unit</h2>
+        <p id="unit-detail-sub" class="question-label" style="margin-bottom:16px;"></p>
+        <div class="mode-tabs" style="margin-bottom:8px;">
+          <button type="button" class="mode-tab active" id="unit-tab-words">单词点读</button>
+          <button type="button" class="mode-tab" id="unit-tab-phrases">句型跟读</button>
+        </div>
+        <div id="unit-words" class="phrase-list"></div>
+        <div id="unit-phrases" class="phrase-list" style="display:none;"></div>
+        <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="speak-btn" id="unit-quiz-words">📝 单词测验</button>
+          <button type="button" class="speak-btn" id="unit-quiz-listen">👂 听音选词</button>
+          <button type="button" class="speak-btn" id="unit-quiz-phrases">💬 句型测验</button>
+        </div>
+      </div>
     </div>
 
     <!-- 字母表 -->
@@ -140,6 +177,7 @@
   <script src="../app/js/session-log.js"></script>
   <script src="js/native-app.js"></script>
   <script src="js/speech.js"></script>
+  <script src="js/data/textbook.js"></script>
   <script src="js/data/english.js"></script>
   <script src="js/app.js"></script>
 </body>
