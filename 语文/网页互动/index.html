@@ -18,65 +18,87 @@
     <div id="home" class="screen active">
       <header>
         <h1>📚 语文练习</h1>
-        <p>拼音 · 识字 · 古诗 — 点击 🔊 可听读音</p>
+        <p>按年级选择内容 — 点击 🔊 可听读音</p>
         <p style="font-size:0.9rem;margin-top:8px;"><a class="nav-home-link" href="../../app/index.html">🏠 练习首页</a> · <a href="../../数学/网页互动/index.html">🔢 去数学练习 →</a></p>
       </header>
 
-      <div class="module-grid">
-        <a class="module-card module-card-link" href="pinyin-chart.html">
-          <div class="icon">🔊</div>
-          <h2>互动拼音表</h2>
-          <p>完整拼音表，点读发音</p>
-        </a>
-        <div class="module-card" data-module="pinyin">
-          <div class="icon">🔤</div>
-          <h2>拼音练习</h2>
-          <p>看字选拼音 / 听音选字</p>
+      <div class="mode-tabs lesson-sem-tabs" id="grade-tabs">
+        <button type="button" class="mode-tab active" data-grade="g12">一二年级</button>
+        <button type="button" class="mode-tab" data-grade="g3a">三年级上</button>
+      </div>
+
+      <div class="grade-panel" data-grade-panel="g12">
+        <div class="module-grid">
+          <a class="module-card module-card-link" href="pinyin-chart.html">
+            <div class="icon">🔊</div>
+            <h2>互动拼音表</h2>
+            <p>完整拼音表，点读发音</p>
+          </a>
+          <div class="module-card" data-module="pinyin">
+            <div class="icon">🔤</div>
+            <h2>拼音练习</h2>
+            <p>看字选拼音 / 听音选字</p>
+          </div>
+          <div class="module-card" data-module="alphabet">
+            <div class="icon">🔡</div>
+            <h2>声母韵母</h2>
+            <p>点读学习，带读音</p>
+          </div>
+          <div class="module-card" data-module="char">
+            <div class="icon">🔗</div>
+            <h2>识字配对</h2>
+            <p>字和拼音配配对</p>
+          </div>
+          <div class="module-card" data-module="lesson">
+            <div class="icon">📖</div>
+            <h2>课文识字通关</h2>
+            <p>一～二年级按课练生字</p>
+          </div>
+          <div class="module-card" data-module="poem">
+            <div class="icon">📜</div>
+            <h2>古诗词</h2>
+            <p>部编版一～二年级必背</p>
+          </div>
+          <div class="module-card" data-module="flashcard">
+            <div class="icon">📇</div>
+            <h2>识字卡片</h2>
+            <p>翻卡片，听读音</p>
+          </div>
+          <div class="module-card" data-module="read">
+            <div class="icon">📝</div>
+            <h2>读题训练</h2>
+            <p>读懂题目要求</p>
+          </div>
+          <div class="module-card" data-module="keywords">
+            <div class="icon">📋</div>
+            <h2>题目常用词</h2>
+            <p>认读考试关键词</p>
+          </div>
+          <div class="module-card" data-module="sentence">
+            <div class="icon">✍️</div>
+            <h2>词语与句子</h2>
+            <p>叠词 · 拟人句 · 比喻句</p>
+          </div>
         </div>
-        <div class="module-card" data-module="alphabet">
-          <div class="icon">🔡</div>
-          <h2>声母韵母</h2>
-          <p>点读学习，带读音</p>
-        </div>
-        <div class="module-card" data-module="char">
-          <div class="icon">🔗</div>
-          <h2>识字配对</h2>
-          <p>字和拼音配配对</p>
-        </div>
-        <div class="module-card" data-module="lesson">
-          <div class="icon">📖</div>
-          <h2>课文识字通关</h2>
-          <p>按课练生字 · 含三年级上</p>
-        </div>
-        <div class="module-card" data-module="poem">
-          <div class="icon">📜</div>
-          <h2>古诗词</h2>
-          <p>部编版必背 · 含三年级上</p>
-        </div>
-        <div class="module-card" data-module="flashcard">
-          <div class="icon">📇</div>
-          <h2>识字卡片</h2>
-          <p>翻卡片，听读音</p>
-        </div>
-        <div class="module-card" data-module="read">
-          <div class="icon">📝</div>
-          <h2>读题训练</h2>
-          <p>读懂题目要求</p>
-        </div>
-        <div class="module-card" data-module="keywords">
-          <div class="icon">📋</div>
-          <h2>题目常用词</h2>
-          <p>认读考试关键词</p>
-        </div>
-        <div class="module-card" data-module="sentence">
-          <div class="icon">✍️</div>
-          <h2>词语与句子</h2>
-          <p>叠词 · 拟人句 · 比喻句</p>
-        </div>
-        <div class="module-card module-card-g3" data-module="preview3">
-          <div class="icon">🎒</div>
-          <h2>三年级上册必背</h2>
-          <p>日积月累 · 课文段落 · 背诵评分</p>
+      </div>
+
+      <div class="grade-panel hidden" data-grade-panel="g3a">
+        <div class="module-grid">
+          <div class="module-card" data-module="lesson" data-grade-sem="g3s1">
+            <div class="icon">📖</div>
+            <h2>课文识字通关</h2>
+            <p>三年级上册 · 按课练生字</p>
+          </div>
+          <div class="module-card" data-module="poem" data-grade-sem="g3s1">
+            <div class="icon">📜</div>
+            <h2>古诗词</h2>
+            <p>三年级上册必背古诗</p>
+          </div>
+          <div class="module-card module-card-g3" data-module="preview3">
+            <div class="icon">🎒</div>
+            <h2>上册必背打卡</h2>
+            <p>日积月累 · 课文段落 · 背诵评分</p>
+          </div>
         </div>
       </div>
 

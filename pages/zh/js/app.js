@@ -173,18 +173,39 @@
     return b;
   }
 
+  function setHomeGrade(grade) {
+    var target = grade || 'g12';
+    document.querySelectorAll('#grade-tabs .mode-tab').forEach(function (tab) {
+      tab.classList.toggle('active', tab.dataset.grade === target);
+    });
+    document.querySelectorAll('.grade-panel').forEach(function (panel) {
+      panel.classList.toggle('hidden', panel.dataset.gradePanel !== target);
+    });
+  }
+
+  document.querySelectorAll('#grade-tabs .mode-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      setHomeGrade(tab.dataset.grade);
+    });
+  });
+
   // ========== 首页 ==========
   document.querySelectorAll('.module-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       var mod = card.dataset.module;
       if (!mod) return;
       if (card.tagName === 'A') e.preventDefault();
+      var gradeSem = card.dataset.gradeSem;
       if (mod === 'pinyin') startPinyin();
       else if (mod === 'alphabet') startAlphabet();
       else if (mod === 'char') startChar();
-      else if (mod === 'lesson') startLessonMap();
-      else if (mod === 'poem') startPoemMap();
-      else if (mod === 'flashcard') startFlashcard();
+      else if (mod === 'lesson') {
+        if (gradeSem) state.lessonSemId = gradeSem;
+        startLessonMap();
+      } else if (mod === 'poem') {
+        if (gradeSem) state.poemSemId = gradeSem;
+        startPoemMap();
+      } else if (mod === 'flashcard') startFlashcard();
       else if (mod === 'read') startRead();
       else if (mod === 'keywords') startKeywords();
       else if (mod === 'sentence') startSentence();
@@ -1636,6 +1657,7 @@
       var mod = params.get('module') || hash;
       var grade = params.get('grade');
       if (grade === 'g3a') {
+        setHomeGrade('g3a');
         state.lessonSemId = 'g3s1';
         state.poemSemId = 'g3s1';
       }
