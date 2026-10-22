@@ -98,7 +98,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v1';
+var CACHE_VERSION = 'summer-review-pages-v3';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -285,12 +285,12 @@ function writeRootIndex(file) {
         <h2>数学练习</h2>
         <p>一二年级 · 口算 · 读题 · 乘法口诀 · 钟表</p>
       </a>
-      <a class="card" href="zh/index.html?module=preview3" style="border-color:#f6e05e;">
+      <a class="card" href="zh/index.html?module=preview3#preview3" style="border-color:#f6e05e;">
         <div class="card-icon">📗</div>
         <h2>三年级语文 · 上册</h2>
         <p>古诗 · 日积月累 · 课文必背 · 背诵打卡</p>
       </a>
-      <a class="card" href="math/index.html?module=preview3" style="border-color:#f6e05e;">
+      <a class="card" href="math/index.html?module=preview3#preview3" style="border-color:#f6e05e;">
         <div class="card-icon">🎒</div>
         <h2>三年级数学 · 上册</h2>
         <p>万以内计算 · 乘除法 · 周长 · 解决问题</p>
@@ -349,7 +349,26 @@ if (fs.existsSync(chartSrc)) {
   fs.writeFileSync(chartDst, rewriteText(fs.readFileSync(chartSrc, 'utf8')), 'utf8');
 }
 
+function patchSubjectEntry(file) {
+  if (!fs.existsSync(file)) return;
+  let html = fs.readFileSync(file, 'utf8');
+  // 网页版返回总首页，而不是旧版 app 导航页
+  html = html.split('href="../app/index.html"').join('href="../index.html"');
+  fs.writeFileSync(file, html, 'utf8');
+}
+
+function patchSubjectAppJs(file) {
+  if (!fs.existsSync(file)) return;
+  let js = fs.readFileSync(file, 'utf8');
+  js = js.split("window.location.href = '../app/index.html'").join("window.location.href = '../index.html'");
+  fs.writeFileSync(file, js, 'utf8');
+}
+
 patchAppIndex(path.join(OUT, 'app', 'index.html'));
+patchSubjectEntry(path.join(OUT, 'zh', 'index.html'));
+patchSubjectEntry(path.join(OUT, 'math', 'index.html'));
+patchSubjectAppJs(path.join(OUT, 'zh', 'js', 'app.js'));
+patchSubjectAppJs(path.join(OUT, 'math', 'js', 'app.js'));
 writeManifest(path.join(OUT, 'app', 'manifest.webmanifest'));
 writeServiceWorker(path.join(OUT, 'sw.js'));
 writeRootIndex(path.join(OUT, 'index.html'));

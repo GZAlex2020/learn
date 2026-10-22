@@ -1012,7 +1012,7 @@
   function handleHardwareBack() {
     var id = getActiveScreenId();
     if (id === 'home') {
-      window.location.href = '../app/index.html';
+      window.location.href = '../index.html';
       return true;
     }
     if (id === 'ten-practice-screen') {
@@ -1032,10 +1032,19 @@
     window.AppBackNav.onBack(handleHardwareBack);
   }
 
-  try {
-    var bootMod = new URLSearchParams(location.search).get('module');
-    if (bootMod === 'preview3') {
-      setTimeout(function () { startPreview3(); }, 0);
-    }
-  } catch (eBoot) { /* ignore */ }
+  function bootFromUrl() {
+    try {
+      var params = new URLSearchParams(location.search || '');
+      var hash = (location.hash || '').replace(/^#/, '');
+      var mod = params.get('module') || hash;
+      if (mod === 'preview3' && typeof startPreview3 === 'function') {
+        startPreview3();
+      }
+    } catch (eBoot) { /* ignore */ }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootFromUrl);
+  } else {
+    setTimeout(bootFromUrl, 30);
+  }
 })();
