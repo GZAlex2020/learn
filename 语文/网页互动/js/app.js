@@ -173,6 +173,23 @@
     return b;
   }
 
+  // ========== 年级切换（一二年级 / 三年级上 / 后续可扩展） ==========
+  function setHomeGrade(grade) {
+    var target = grade || 'g12';
+    document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
+      tab.classList.toggle('active', tab.dataset.grade === target);
+    });
+    document.querySelectorAll('.grade-panel').forEach(function (panel) {
+      panel.classList.toggle('hidden', panel.dataset.gradePanel !== target);
+    });
+  }
+
+  document.querySelectorAll('#grade-tabs .grade-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      setHomeGrade(tab.dataset.grade);
+    });
+  });
+
   // ========== 首页 ==========
   document.querySelectorAll('.module-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
@@ -1626,6 +1643,10 @@
       var params = new URLSearchParams(location.search || '');
       var hash = (location.hash || '').replace(/^#/, '');
       var mod = params.get('module') || hash;
+      var grade = params.get('grade');
+      if (mod === 'preview3' || grade === 'g3a') {
+        setHomeGrade('g3a');
+      }
       if (mod === 'preview3' && typeof startPreview3 === 'function') {
         startPreview3();
       }

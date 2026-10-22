@@ -1301,6 +1301,49 @@ footer {
 }
 
 /* 三年级预习 · 首页分区 */
+.grade-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 18px;
+  justify-content: center;
+}
+
+.grade-tab {
+  border: 2px solid #9ae6b4;
+  background: #fff;
+  color: #276749;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grade-tab:hover {
+  border-color: #68d391;
+  background: #f0fff4;
+}
+
+.grade-tab.active {
+  border-color: #38a169;
+  background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+  color: #22543d;
+  box-shadow: 0 4px 12px rgba(56, 161, 105, 0.2);
+}
+
+.grade-panel.hidden {
+  display: none;
+}
+
+.grade-more-hint {
+  text-align: center;
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 16px 0 4px;
+}
+
 .section-divider {
   display: flex;
   align-items: center;

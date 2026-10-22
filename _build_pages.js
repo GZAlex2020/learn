@@ -98,7 +98,7 @@ function writeServiceWorker(file) {
   const sw = `/**
  * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
-var CACHE_VERSION = 'summer-review-pages-v4';
+var CACHE_VERSION = 'summer-review-pages-v5';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
 var RUNTIME_CACHE = CACHE_VERSION + '-runtime';
 
@@ -278,22 +278,12 @@ function writeRootIndex(file) {
       <a class="card card-yu" href="zh/index.html">
         <div class="card-icon">📖</div>
         <h2>语文练习</h2>
-        <p>一二年级 · 拼音 · 识字 · 课文 · 古诗</p>
+        <p>一～三年级 · 拼音 · 识字 · 古诗 · 必背</p>
       </a>
       <a class="card card-shu" href="math/index.html">
         <div class="card-icon">🔢</div>
         <h2>数学练习</h2>
-        <p>一二年级 · 口算 · 读题 · 乘法口诀 · 钟表</p>
-      </a>
-      <a class="card" href="g3-zh.html" style="border-color:#f6e05e;">
-        <div class="card-icon">📗</div>
-        <h2>三年级语文 · 上册</h2>
-        <p>古诗 · 日积月累 · 课文必背 · 背诵打卡</p>
-      </a>
-      <a class="card" href="g3-math.html" style="border-color:#f6e05e;">
-        <div class="card-icon">🎒</div>
-        <h2>三年级数学 · 上册</h2>
-        <p>万以内计算 · 乘除法 · 周长 · 解决问题</p>
+        <p>一～三年级 · 口算 · 乘除 · 周长 · 预习</p>
       </a>
       <a class="card card-log" href="app/records.html">
         <div class="card-icon">📋</div>
