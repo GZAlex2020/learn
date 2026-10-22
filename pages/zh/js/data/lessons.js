@@ -1,5 +1,5 @@
 /**
- * 部编版课文识字 · 按课分组（一～二年级）
+ * 部编版课文识字 · 按课分组（一～三年级上）
  */
 window.LESSON_DATA = (function () {
   'use strict';
@@ -400,11 +400,204 @@ window.LESSON_DATA = (function () {
     ]}
   ];
 
+  var G3S1 = [
+    { id: 401, title: '大青树下的小学', chars: [
+      { char: '坝', pinyin: 'bà', word: '大坝' }, { char: '汉', pinyin: 'hàn', word: '汉族' },
+      { char: '艳', pinyin: 'yàn', word: '鲜艳' }, { char: '扮', pinyin: 'bàn', word: '打扮' },
+      { char: '扬', pinyin: 'yáng', word: '表扬' }, { char: '读', pinyin: 'dú', word: '读书' },
+      { char: '摔', pinyin: 'shuāi', word: '摔跤' }, { char: '跤', pinyin: 'jiāo', word: '摔跤' },
+      { char: '凤', pinyin: 'fèng', word: '凤凰' }, { char: '洁', pinyin: 'jié', word: '洁白' }
+    ]},
+    { id: 402, title: '花的学校', chars: [
+      { char: '荒', pinyin: 'huāng', word: '荒草' }, { char: '笛', pinyin: 'dí', word: '笛子' },
+      { char: '罚', pinyin: 'fá', word: '惩罚' }, { char: '假', pinyin: 'jià', word: '放假' },
+      { char: '裳', pinyin: 'shang', word: '衣裳' }
+    ]},
+    { id: 403, title: '不懂就要问', chars: [
+      { char: '背', pinyin: 'bèi', word: '背书' }, { char: '诵', pinyin: 'sòng', word: '背诵' },
+      { char: '例', pinyin: 'lì', word: '例子' }, { char: '圈', pinyin: 'quān', word: '圆圈' },
+      { char: '段', pinyin: 'duàn', word: '段落' }, { char: '练', pinyin: 'liàn', word: '练习' },
+      { char: '糊', pinyin: 'hú', word: '糊涂' }, { char: '涂', pinyin: 'tú', word: '涂改' },
+      { char: '呆', pinyin: 'dāi', word: '发呆' }, { char: '戒', pinyin: 'jiè', word: '戒尺' },
+      { char: '厉', pinyin: 'lì', word: '严厉' }, { char: '挨', pinyin: 'ái', word: '挨打' },
+      { char: '楚', pinyin: 'chǔ', word: '清楚' }
+    ]},
+    { id: 404, title: '古诗三首', chars: [
+      { char: '径', pinyin: 'jìng', word: '小径' }, { char: '斜', pinyin: 'xié', word: '倾斜' },
+      { char: '赠', pinyin: 'zèng', word: '赠送' }, { char: '刘', pinyin: 'liú', word: '姓刘' },
+      { char: '残', pinyin: 'cán', word: '残缺' }, { char: '犹', pinyin: 'yóu', word: '犹如' },
+      { char: '傲', pinyin: 'ào', word: '骄傲' }, { char: '君', pinyin: 'jūn', word: '君子' },
+      { char: '橙', pinyin: 'chéng', word: '橙子' }, { char: '橘', pinyin: 'jú', word: '橘子' },
+      { char: '挑', pinyin: 'tiǎo', word: '挑战' }
+    ]},
+    { id: 405, title: '铺满金色巴掌的水泥道', chars: [
+      { char: '洼', pinyin: 'wā', word: '水洼' }, { char: '印', pinyin: 'yìn', word: '脚印' },
+      { char: '凌', pinyin: 'líng', word: '凌晨' }, { char: '增', pinyin: 'zēng', word: '增加' },
+      { char: '棕', pinyin: 'zōng', word: '棕色' }, { char: '靴', pinyin: 'xuē', word: '靴子' }
+    ]},
+    { id: 406, title: '秋天的雨', chars: [
+      { char: '钥', pinyin: 'yào', word: '钥匙' }, { char: '匙', pinyin: 'shi', word: '钥匙' },
+      { char: '缤', pinyin: 'bīn', word: '缤纷' }, { char: '枚', pinyin: 'méi', word: '一枚' },
+      { char: '争', pinyin: 'zhēng', word: '争着' }, { char: '勾', pinyin: 'gōu', word: '勾画' },
+      { char: '喇', pinyin: 'lǎ', word: '喇叭' }, { char: '厚', pinyin: 'hòu', word: '厚厚' },
+      { char: '曲', pinyin: 'qǔ', word: '歌曲' }, { char: '丰', pinyin: 'fēng', word: '丰富' }
+    ]},
+    { id: 407, title: '听听，秋的声音', chars: [
+      { char: '抖', pinyin: 'dǒu', word: '抖动' }, { char: '蟋', pinyin: 'xī', word: '蟋蟀' },
+      { char: '蟀', pinyin: 'shuài', word: '蟋蟀' }, { char: '振', pinyin: 'zhèn', word: '振动' },
+      { char: '韵', pinyin: 'yùn', word: '韵律' }, { char: '掠', pinyin: 'lüè', word: '掠过' },
+      { char: '吟', pinyin: 'yín', word: '吟诵' }, { char: '辽', pinyin: 'liáo', word: '辽阔' },
+      { char: '阔', pinyin: 'kuò', word: '广阔' }
+    ]},
+    { id: 408, title: '卖火柴的小女孩', chars: [
+      { char: '旧', pinyin: 'jiù', word: '旧的' }, { char: '饿', pinyin: 'è', word: '饥饿' },
+      { char: '卷', pinyin: 'juǎn', word: '卷起' }, { char: '挣', pinyin: 'zhèng', word: '挣钱' },
+      { char: '几', pinyin: 'jī', word: '几乎' }, { char: '燃', pinyin: 'rán', word: '燃烧' },
+      { char: '焰', pinyin: 'yàn', word: '火焰' }, { char: '蜡', pinyin: 'là', word: '蜡烛' },
+      { char: '烛', pinyin: 'zhú', word: '烛光' }, { char: '富', pinyin: 'fù', word: '富裕' },
+      { char: '晃', pinyin: 'huǎng', word: '晃眼' }, { char: '划', pinyin: 'huá', word: '划船' },
+      { char: '喷', pinyin: 'pèn', word: '喷香' }
+    ]},
+    { id: 409, title: '那一定会很好', chars: [
+      { char: '缩', pinyin: 'suō', word: '缩小' }, { char: '努', pinyin: 'nǔ', word: '努力' },
+      { char: '茎', pinyin: 'jīng', word: '根茎' }, { char: '锯', pinyin: 'jù', word: '锯子' },
+      { char: '斧', pinyin: 'fǔ', word: '斧头' }, { char: '推', pinyin: 'tuī', word: '推动' },
+      { char: '吱', pinyin: 'zhī', word: '吱呀' }, { char: '拆', pinyin: 'chāi', word: '拆除' }
+    ]},
+    { id: 410, title: '在牛肚子里旅行', chars: [
+      { char: '咱', pinyin: 'zán', word: '咱们' }, { char: '偷', pinyin: 'tōu', word: '偷看' },
+      { char: '答', pinyin: 'dá', word: '回答' }, { char: '应', pinyin: 'yìng', word: '答应' },
+      { char: '骨', pinyin: 'gǔ', word: '骨头' }, { char: '齿', pinyin: 'chǐ', word: '牙齿' },
+      { char: '嚼', pinyin: 'jiáo', word: '咀嚼' }, { char: '吞', pinyin: 'tūn', word: '吞咽' },
+      { char: '胃', pinyin: 'wèi', word: '胃口' }, { char: '悲', pinyin: 'bēi', word: '悲伤' },
+      { char: '咽', pinyin: 'yàn', word: '咽喉' }, { char: '泪', pinyin: 'lèi', word: '眼泪' },
+      { char: '眯', pinyin: 'mī', word: '眯眼' }
+    ]},
+    { id: 411, title: '一块奶酪', chars: [
+      { char: '宣', pinyin: 'xuān', word: '宣布' }, { char: '处', pinyin: 'chǔ', word: '处理' },
+      { char: '诱', pinyin: 'yòu', word: '诱惑' }, { char: '舔', pinyin: 'tiǎn', word: '舔食' },
+      { char: '毅', pinyin: 'yì', word: '毅力' }, { char: '强', pinyin: 'qiáng', word: '强壮' },
+      { char: '犯', pinyin: 'fàn', word: '犯法' }, { char: '禁', pinyin: 'jìn', word: '禁止' },
+      { char: '稍', pinyin: 'shāo', word: '稍微' }, { char: '豫', pinyin: 'yù', word: '犹豫' },
+      { char: '跺', pinyin: 'duò', word: '跺脚' }, { char: '聚', pinyin: 'jù', word: '聚集' }
+    ]},
+    { id: 412, title: '总也倒不了的老屋', chars: [
+      { char: '暴', pinyin: 'bào', word: '暴雨' }, { char: '凑', pinyin: 'còu', word: '凑近' },
+      { char: '喵', pinyin: 'miāo', word: '喵呜' }, { char: '孵', pinyin: 'fū', word: '孵化' },
+      { char: '叽', pinyin: 'jī', word: '叽叽' }, { char: '偶', pinyin: 'ǒu', word: '偶尔' },
+      { char: '尔', pinyin: 'ěr', word: '偶尔' }
+    ]},
+    { id: 413, title: '胡萝卜先生的长胡子', chars: [
+      { char: '萝', pinyin: 'luó', word: '萝卜' }, { char: '卜', pinyin: 'bo', word: '萝卜' },
+      { char: '愁', pinyin: 'chóu', word: '忧愁' }, { char: '沾', pinyin: 'zhān', word: '沾水' },
+      { char: '晾', pinyin: 'liàng', word: '晾晒' }
+    ]},
+    { id: 414, title: '小狗学叫', chars: [
+      { char: '讨', pinyin: 'tǎo', word: '讨厌' }, { char: '厌', pinyin: 'yàn', word: '厌恶' },
+      { char: '怒', pinyin: 'nù', word: '愤怒' }, { char: '批', pinyin: 'pī', word: '批评' },
+      { char: '访', pinyin: 'fǎng', word: '访问' }, { char: '担', pinyin: 'dān', word: '担心' },
+      { char: '压', pinyin: 'yā', word: '压力' }, { char: '差', pinyin: 'chà', word: '差点' },
+      { char: '忍', pinyin: 'rěn', word: '忍耐' }, { char: '模', pinyin: 'mó', word: '模仿' },
+      { char: '弹', pinyin: 'dàn', word: '子弹' }, { char: '疯', pinyin: 'fēng', word: '疯狂' },
+      { char: '汪', pinyin: 'wāng', word: '汪汪' }, { char: '搞', pinyin: 'gǎo', word: '搞好' }
+    ]},
+    { id: 415, title: '搭船的鸟', chars: [
+      { char: '父', pinyin: 'fù', word: '父亲' }, { char: '啦', pinyin: 'la', word: '好啦' },
+      { char: '鹦', pinyin: 'yīng', word: '鹦鹉' }, { char: '鹉', pinyin: 'wǔ', word: '鹦鹉' },
+      { char: '悄', pinyin: 'qiāo', word: '悄悄' }
+    ]},
+    { id: 416, title: '金色的草地', chars: [
+      { char: '蒲', pinyin: 'pú', word: '蒲公英' }, { char: '英', pinyin: 'yīng', word: '英雄' },
+      { char: '耍', pinyin: 'shuǎ', word: '玩耍' }, { char: '欠', pinyin: 'qiàn', word: '欠身' },
+      { char: '钓', pinyin: 'diào', word: '钓鱼' }, { char: '拢', pinyin: 'lǒng', word: '聚拢' }
+    ]},
+    { id: 417, title: '古诗三首（望天门山）', chars: [
+      { char: '亦', pinyin: 'yì', word: '亦然' }, { char: '抹', pinyin: 'mǒ', word: '涂抹' },
+      { char: '宜', pinyin: 'yí', word: '适宜' }, { char: '庭', pinyin: 'tíng', word: '庭院' },
+      { char: '未', pinyin: 'wèi', word: '未来' }, { char: '磨', pinyin: 'mó', word: '磨镜' },
+      { char: '盘', pinyin: 'pán', word: '盘子' }
+    ]},
+    { id: 418, title: '富饶的西沙群岛', chars: [
+      { char: '饶', pinyin: 'ráo', word: '富饶' }, { char: '优', pinyin: 'yōu', word: '优秀' },
+      { char: '瑰', pinyin: 'guī', word: '瑰丽' }, { char: '岩', pinyin: 'yán', word: '岩石' },
+      { char: '参', pinyin: 'shēn', word: '海参' }, { char: '虾', pinyin: 'xiā', word: '虾仁' },
+      { char: '武', pinyin: 'wǔ', word: '武器' }, { char: '粪', pinyin: 'fèn', word: '鸟粪' },
+      { char: '辈', pinyin: 'bèi', word: '前辈' }, { char: '设', pinyin: 'shè', word: '设计' }
+    ]},
+    { id: 419, title: '海滨小城', chars: [
+      { char: '滨', pinyin: 'bīn', word: '海滨' }, { char: '鸥', pinyin: 'ōu', word: '海鸥' },
+      { char: '胳', pinyin: 'gē', word: '胳膊' }, { char: '臂', pinyin: 'bì', word: '手臂' },
+      { char: '睬', pinyin: 'cǎi', word: '理睬' }, { char: '载', pinyin: 'zài', word: '装载' },
+      { char: '凰', pinyin: 'huáng', word: '凤凰' }, { char: '亚', pinyin: 'yà', word: '亚洲' },
+      { char: '榕', pinyin: 'róng', word: '榕树' }, { char: '凳', pinyin: 'dèng', word: '板凳' },
+      { char: '逢', pinyin: 'féng', word: '相逢' }, { char: '除', pinyin: 'chú', word: '除去' }
+    ]},
+    { id: 420, title: '美丽的小兴安岭', chars: [
+      { char: '兴', pinyin: 'xīng', word: '兴安' }, { char: '融', pinyin: 'róng', word: '融化' },
+      { char: '侧', pinyin: 'cè', word: '侧面' }, { char: '欣', pinyin: 'xīn', word: '欣赏' },
+      { char: '浸', pinyin: 'jìn', word: '浸泡' }, { char: '乳', pinyin: 'rǔ', word: '乳白色' },
+      { char: '梢', pinyin: 'shāo', word: '树梢' }, { char: '舍', pinyin: 'shě', word: '舍不得' },
+      { char: '显', pinyin: 'xiǎn', word: '明显' }, { char: '材', pinyin: 'cái', word: '木材' },
+      { char: '膝', pinyin: 'xī', word: '膝盖' }, { char: '临', pinyin: 'lín', word: '来临' },
+      { char: '库', pinyin: 'kù', word: '宝库' }
+    ]},
+    { id: 421, title: '大自然的声音', chars: [
+      { char: '妙', pinyin: 'miào', word: '奇妙' }, { char: '奏', pinyin: 'zòu', word: '演奏' },
+      { char: '呢', pinyin: 'ní', word: '呢喃' }, { char: '喃', pinyin: 'nán', word: '呢喃' },
+      { char: '伟', pinyin: 'wěi', word: '伟大' }, { char: '击', pinyin: 'jī', word: '打击' },
+      { char: '汇', pinyin: 'huì', word: '汇合' }, { char: '喳', pinyin: 'zhā', word: '喳喳' }
+    ]},
+    { id: 422, title: '读不完的大书', chars: [
+      { char: '黎', pinyin: 'lí', word: '黎明' }, { char: '凝', pinyin: 'níng', word: '凝视' },
+      { char: '畅', pinyin: 'chàng', word: '畅快' }, { char: '瞬', pinyin: 'shùn', word: '瞬间' },
+      { char: '猎', pinyin: 'liè', word: '打猎' }
+    ]},
+    { id: 423, title: '父亲、树林和鸟', chars: [
+      { char: '枣', pinyin: 'zǎo', word: '枣树' }, { char: '馋', pinyin: 'chán', word: '嘴馋' },
+      { char: '缓', pinyin: 'huǎn', word: '缓慢' }, { char: '讶', pinyin: 'yà', word: '惊讶' },
+      { char: '测', pinyin: 'cè', word: '猜测' }, { char: '监', pinyin: 'jiān', word: '监视' },
+      { char: '恍', pinyin: 'huǎng', word: '恍然' }, { char: '悟', pinyin: 'wù', word: '领悟' },
+      { char: '逐', pinyin: 'zhú', word: '逐渐' }, { char: '扎', pinyin: 'zhā', word: '扎根' },
+      { char: '聪', pinyin: 'cōng', word: '聪明' }
+    ]},
+    { id: 424, title: '司马光', chars: [
+      { char: '司', pinyin: 'sī', word: '司马' }, { char: '跌', pinyin: 'diē', word: '跌倒' },
+      { char: '皆', pinyin: 'jiē', word: '全都' }, { char: '弃', pinyin: 'qì', word: '放弃' },
+      { char: '持', pinyin: 'chí', word: '拿着' }
+    ]},
+    { id: 425, title: '灰雀', chars: [
+      { char: '默', pinyin: 'mò', word: '沉默' }, { char: '落', pinyin: 'luò', word: '落下' },
+      { char: '姿', pinyin: 'zī', word: '姿势' }, { char: '势', pinyin: 'shì', word: '姿势' },
+      { char: '投', pinyin: 'tóu', word: '投食' }, { char: '调', pinyin: 'diào', word: '曲调' },
+      { char: '况', pinyin: 'kuàng', word: '情况' }, { char: '烈', pinyin: 'liè', word: '强烈' },
+      { char: '镇', pinyin: 'zhèn', word: '镇定' }, { char: '述', pinyin: 'shù', word: '叙述' },
+      { char: '普', pinyin: 'pǔ', word: '普通' }, { char: '忧', pinyin: 'yōu', word: '忧伤' },
+      { char: '联', pinyin: 'lián', word: '联系' }
+    ]},
+    { id: 426, title: '手术台就是阵地', chars: [
+      { char: '宁', pinyin: 'níng', word: '宁静' }, { char: '胸', pinyin: 'xiōng', word: '胸膛' },
+      { char: '脯', pinyin: 'pú', word: '胸脯' }, { char: '惹', pinyin: 'rě', word: '惹事' },
+      { char: '仰', pinyin: 'yǎng', word: '仰望' }, { char: '渣', pinyin: 'zhā', word: '渣滓' },
+      { char: '或', pinyin: 'huò', word: '或者' }, { char: '者', pinyin: 'zhě', word: '或者' },
+      { char: '惜', pinyin: 'xī', word: '爱惜' }, { char: '诚', pinyin: 'chéng', word: '诚实' }
+    ]},
+    { id: 427, title: '一个粗瓷大碗', chars: [
+      { char: '斗', pinyin: 'dòu', word: '斗争' }, { char: '棒', pinyin: 'bàng', word: '木棒' },
+      { char: '恩', pinyin: 'ēn', word: '恩情' }, { char: '撤', pinyin: 'chè', word: '撤退' },
+      { char: '险', pinyin: 'xiǎn', word: '危险' }, { char: '瓦', pinyin: 'wǎ', word: '瓦片' },
+      { char: '帘', pinyin: 'lián', word: '门帘' }, { char: '迅', pinyin: 'xùn', word: '迅速' },
+      { char: '速', pinyin: 'sù', word: '速度' }, { char: '夺', pinyin: 'duó', word: '夺取' },
+      { char: '秒', pinyin: 'miǎo', word: '分秒' }
+    ]}
+  ];
+
+
   var SEMESTERS = [
     { id: 'g1s2', name: '一年级下册', desc: '一升二重点复习', lessons: G1S2 },
     { id: 'g1s1', name: '一年级上册', desc: '巩固回顾', lessons: G1S1 },
     { id: 'g2s1', name: '二年级上册', desc: '新学期预习', lessons: G2S1 },
-    { id: 'g2s2', name: '二年级下册', desc: '提前认读', lessons: G2S2 }
+    { id: 'g2s2', name: '二年级下册', desc: '提前认读', lessons: G2S2 },
+    { id: 'g3s1', name: '三年级上册', desc: '生字通关预习', lessons: G3S1 }
   ];
 
   var charPool = {};

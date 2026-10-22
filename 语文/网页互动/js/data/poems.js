@@ -1,5 +1,5 @@
 /**
- * 部编版 · 一二年级必背古诗词（共 27 首）
+ * 部编版 · 一～三年级上必背古诗词
  */
 window.POEM_DATA = (function () {
   'use strict';
@@ -194,14 +194,84 @@ window.POEM_DATA = (function () {
     ])
   ];
 
+  var G3S1 = [
+    poem('g3_suojian', '所见', '袁枚', '清', [
+      { text: '牧童骑黄牛，', pinyin: 'mù tóng qí huáng niú,' },
+      { text: '歌声振林樾。', pinyin: 'gē shēng zhèn lín yuè.' },
+      { text: '意欲捕鸣蝉，', pinyin: 'yì yù bǔ míng chán,' },
+      { text: '忽然闭口立。', pinyin: 'hū rán bì kǒu lì.' }
+    ]),
+    poem('g3_shanxing', '山行', '杜牧', '唐', [
+      { text: '远上寒山石径斜，', pinyin: 'yuǎn shàng hán shān shí jìng xié,' },
+      { text: '白云生处有人家。', pinyin: 'bái yún shēng chù yǒu rén jiā.' },
+      { text: '停车坐爱枫林晚，', pinyin: 'tíng chē zuò ài fēng lín wǎn,' },
+      { text: '霜叶红于二月花。', pinyin: 'shuāng yè hóng yú èr yuè huā.' }
+    ]),
+    poem('g3_zengliu', '赠刘景文', '苏轼', '宋', [
+      { text: '荷尽已无擎雨盖，', pinyin: 'hé jìn yǐ wú qíng yǔ gài,' },
+      { text: '菊残犹有傲霜枝。', pinyin: 'jú cán yóu yǒu ào shuāng zhī.' },
+      { text: '一年好景君须记，', pinyin: 'yī nián hǎo jǐng jūn xū jì,' },
+      { text: '最是橙黄橘绿时。', pinyin: 'zuì shì chéng huáng jú lǜ shí.' }
+    ]),
+    poem('g3_yeshu', '夜书所见', '叶绍翁', '宋', [
+      { text: '萧萧梧叶送寒声，', pinyin: 'xiāo xiāo wú yè sòng hán shēng,' },
+      { text: '江上秋风动客情。', pinyin: 'jiāng shàng qiū fēng dòng kè qíng.' },
+      { text: '知有儿童挑促织，', pinyin: 'zhī yǒu ér tóng tiāo cù zhī,' },
+      { text: '夜深篱落一灯明。', pinyin: 'yè shēn lí luò yī dēng míng.' }
+    ]),
+    poem('g3_wangdongting', '望洞庭', '刘禹锡', '唐', [
+      { text: '湖光秋月两相和，', pinyin: 'hú guāng qiū yuè liǎng xiāng hé,' },
+      { text: '潭面无风镜未磨。', pinyin: 'tán miàn wú fēng jìng wèi mó,' },
+      { text: '遥望洞庭山水翠，', pinyin: 'yáo wàng dòng tíng shān shuǐ cuì,' },
+      { text: '白银盘里一青螺。', pinyin: 'bái yín pán lǐ yī qīng luó.' }
+    ]),
+    poem('g3_wangtianmen', '望天门山', '李白', '唐', [
+      { text: '天门中断楚江开，', pinyin: 'tiān mén zhōng duàn chǔ jiāng kāi,' },
+      { text: '碧水东流至此回。', pinyin: 'bì shuǐ dōng liú zhì cǐ huí,' },
+      { text: '两岸青山相对出，', pinyin: 'liǎng àn qīng shān xiāng duì chū,' },
+      { text: '孤帆一片日边来。', pinyin: 'gū fān yī piàn rì biān lái.' }
+    ]),
+    poem('g3_yinhu', '饮湖上初晴后雨', '苏轼', '宋', [
+      { text: '水光潋滟晴方好，', pinyin: 'shuǐ guāng liàn yàn qíng fāng hǎo,' },
+      { text: '山色空蒙雨亦奇。', pinyin: 'shān sè kōng méng yǔ yì qí,' },
+      { text: '欲把西湖比西子，', pinyin: 'yù bǎ xī hú bǐ xī zǐ,' },
+      { text: '淡妆浓抹总相宜。', pinyin: 'dàn zhuāng nóng mǒ zǒng xiāng yí.' }
+    ]),
+    poem('g3_luzhai', '鹿柴', '王维', '唐', [
+      { text: '空山不见人，', pinyin: 'kōng shān bù jiàn rén,' },
+      { text: '但闻人语响。', pinyin: 'dàn wén rén yǔ xiǎng,' },
+      { text: '返景入深林，', pinyin: 'fǎn jǐng rù shēn lín,' },
+      { text: '复照青苔上。', pinyin: 'fù zhào qīng tái shàng.' }
+    ]),
+    poem('g3_zaofa', '早发白帝城', '李白', '唐', [
+      { text: '朝辞白帝彩云间，', pinyin: 'zhāo cí bái dì cǎi yún jiān,' },
+      { text: '千里江陵一日还。', pinyin: 'qiān lǐ jiāng líng yī rì huán.' },
+      { text: '两岸猿声啼不住，', pinyin: 'liǎng àn yuán shēng tí bù zhù,' },
+      { text: '轻舟已过万重山。', pinyin: 'qīng zhōu yǐ guò wàn chóng shān.' }
+    ]),
+    poem('g3_cailian', '采莲曲', '王昌龄', '唐', [
+      { text: '荷叶罗裙一色裁，', pinyin: 'hé yè luó qún yī sè cái,' },
+      { text: '芙蓉向脸两边开。', pinyin: 'fú róng xiàng liǎn liǎng biān kāi,' },
+      { text: '乱入池中看不见，', pinyin: 'luàn rù chí zhōng kàn bù jiàn,' },
+      { text: '闻歌始觉有人来。', pinyin: 'wén gē shǐ jué yǒu rén lái.' }
+    ]),
+    poem('g3_zhouye', '舟夜书所见', '查慎行', '清', [
+      { text: '月黑见渔灯，', pinyin: 'yuè hēi jiàn yú dēng,' },
+      { text: '孤光一点萤。', pinyin: 'gū guāng yī diǎn yíng.' },
+      { text: '微微风簇浪，', pinyin: 'wēi wēi fēng cù làng,' },
+      { text: '散作满河星。', pinyin: 'sàn zuò mǎn hé xīng.' }
+    ])
+  ];
+
   var SEMESTERS = [
     { id: 'g1s1', label: '一年级上', poems: G1S1 },
     { id: 'g1s2', label: '一年级下', poems: G1S2 },
     { id: 'g2s1', label: '二年级上', poems: G2S1 },
-    { id: 'g2s2', label: '二年级下', poems: G2S2 }
+    { id: 'g2s2', label: '二年级下', poems: G2S2 },
+    { id: 'g3s1', label: '三年级上', poems: G3S1 }
   ];
 
-  var POEM_TOTAL = G1S1.length + G1S2.length + G2S1.length + G2S2.length;
+  var POEM_TOTAL = G1S1.length + G1S2.length + G2S1.length + G2S2.length + G3S1.length;
 
   function getSemester(semId) {
     for (var i = 0; i < SEMESTERS.length; i++) {
