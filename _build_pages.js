@@ -70,9 +70,9 @@ function patchAppIndex(file) {
 
 function writeManifest(file) {
   const manifest = {
-    name: '一二年级暑假复习',
-    short_name: '暑假复习',
-    description: '语文拼音识字 + 数学口算读题 · 一二年级暑假互动练习',
+    name: '小学知识复习',
+    short_name: '小学知识复习',
+    description: '语文拼音识字 + 数学口算读题 · 一二年级互动练习',
     start_url: './app/index.html',
     scope: './',
     display: 'standalone',
@@ -96,7 +96,7 @@ function writeManifest(file) {
 
 function writeServiceWorker(file) {
   const sw = `/**
- * GitHub Pages · 暑假复习 PWA（相对路径，支持子目录）
+ * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
 var CACHE_VERSION = 'summer-review-pages-v1';
 var SHELL_CACHE = CACHE_VERSION + '-shell';
@@ -212,8 +212,8 @@ function writeRootIndex(file) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#2c5282">
-  <meta name="description" content="一二年级暑假复习 · 语文拼音识字、数学口算读题，浏览器即可练习">
-  <title>暑假复习 · 一二年级</title>
+  <meta name="description" content="小学知识复习 · 语文拼音识字、数学口算读题，浏览器即可练习">
+  <title>小学知识复习 · 一二年级</title>
   <link rel="manifest" href="app/manifest.webmanifest">
   <link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
   <link rel="icon" href="app/icons/icon-192.png">
@@ -271,7 +271,7 @@ function writeRootIndex(file) {
 <body>
   <div class="wrap">
     <header>
-      <h1>📚 暑假复习</h1>
+      <h1>📚 小学知识复习</h1>
       <p>一二年级 · 语文 + 数学互动练习<br>网页版 · 手机 / 平板 / 电脑都能用</p>
     </header>
     <div class="cards">

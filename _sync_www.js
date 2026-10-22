@@ -87,10 +87,10 @@ const indexHtml = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0;url=app/index.html">
-  <title>暑假复习</title>
+  <title>小学知识复习</title>
   <script>location.replace('app/index.html');</script>
 </head>
-<body><p><a href="app/index.html">进入暑假复习</a></p></body>
+<body><p><a href="app/index.html">进入小学知识复习</a></p></body>
 </html>
 `;
 fs.writeFileSync(path.join(WWW, 'index.html'), indexHtml, 'utf8');

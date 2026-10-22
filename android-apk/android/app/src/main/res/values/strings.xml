@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">暑假复习</string>
-    <string name="title_activity_main">暑假复习</string>
+    <string name="app_name">小学知识复习</string>
+    <string name="title_activity_main">小学知识复习</string>
     <string name="package_name">com.summerreview.practice</string>
     <string name="custom_url_scheme">com.summerreview.practice</string>
 </resources>

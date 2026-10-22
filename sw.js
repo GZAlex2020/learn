@@ -1,5 +1,5 @@
 /**
- * 暑假复习 PWA · 离线缓存（音频按需缓存）
+ * 小学知识复习 PWA · 离线缓存（音频按需缓存）
  */
 var CACHE_VERSION = 'summer-review-v2';
 var SHELL_CACHE = CACHE_VERSION + '-shell';

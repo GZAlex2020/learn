@@ -1,5 +1,5 @@
 /**
- * GitHub Pages · 暑假复习 PWA（相对路径，支持子目录）
+ * GitHub Pages · 小学知识复习 PWA（相对路径，支持子目录）
  */
 var CACHE_VERSION = 'summer-review-pages-v1';
 var SHELL_CACHE = CACHE_VERSION + '-shell';

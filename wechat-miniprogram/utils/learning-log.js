@@ -163,7 +163,7 @@ function exportReport(records, opts) {
   opts = opts || {};
   records = filterRecords(records, opts);
   var analytics = getAnalytics(records);
-  var lines = ['暑假复习 · 学习报告', '生成时间：' + formatDateTime(now()), ''];
+  var lines = ['小学知识复习 · 学习报告', '生成时间：' + formatDateTime(now()), ''];
   lines.push('学习次数：' + analytics.total);
   lines.push('累计时长：' + formatDuration(analytics.durationSec));
   lines.push('语文 ' + analytics.subjects['语文'] + ' · 数学 ' + analytics.subjects['数学']);

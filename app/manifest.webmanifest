@@ -1,7 +1,7 @@
 {
-  "name": "一二年级暑假复习",
-  "short_name": "暑假复习",
-  "description": "语文拼音识字 + 数学口算读题 · 一二年级暑假互动练习",
+  "name": "小学知识复习",
+  "short_name": "小学知识复习",
+  "description": "语文拼音识字 + 数学口算读题 · 一二年级互动练习",
   "start_url": "/app/index.html",
   "scope": "/",
   "display": "standalone",

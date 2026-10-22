@@ -241,7 +241,7 @@ window.LearningLog = (function () {
     records = filterRecords(records, opts);
     var analytics = getAnalytics(records);
     var lines = [];
-    lines.push('暑假复习 · 学习报告');
+    lines.push('小学知识复习 · 学习报告');
     lines.push('生成时间：' + formatDateTime(now()));
     if (opts.subject && opts.subject !== '全部') lines.push('科目：' + opts.subject);
     if (opts.activityType && opts.activityType !== '全部') lines.push('类型：' + opts.activityType);

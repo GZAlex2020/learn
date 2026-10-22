@@ -1,6 +1,6 @@
 {
   "appId": "com.summerreview.practice",
-  "appName": "暑假复习",
+  "appName": "小学知识复习",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
