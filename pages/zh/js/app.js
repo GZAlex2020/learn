@@ -1613,4 +1613,11 @@
   }
 
   showScreen('home');
+
+  try {
+    var bootMod = new URLSearchParams(location.search).get('module');
+    if (bootMod === 'preview3') {
+      setTimeout(function () { startPreview3(); }, 0);
+    }
+  } catch (eBoot) { /* ignore */ }
 })();
