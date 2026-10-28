@@ -100,9 +100,9 @@
       if (!blob || blob.size < 200) throw new Error('empty mp3');
       return playBlob(blob);
     }).catch(function () {
+      // 本地文件缺失时直接走 TTS，勿再对同一坏 URL 用 Audio 重试（部分浏览器不触发 error）
       if (gen !== playGen) return;
-      var audio = new Audio(url);
-      return bindAudio(audio, null);
+      onFail();
     });
   };
 })();

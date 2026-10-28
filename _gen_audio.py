@@ -94,13 +94,27 @@ def collect_texts():
     return sorted(chars), sorted(words)
 
 
-async def generate_one(text, out_path):
+async def generate_one(text, out_path, retries=4):
     if os.path.exists(out_path) and os.path.getsize(out_path) > 500:
         return 'skip'
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    communicate = edge_tts.Communicate(text, VOICE, rate=RATE)
-    await communicate.save(out_path)
-    return 'ok'
+    last_err = None
+    for attempt in range(retries):
+        try:
+            communicate = edge_tts.Communicate(text, VOICE, rate=RATE)
+            await communicate.save(out_path)
+            if os.path.exists(out_path) and os.path.getsize(out_path) > 500:
+                return 'ok'
+            last_err = RuntimeError('empty file')
+        except Exception as e:
+            last_err = e
+            if os.path.exists(out_path):
+                try:
+                    os.remove(out_path)
+                except OSError:
+                    pass
+            await asyncio.sleep(1.5 * (attempt + 1))
+    raise last_err
 
 
 async def main():
@@ -122,14 +136,22 @@ async def main():
         tasks.append((w, path, 'word'))
 
     print(f'共需生成：{len(tasks)} 个音频文件')
-    sem = asyncio.Semaphore(8)
-    ok = skip = 0
+    sem = asyncio.Semaphore(3)
+    ok = skip = fail = 0
     lock = asyncio.Lock()
+    failed = []
 
     async def worker(i, text, path, kind):
-        nonlocal ok, skip
+        nonlocal ok, skip, fail
         async with sem:
-            result = await generate_one(text, path)
+            try:
+                result = await generate_one(text, path)
+            except Exception as e:
+                async with lock:
+                    fail += 1
+                    failed.append(text)
+                    print(f'[{i + 1}/{len(tasks)}] {kind} {text} FAIL: {e}')
+                return
             async with lock:
                 if result == 'ok':
                     ok += 1
@@ -142,7 +164,9 @@ async def main():
         worker(i, text, path, kind)
         for i, (text, path, kind) in enumerate(tasks)
     ])
-    print(f'完成：新生成 {ok} 个，已存在跳过 {skip} 个')
+    print(f'完成：新生成 {ok} 个，已存在跳过 {skip} 个，失败 {fail} 个')
+    if failed:
+        print('失败示例：', ' '.join(failed[:20]))
 
 
 if __name__ == '__main__':
